@@ -1,6 +1,8 @@
 package Funcionario;
 
 public class Funcionario {
+    private int id;
+    private String senha;
     private String nome;
     private String endereco;
     private String cpf;
@@ -9,7 +11,9 @@ public class Funcionario {
     private double salario;
     private String telefone;
 
-    public Funcionario(String nome, String endereco, String cpf, double cargaHoraria, String cargo, double salario, String telefone) {
+    public Funcionario(int id, String senha, String nome, String endereco, String cpf, double cargaHoraria, String cargo, double salario, String telefone) {
+        this.id = id;
+        this.senha = senha;
         this.nome = nome;
         this.endereco = endereco;
         this.cpf = cpf;
@@ -17,10 +21,28 @@ public class Funcionario {
         this.cargo = cargo;
         this.salario = salario;
         this.telefone = telefone;
-    }    
+    }
+
+    
 
     public Funcionario() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getNome() {

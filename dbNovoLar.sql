@@ -2,6 +2,8 @@ create database dbNovoLar;
 
 use dbNovoLar;
 
+select * from fornecedor;
+
 create table fornecedor (
 	idFornecedor int primary key not null auto_increment,
     nome varchar(30) not null,

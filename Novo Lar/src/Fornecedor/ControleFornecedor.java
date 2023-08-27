@@ -1,5 +1,6 @@
 package Fornecedor;
 
+import Fornecedor.Fornecedor;
 import java.util.ArrayList;
 
 public class ControleFornecedor {

@@ -156,7 +156,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseReleased
         // TODO add your handling code here:
-        
         TelaPopSair tela = new TelaPopSair();
         tela.setVisible(true);
     }//GEN-LAST:event_jMenuItem6MouseReleased

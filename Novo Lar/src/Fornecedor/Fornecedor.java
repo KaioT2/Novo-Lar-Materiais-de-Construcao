@@ -16,8 +16,6 @@ public class Fornecedor {
         this.telefone = telefone;
         this.cnpj = cnpj;
     }
-    
-    
 
     public int getId() {
         return id;
