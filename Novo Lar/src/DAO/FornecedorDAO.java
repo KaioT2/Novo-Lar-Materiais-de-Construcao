@@ -13,25 +13,36 @@ import javax.swing.JOptionPane;
 
 public class FornecedorDAO {
     public void create(Fornecedor f){
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+        // Verifica se o fornecedor já existe com base no CNPJ e no nome
+        stmt = con.prepareStatement("SELECT COUNT(*) FROM fornecedor WHERE cnpj = ? OR nome = ?");
+        stmt.setString(1, f.getCnpj());
+        stmt.setString(2, f.getNome());
+        rs = stmt.executeQuery();
         
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        
-        try {
+        if (rs.next() && rs.getInt(1) == 0) {
+            // Se fornecedor não existe...
             stmt = con.prepareStatement("INSERT INTO fornecedor (nome, cnpj, endereco, telefone) VALUES(?,?,?,?)");
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getCnpj());
             stmt.setString(3, f.getEndereco());
             stmt.setString(4, f.getTelefone());
-            
+
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao salvar: "+ex);
-        }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+        } else {
+            JOptionPane.showMessageDialog(null, "Fornecedor já existe!");
         }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao salvar: " + ex);
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt);
     }
+}
+
     
     public ArrayList<Fornecedor> read(){
         Connection con = ConnectionFactory.getConnection();
@@ -42,6 +53,40 @@ public class FornecedorDAO {
         
         try {
             stmt = con.prepareStatement("SELECT * FROM fornecedor");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                
+                Fornecedor fornecedor = new Fornecedor();
+                
+                fornecedor.setId(Integer.valueOf(rs.getInt("idFornecedor")));
+                fornecedor.setNome(rs.getString("nome"));
+                fornecedor.setCnpj(rs.getString("cnpj"));
+                fornecedor.setEndereco(rs.getString("endereco"));
+                fornecedor.setTelefone(rs.getString("telefone"));
+                
+                fornecedores.add(fornecedor);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return fornecedores;
+    }
+    
+    public ArrayList<Fornecedor> searchForName(String nome){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        ArrayList<Fornecedor> fornecedores = new ArrayList();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM fornecedor WHERE nome LIKE ?");
+            stmt.setString(1, "%"+nome+"%");
             rs = stmt.executeQuery();
             
             while(rs.next()){

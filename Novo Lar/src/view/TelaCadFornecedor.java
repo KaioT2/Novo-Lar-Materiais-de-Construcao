@@ -7,6 +7,7 @@ package view;
 import DAO.FornecedorDAO;
 import Fornecedor.ControleFornecedor;
 import Fornecedor.Fornecedor;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -46,6 +47,25 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         }
         
     }
+    
+    public void searchJTableForName(String nome){
+        DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
+        modelo.setNumRows(0);
+        FornecedorDAO fdao = new FornecedorDAO();
+        
+        for(Fornecedor f: fdao.searchForName(nome)){
+            
+            modelo.addRow(new Object[]{
+                f.getId(),
+                f.getNome(),
+                f.getEndereco(),
+                f.getTelefone(),
+                f.getCnpj()
+            });
+            
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +92,8 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         tabelaForn = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        txtBusca = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,14 +144,14 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
             }
         });
 
-        btnInserir.setText("Inserir");
+        btnInserir.setText("Adicionar");
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
             }
         });
 
-        btnLimpar.setText("Limpar");
+        btnLimpar.setText("Limpar Campos");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparActionPerformed(evt);
@@ -178,6 +200,24 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
             }
         });
 
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaActionPerformed(evt);
+            }
+        });
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyPressed(evt);
+            }
+        });
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,7 +225,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnInserir)
                         .addGap(18, 18, 18)
@@ -195,16 +234,23 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                                .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCnpj, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton1))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-                        .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtCnpj, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +261,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -224,7 +270,10 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -233,7 +282,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
                     .addComponent(btnLimpar)
                     .addComponent(btnAtualizar)
                     .addComponent(btnExcluir))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -279,6 +328,11 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         txtEndereco.setText("");
         txtTelefone.setText("");
         txtCnpj.setText("");
+        txtBusca.setText("");
+
+        
+        searchJTableForName(txtBusca.getText());
+        
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void tabelaFornMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFornMouseClicked
@@ -331,6 +385,27 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        searchJTableForName(txtBusca.getText());
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            searchJTableForName(txtBusca.getText());
+        }
+        
+    }//GEN-LAST:event_txtBuscaKeyPressed
+
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,6 +449,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -382,6 +458,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tabelaForn;
+    private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtCnpj;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;

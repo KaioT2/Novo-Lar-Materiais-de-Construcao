@@ -53,7 +53,6 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane3" min="-2" pref="800" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnInserir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -63,20 +62,29 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnLimpar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtNome" alignment="0" pref="452" max="32767" attributes="0"/>
+                              <Component id="txtEndereco" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtCnpj" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtBusca" min="-2" pref="226" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane3" min="-2" pref="800" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jLabel2" alignment="0" pref="333" max="32767" attributes="0"/>
                       <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel3" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="txtNome" alignment="0" pref="452" max="32767" attributes="0"/>
-                      <Component id="txtEndereco" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtCnpj" alignment="0" max="32767" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,7 +97,7 @@
               <Component id="txtNome" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -98,7 +106,11 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtCnpj" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBusca" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane3" min="-2" pref="277" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -108,7 +120,7 @@
                   <Component id="btnAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -156,7 +168,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnInserir">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inserir"/>
+        <Property name="text" type="java.lang.String" value="Adicionar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirActionPerformed"/>
@@ -164,7 +176,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnLimpar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Limpar"/>
+        <Property name="text" type="java.lang.String" value="Limpar Campos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
@@ -242,6 +254,20 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBusca">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscaActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscaKeyPressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
