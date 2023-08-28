@@ -4,7 +4,9 @@
  */
 package view;
 
+import DAO.FuncionarioDAO;
 import Fornecedor.Fornecedor;
+import Funcionario.Funcionario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaLogin extends javax.swing.JFrame {
     Fornecedor forn = new Fornecedor(1,"admin", "rua", "12345", "123");
+    Funcionario func = new Funcionario(1, "123", "K", "Rua", "1234", 2, "G", 2, "w");
     /**
      * Creates new form TelaLogin
      */
@@ -111,22 +114,19 @@ public class TelaLogin extends javax.swing.JFrame {
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLoginActionPerformed
-
-    public boolean checkLogin(String login,String senha){
-        return login.equals(forn.getNome()) && senha.equals(forn.getCnpj());
-    }
-    
+   
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        if(this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
-            TelaPrincipal tela = new TelaPrincipal();
-            
+        FuncionarioDAO dao = new FuncionarioDAO();
+        
+        if(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
             this.dispose();
-            
-            tela.setVisible(true);
+            new TelaPrincipal().setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(this, "Email e/ou senha incorreto(os)!");
+            txtLogin.setText("");
+            txtSenha.setText("");
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -135,12 +135,11 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
-                TelaPrincipal tela = new TelaPrincipal();
-            
+            FuncionarioDAO dao = new FuncionarioDAO();
+        
+            if(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
                 this.dispose();
-            
-                tela.setVisible(true);
+                new TelaPrincipal().setVisible(true);
             }
             else{
                 JOptionPane.showMessageDialog(this, "Email e/ou senha incorreto(os)!");

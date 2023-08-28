@@ -44,7 +44,7 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE funcionario SET nome = ?, cnpj = ?, endereco = ?, telefone = ? WHERE idFornecedor = ?");
+            stmt = con.prepareStatement("UPDATE funcionario SET nome = ?, cpf = ?, endereco = ?, telefone = ? WHERE idFornecedor = ?");
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getCpf());
             stmt.setString(3, f.getEndereco());

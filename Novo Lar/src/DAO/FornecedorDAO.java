@@ -104,5 +104,5 @@ public class FornecedorDAO {
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
-    }
+}
 }
