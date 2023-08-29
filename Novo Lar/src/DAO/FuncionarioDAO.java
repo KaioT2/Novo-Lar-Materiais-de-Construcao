@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 
 public class FuncionarioDAO {
     public boolean checkLogin(String cpf, String senha){
-        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -90,7 +89,7 @@ public class FuncionarioDAO {
                 
                 Funcionario funcionario = new Funcionario();
                 
-                funcionario.setId(Integer.valueOf(rs.getInt("idFuncionario")));
+                funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setEndereco(rs.getString("endereco"));
@@ -129,7 +128,7 @@ public class FuncionarioDAO {
                 
                 Funcionario funcionario = new Funcionario();
                 
-                funcionario.setId(Integer.valueOf(rs.getInt("idFuncionario")));
+                funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setEndereco(rs.getString("endereco"));
@@ -165,7 +164,7 @@ public class FuncionarioDAO {
             stmt.setString(5, f.getCargo());
             stmt.setDouble(6, f.getCargaHoraria());
             stmt.setDouble(7, f.getSalario());
-            stmt.setInt(8, f.getId());
+            stmt.setInt(8, f.getIdFuncionario());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
@@ -183,7 +182,7 @@ public class FuncionarioDAO {
         
         try {
             stmt = con.prepareStatement("DELETE FROM funcionario WHERE idFuncionario = ?");
-            stmt.setInt(1, f.getId());
+            stmt.setInt(1, f.getIdFuncionario());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");

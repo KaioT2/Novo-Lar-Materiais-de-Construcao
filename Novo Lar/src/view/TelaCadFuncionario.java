@@ -5,7 +5,6 @@
 package view;
 
 import DAO.FuncionarioDAO;
-import Funcionario.ControleFuncionario;
 import Funcionario.Funcionario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -17,7 +16,6 @@ import javax.swing.table.TableRowSorter;
  * @author Kaio Dias
  */
 public final class TelaCadFuncionario extends javax.swing.JFrame {
-    ControleFuncionario cf = new ControleFuncionario();
     /**
      * Creates new form TelaCadFuncionario
      */
@@ -37,7 +35,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         for(Funcionario f: fdao.read()){
             
             modelo.addRow(new Object[]{
-                f.getId(),
+                f.getIdFuncionario(),
                 f.getNome(),
                 f.getEndereco(),
                 f.getTelefone(),
@@ -60,7 +58,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         for(Funcionario f: fdao.searchForName(nome, cpf)){
             
             modelo.addRow(new Object[]{
-                f.getId(),
+                f.getIdFuncionario(),
                 f.getNome(),
                 f.getEndereco(),
                 f.getTelefone(),
@@ -437,7 +435,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
             f.setSalario(Double.parseDouble(txtSalario.getText()));
             f.setSenha(txtSenha.getText());
-            f.setId((int)tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(),0));
+            f.setIdFuncionario((int)tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(),0));
 
             dao.update(f);
             readJTable();
@@ -449,7 +447,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             Funcionario f = new Funcionario();
             FuncionarioDAO dao = new FuncionarioDAO();
 
-            f.setId((int)tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(),0));
+            f.setIdFuncionario((int)tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(),0));
 
             dao.delete(f);
             readJTable();

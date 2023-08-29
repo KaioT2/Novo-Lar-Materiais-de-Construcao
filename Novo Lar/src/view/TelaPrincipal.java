@@ -12,7 +12,8 @@ import javax.swing.JOptionPane;
  * @author Kaio Dias
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-
+ private int confirmacaoTrocaUsuario;
+ private int confirmarEncerrarSecao;
     /**
      * Creates new form TelaPrincipal
      */
@@ -36,8 +37,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jDesk = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        btnExit = new javax.swing.JMenu();
+        btnEncerrarSecao = new javax.swing.JMenuItem();
+        btnTrocarUsuário = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -67,22 +69,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 477, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Sistema");
+        btnExit.setText("Sistema");
 
-        jMenuItem6.setText("Encerrar Cessão");
-        jMenuItem6.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEncerrarSecao.setText("Encerrar Seção");
+        btnEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jMenuItem6MouseReleased(evt);
+                btnEncerrarSecaoMouseReleased(evt);
             }
         });
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        btnEncerrarSecao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                btnEncerrarSecaoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        btnExit.add(btnEncerrarSecao);
 
-        jMenuBar1.add(jMenu1);
+        btnTrocarUsuário.setText("Trocar Usuário");
+        btnTrocarUsuário.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnTrocarUsuárioMouseReleased(evt);
+            }
+        });
+        btnTrocarUsuário.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrocarUsuárioActionPerformed(evt);
+            }
+        });
+        btnExit.add(btnTrocarUsuário);
+
+        jMenuBar1.add(btnExit);
 
         jMenu2.setText("Cadastros");
 
@@ -95,6 +110,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Cliente");
+        jMenuItem3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jMenuItem3MouseReleased(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Fornecedor");
@@ -137,29 +157,64 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         
-        TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
-        
-        telaCadFunc.setVisible(true);
+            TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
+
+            telaCadFunc.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         
-        TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
-      
-        telaCadForn.setVisible(true);
+            TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
+
+            telaCadForn.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void btnEncerrarSecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_btnEncerrarSecaoActionPerformed
 
-    private void jMenuItem6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseReleased
+    private void btnEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoMouseReleased
         // TODO add your handling code here:
-        TelaPopSair tela = new TelaPopSair();
-        tela.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6MouseReleased
+            String[] options = {"Encerrar Secao", "Cancelar"};
+
+            confirmarEncerrarSecao = JOptionPane.showOptionDialog(
+                this,"Tem certeza que deseja encerrar a secao?", "Confirmação", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null,options,options[0] 
+            );
+
+            if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+    }//GEN-LAST:event_btnEncerrarSecaoMouseReleased
+
+    private void btnTrocarUsuárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTrocarUsuárioActionPerformed
+
+    private void btnTrocarUsuárioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioMouseReleased
+        // TODO add your handling code here:
+        
+            String[] options = {"Trocar", "Cancelar"}; // Textos personalizados dos botões
+    
+            confirmacaoTrocaUsuario = JOptionPane.showOptionDialog(
+                this,"Tem certeza que deseja trocar de usuário?", "Confirmação",JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, null,options,options[0] 
+            );
+    
+            if (confirmacaoTrocaUsuario == JOptionPane.YES_OPTION) {
+                dispose(); 
+                new TelaLogin().setVisible(true); 
+            }
+    }//GEN-LAST:event_btnTrocarUsuárioMouseReleased
+
+    private void jMenuItem3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseReleased
+        // TODO add your handling code here:
+        TelaCadCliente telaCadCli = new TelaCadCliente();
+
+            telaCadCli.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3MouseReleased
 
     /**
      * @param args the command line arguments
@@ -197,8 +252,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnEncerrarSecao;
+    private javax.swing.JMenu btnExit;
+    private javax.swing.JMenuItem btnTrocarUsuário;
     private javax.swing.JDesktopPane jDesk;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -211,6 +268,5 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

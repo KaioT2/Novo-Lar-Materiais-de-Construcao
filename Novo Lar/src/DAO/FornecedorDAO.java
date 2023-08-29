@@ -17,14 +17,12 @@ public class FornecedorDAO {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     try {
-        // Verifica se o fornecedor já existe com base no CNPJ e no nome
         stmt = con.prepareStatement("SELECT COUNT(*) FROM fornecedor WHERE cnpj = ? OR nome = ?");
         stmt.setString(1, f.getCnpj());
         stmt.setString(2, f.getNome());
         rs = stmt.executeQuery();
         
         if (rs.next() && rs.getInt(1) == 0) {
-            // Se fornecedor não existe...
             stmt = con.prepareStatement("INSERT INTO fornecedor (nome, cnpj, endereco, telefone) VALUES(?,?,?,?)");
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getCnpj());
@@ -59,7 +57,7 @@ public class FornecedorDAO {
                 
                 Fornecedor fornecedor = new Fornecedor();
                 
-                fornecedor.setId(Integer.valueOf(rs.getInt("idFornecedor")));
+                fornecedor.setIdFornecedor(Integer.valueOf(rs.getInt("idFornecedor")));
                 fornecedor.setNome(rs.getString("nome"));
                 fornecedor.setCnpj(rs.getString("cnpj"));
                 fornecedor.setEndereco(rs.getString("endereco"));
@@ -94,7 +92,7 @@ public class FornecedorDAO {
                 
                 Fornecedor fornecedor = new Fornecedor();
                 
-                fornecedor.setId(Integer.valueOf(rs.getInt("idFornecedor")));
+                fornecedor.setIdFornecedor(Integer.valueOf(rs.getInt("idFornecedor")));
                 fornecedor.setNome(rs.getString("nome"));
                 fornecedor.setCnpj(rs.getString("cnpj"));
                 fornecedor.setEndereco(rs.getString("endereco"));
@@ -123,7 +121,7 @@ public class FornecedorDAO {
             stmt.setString(2, f.getCnpj());
             stmt.setString(3, f.getEndereco());
             stmt.setString(4, f.getTelefone());
-            stmt.setInt(5, f.getId());
+            stmt.setInt(5, f.getIdFornecedor());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
@@ -141,7 +139,7 @@ public class FornecedorDAO {
         
         try {
             stmt = con.prepareStatement("DELETE FROM fornecedor WHERE idFornecedor = ?");
-            stmt.setInt(1, f.getId());
+            stmt.setInt(1, f.getIdFornecedor());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");

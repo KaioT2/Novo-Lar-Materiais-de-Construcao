@@ -5,7 +5,6 @@
 package view;
 
 import DAO.FornecedorDAO;
-import Fornecedor.ControleFornecedor;
 import Fornecedor.Fornecedor;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -17,7 +16,6 @@ import javax.swing.table.TableRowSorter;
  * @author Kaio Dias
  */
 public class TelaCadFornecedor extends javax.swing.JFrame {
-    ControleFornecedor cf = new ControleFornecedor();
     /**
      * Creates new form TelaFornecedor
      */
@@ -37,7 +35,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         for(Fornecedor f: fdao.read()){
             
             modelo.addRow(new Object[]{
-                f.getId(),
+                f.getIdFornecedor(),
                 f.getNome(),
                 f.getEndereco(),
                 f.getTelefone(),
@@ -56,7 +54,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         for(Fornecedor f: fdao.searchForName(nome, cnpj)){
             
             modelo.addRow(new Object[]{
-                f.getId(),
+                f.getIdFornecedor(),
                 f.getNome(),
                 f.getEndereco(),
                 f.getTelefone(),
@@ -330,7 +328,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         txtCnpj.setText("");
         txtBusca.setText("");
 
-        
         searchJTableForName(txtBusca.getText(),txtBusca.getText());
         
     }//GEN-LAST:event_btnLimparActionPerformed
@@ -363,7 +360,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
             f.setEndereco(txtEndereco.getText());
             f.setTelefone(txtTelefone.getText());
             f.setCnpj(txtCnpj.getText());
-            f.setId((int)tabelaForn.getValueAt(tabelaForn.getSelectedRow(),0));
+            f.setIdFornecedor((int)tabelaForn.getValueAt(tabelaForn.getSelectedRow(),0));
         
             dao.update(f);
             readJTable();
@@ -375,7 +372,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
             Fornecedor f = new Fornecedor();
             FornecedorDAO dao = new FornecedorDAO();
 
-            f.setId((int)tabelaForn.getValueAt(tabelaForn.getSelectedRow(),0));
+            f.setIdFornecedor((int)tabelaForn.getValueAt(tabelaForn.getSelectedRow(),0));
         
             dao.delete(f);
             readJTable();
@@ -386,12 +383,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
         searchJTableForName(txtBusca.getText(),txtBusca.getText());
-        
-        
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
@@ -399,7 +391,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             searchJTableForName(txtBusca.getText(), txtBusca.getText());
         }
-        
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed

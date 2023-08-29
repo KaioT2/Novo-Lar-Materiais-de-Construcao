@@ -1,6 +1,6 @@
 package Fornecedor;
 public class Fornecedor {
-    private int id;
+    private int idFornecedor;
     private String nome;
     private String endereco;
     private String telefone;
@@ -9,20 +9,20 @@ public class Fornecedor {
     public Fornecedor() {
     }
 
-    public Fornecedor(int id, String nome, String endereco, String telefone, String cnpj) {
-        this.id = id;
+    public Fornecedor(int idFornecedor, String nome, String endereco, String telefone, String cnpj) {
+        this.idFornecedor = idFornecedor;
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
         this.cnpj = cnpj;
     }
 
-    public int getId() {
-        return id;
+    public int getIdFornecedor() {
+        return idFornecedor;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdFornecedor(int idFornecedor) {
+        this.idFornecedor = idFornecedor;
     }
 
     public String getNome() {
@@ -56,6 +56,8 @@ public class Fornecedor {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+
+    
 
     
 }

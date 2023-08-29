@@ -5,8 +5,6 @@
 package view;
 
 import DAO.FuncionarioDAO;
-import Fornecedor.Fornecedor;
-import Funcionario.Funcionario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -15,8 +13,6 @@ import javax.swing.JOptionPane;
  * @author Kaio Dias
  */
 public class TelaLogin extends javax.swing.JFrame {
-    Fornecedor forn = new Fornecedor(1,"admin", "rua", "12345", "123");
-    Funcionario func = new Funcionario(1, "123", "K", "Rua", "1234", 2, "G", 2, "w");
     /**
      * Creates new form TelaLogin
      */

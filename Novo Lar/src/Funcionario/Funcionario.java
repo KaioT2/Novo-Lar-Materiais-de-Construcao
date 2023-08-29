@@ -1,7 +1,7 @@
 package Funcionario;
 
 public class Funcionario {
-    private int id;
+    private int idFuncionario;
     private String senha;
     private String nome;
     private String endereco;
@@ -11,8 +11,11 @@ public class Funcionario {
     private double salario;
     private String telefone;
 
-    public Funcionario(int id, String senha, String nome, String endereco, String cpf, double cargaHoraria, String cargo, double salario, String telefone) {
-        this.id = id;
+    public Funcionario() {
+    }
+
+    public Funcionario(int idFuncionario, String senha, String nome, String endereco, String cpf, double cargaHoraria, String cargo, double salario, String telefone) {
+        this.idFuncionario = idFuncionario;
         this.senha = senha;
         this.nome = nome;
         this.endereco = endereco;
@@ -23,16 +26,12 @@ public class Funcionario {
         this.telefone = telefone;
     }
 
-    public Funcionario() {
-        
+    public int getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
     public String getSenha() {
