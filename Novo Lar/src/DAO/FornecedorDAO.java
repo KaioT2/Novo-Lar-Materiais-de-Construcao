@@ -77,7 +77,7 @@ public class FornecedorDAO {
         return fornecedores;
     }
     
-    public ArrayList<Fornecedor> searchForName(String nome){
+    public ArrayList<Fornecedor> searchForName(String nome, String cnpj){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -85,8 +85,9 @@ public class FornecedorDAO {
         ArrayList<Fornecedor> fornecedores = new ArrayList();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM fornecedor WHERE nome LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM fornecedor WHERE nome LIKE ? or cnpj LIKE ?");
             stmt.setString(1, "%"+nome+"%");
+            stmt.setString(2, "%"+cnpj+"%");
             rs = stmt.executeQuery();
             
             while(rs.next()){

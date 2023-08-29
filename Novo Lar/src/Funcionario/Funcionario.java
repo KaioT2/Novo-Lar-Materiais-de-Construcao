@@ -23,10 +23,8 @@ public class Funcionario {
         this.telefone = telefone;
     }
 
-    
-
     public Funcionario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     public int getId() {

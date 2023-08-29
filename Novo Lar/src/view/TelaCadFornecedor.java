@@ -48,12 +48,12 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         
     }
     
-    public void searchJTableForName(String nome){
+    public void searchJTableForName(String nome, String cnpj){
         DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
         modelo.setNumRows(0);
         FornecedorDAO fdao = new FornecedorDAO();
         
-        for(Fornecedor f: fdao.searchForName(nome)){
+        for(Fornecedor f: fdao.searchForName(nome, cnpj)){
             
             modelo.addRow(new Object[]{
                 f.getId(),
@@ -331,7 +331,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         txtBusca.setText("");
 
         
-        searchJTableForName(txtBusca.getText());
+        searchJTableForName(txtBusca.getText(),txtBusca.getText());
         
     }//GEN-LAST:event_btnLimparActionPerformed
 
@@ -387,7 +387,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        searchJTableForName(txtBusca.getText());
+        searchJTableForName(txtBusca.getText(),txtBusca.getText());
         
         
         
@@ -397,7 +397,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            searchJTableForName(txtBusca.getText());
+            searchJTableForName(txtBusca.getText(), txtBusca.getText());
         }
         
     }//GEN-LAST:event_txtBuscaKeyPressed

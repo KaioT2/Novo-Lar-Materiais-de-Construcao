@@ -2,8 +2,6 @@ create database dbNovoLar;
 
 use dbNovoLar;
 
-select * from fornecedor;
-
 create table fornecedor (
 	idFornecedor int primary key not null auto_increment,
     nome varchar(30) not null,
@@ -25,6 +23,7 @@ create table produto(
 
 create table funcionario(
 	idFuncionario int primary key not null auto_increment,
+    senha varchar(30) not null,
     nome varchar(30) not null,
 	endereco varchar(80) not null,
     cpf varchar (14) not null,
@@ -78,6 +77,14 @@ create table compra(
     quantidade float not null,
     subtotal float (8,2) not null
 );
+
+select * from fornecedor;
+select * from funcionario;
+
+delete from funcionario where idFuncionario = 1;
+
+insert into funcionario (idFuncionario, senha, nome, endereco, cpf, cargo, cargaHoraria, salario, telefone)
+values(null, "admin", "Kaio", "Rua", "admin", "Gerente", 2, 3, "123333");
     
     
     

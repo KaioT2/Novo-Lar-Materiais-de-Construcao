@@ -4,6 +4,7 @@
  */
 package view;
 
+import view.TelaCadFuncionario;
 import javax.swing.JOptionPane;
 
 /**
