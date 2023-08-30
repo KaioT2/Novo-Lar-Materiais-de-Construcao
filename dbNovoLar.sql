@@ -1,5 +1,7 @@
 create database dbNovoLar;
 
+drop database dbNovoLar;
+
 use dbNovoLar;
 
 create table fornecedor (
@@ -17,7 +19,7 @@ create table produto(
     references fornecedor (idFornecedor),
     nome varchar(30) not null,
     codigo varchar(13) not null, 
-    precoUn float(4,2) not null,
+    precoUn double(7,2) not null,
     quantidade float not null
 );
 
@@ -27,9 +29,9 @@ create table funcionario(
     nome varchar(30) not null,
 	endereco varchar(80) not null,
     cpf varchar (14) not null,
-    cargo varchar (30),
-    cargaHoraria float (2,2),
-    salario float (6,2),
+    cargo varchar (30) not null,
+    cargaHoraria double not null,
+    salario double(7,2) not null,
     telefone varchar (15) not null
 );
 
@@ -44,7 +46,7 @@ create table cliente(
 create table venda(
 	idVenda int primary key not null auto_increment,
     data date not null,
-    total float (6,2) not null,
+    total double not null,
     idCliente int not null,
     foreign key (idCliente)
     references cliente (idCliente),
@@ -61,8 +63,8 @@ create table itens_da_venda(
     idProduto int not null,
     foreign key (idProduto)
     references produto (idProduto),
-    quantidade float not null,
-    subtotal float (8,2) not null
+    quantidade double not null,
+    subtotal double  not null
 );
 
 create table compra(
@@ -74,12 +76,13 @@ create table compra(
     idProduto int not null,
     foreign key (idProduto)
     references produto (idProduto),
-    quantidade float not null,
-    subtotal float (8,2) not null
+    quantidade double not null,
+    subtotal double not null
 );
 
 select * from fornecedor;
 select * from funcionario;
+select * from cliente;
 
 delete from funcionario where idFuncionario = 1;
 

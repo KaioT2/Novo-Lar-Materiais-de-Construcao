@@ -365,18 +365,17 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         Funcionario f = new Funcionario();
         FuncionarioDAO dao = new FuncionarioDAO();
 
-        f.setNome(txtNome.getText());
-        f.setEndereco(txtEndereco.getText());
-        f.setTelefone(txtTelefone.getText());
-        f.setCpf(txtCpf.getText());
-        f.setCargo(txtCargo.getText());
-        f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
-        f.setSalario(Double.parseDouble(txtSalario.getText()));
-        f.setSenha(txtSenha.getText());
-
-        dao.create(f);
-        readJTable();
-
+            f.setNome(txtNome.getText());
+            f.setEndereco(txtEndereco.getText());
+            f.setTelefone(txtTelefone.getText());
+            f.setCpf(txtCpf.getText());
+            f.setCargo(txtCargo.getText());
+            f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
+            f.setSalario(Double.parseDouble(txtSalario.getText()));
+            f.setSenha(txtSenha.getText());
+            
+            dao.create(f);
+            readJTable();
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
