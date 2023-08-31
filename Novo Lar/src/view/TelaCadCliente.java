@@ -7,6 +7,7 @@ package view;
 import DAO.ClienteDAO;
 import Cliente.Cliente;
 import java.awt.event.KeyEvent;
+import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -21,6 +22,54 @@ public class TelaCadCliente extends javax.swing.JFrame {
      */
     public TelaCadCliente() {
         initComponents();
+    }
+    
+    private boolean validarCPF(String cpf) {
+        // Remove caracteres não numéricos do CPF
+        cpf = cpf.replaceAll("[^0-9]", "");
+
+        // Verifica se o CPF tem 11 dígitos
+        if (cpf.length() != 11) {
+            return false;
+        }
+
+        // Verifica se todos os dígitos são iguais (CPF inválido)
+        if (cpf.matches("(\\d)\\1{10}")) {
+            return false;
+        }
+
+        // Calcula os dígitos verificadores
+        try {
+            int[] digits = new int[11];
+            for (int i = 0; i < 11; i++) {
+                digits[i] = Integer.parseInt(String.valueOf(cpf.charAt(i)));
+            }
+
+            int sum = 0;
+            for (int i = 0; i < 9; i++) {
+                sum += digits[i] * (10 - i);
+            }
+
+            int firstDigit = 11 - (sum % 11);
+            if (firstDigit > 9) {
+                firstDigit = 0;
+            }
+
+            sum = 0;
+            for (int i = 0; i < 10; i++) {
+                sum += digits[i] * (11 - i);
+            }
+
+            int secondDigit = 11 - (sum % 11);
+            if (secondDigit > 9) {
+                secondDigit = 0;
+            }
+
+            return digits[9] == firstDigit && digits[10] == secondDigit;
+
+        } catch (InputMismatchException e) {
+            return false;
+        }
     }
 
     /**
@@ -189,6 +238,13 @@ public class TelaCadCliente extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
+        
+        String cpf = txtCpf.getText();
+
+        if (!validarCPF(cpf)) {
+            JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         Cliente c = new Cliente();
         ClienteDAO dao = new ClienteDAO();

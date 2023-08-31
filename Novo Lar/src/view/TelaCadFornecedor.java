@@ -6,6 +6,8 @@ package view;
 
 import DAO.FornecedorDAO;
 import Fornecedor.Fornecedor;
+import java.util.InputMismatchException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +20,59 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     public TelaCadFornecedor() {
         initComponents();
     }
+    
+    private boolean validarCNPJ(String cnpj) {
+    // Remove caracteres não numéricos do CNPJ
+    cnpj = cnpj.replaceAll("[^0-9]", "");
+    
+    // Verifica se o CNPJ tem 14 dígitos
+    if (cnpj.length() != 14) {
+        return false;
+    }
+
+    // Verifica se todos os dígitos são iguais (CNPJ inválido)
+    if (cnpj.matches("(\\d)\\1{13}")) {
+        return false;
+    }
+
+    // Calcula o primeiro dígito verificador
+    try {
+        int[] digits = new int[14];
+        for (int i = 0; i < 14; i++) {
+            digits[i] = Integer.parseInt(String.valueOf(cnpj.charAt(i)));
+        }
+
+        int sum = 0;
+        int weight = 2;
+        for (int i = 11; i >= 0; i--) {
+            sum += digits[i] * weight;
+            weight = (weight == 9) ? 2 : weight + 1;
+        }
+
+        int firstDigit = 11 - (sum % 11);
+        if (firstDigit >= 10) {
+            firstDigit = 0;
+        }
+
+        // Calcula o segundo dígito verificador
+        sum = 0;
+        weight = 2;
+        for (int i = 12; i >= 0; i--) {
+            sum += digits[i] * weight;
+            weight = (weight == 9) ? 2 : weight + 1;
+        }
+
+        int secondDigit = 11 - (sum % 11);
+        if (secondDigit >= 10) {
+            secondDigit = 0;
+        }
+
+        return digits[12] == firstDigit && digits[13] == secondDigit;
+
+    } catch (InputMismatchException e) {
+        return false;
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,6 +240,13 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
+        
+        String cnpj = txtCnpj.getText();
+    
+    if (!validarCNPJ(cnpj)) {
+        JOptionPane.showMessageDialog(this, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
         
         Fornecedor f = new Fornecedor();
         FornecedorDAO dao = new FornecedorDAO();
