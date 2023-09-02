@@ -51,15 +51,24 @@ public class FuncionarioDAO {
         
         if (rs.next() && rs.getInt(1) == 0) {
             // Se funcionario não existe...
-            stmt = con.prepareStatement("INSERT INTO funcionario (nome, cpf, endereco, telefone, cargo, cargaHoraria, salario, senha) VALUES(?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO funcionario (nome, endereco, bairro, cidade, estado, cep, telefone, email, cpf, dataNasc, dataContrata, senha, cargo, cargaHoraria, salario, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setString(1, f.getNome());
-            stmt.setString(2, f.getCpf());
-            stmt.setString(3, f.getEndereco());
-            stmt.setString(4, f.getTelefone());
-            stmt.setString(5, f.getCargo());
-            stmt.setDouble(6, f.getCargaHoraria());
-            stmt.setDouble(7, f.getSalario());
-            stmt.setString(8, f.getSenha());
+            stmt.setString(2, f.getEndereco());
+            stmt.setString(3, f.getBairro());
+            stmt.setString(4, f.getCidade());
+            stmt.setString(5, f.getEstado());
+            stmt.setString(6, f.getCEP());
+            stmt.setString(7, f.getTelefone());
+            stmt.setString(8, f.getEmail());
+            stmt.setString(9, f.getCpf());
+            stmt.setString(10, f.getDataNasc());
+            stmt.setString(11, f.getDataContratacao());
+            stmt.setString(12, f.getSenha());
+            stmt.setString(13, f.getCargo());
+            stmt.setDouble(14, f.getCargaHoraria());
+            stmt.setDouble(15, f.getSalario());
+            stmt.setString(16, f.getStatus());
+           
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -91,13 +100,22 @@ public class FuncionarioDAO {
                 
                 funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
                 funcionario.setNome(rs.getString("nome"));
-                funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setEndereco(rs.getString("endereco"));
+                funcionario.setBairro(rs.getString("bairro"));
+                funcionario.setCidade(rs.getString("cidade"));
+                funcionario.setEstado(rs.getString("estado"));
+                funcionario.setCEP(rs.getString("cep"));
                 funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setCargaHoraria(Double.parseDouble(rs.getString("cargaHoraria")));
+                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setDataNasc(rs.getString("dataNasc"));
+                funcionario.setDataContratacao(rs.getString("dataContrata"));
                 funcionario.setSalario(Double.parseDouble(rs.getString("salario")));
                 funcionario.setSenha(rs.getString("senha"));
+                funcionario.setPermissao(rs.getInt("permissao"));
+                funcionario.setStatus("status");
                 
                 funcionarios.add(funcionario);
             }
@@ -130,14 +148,22 @@ public class FuncionarioDAO {
                 
                 funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
                 funcionario.setNome(rs.getString("nome"));
-                funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setEndereco(rs.getString("endereco"));
+                funcionario.setBairro(rs.getString("bairro"));
+                funcionario.setCidade(rs.getString("cidade"));
+                funcionario.setEstado(rs.getString("estado"));
+                funcionario.setCEP(rs.getString("cep"));
                 funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setCargaHoraria(Double.parseDouble(rs.getString("cargaHoraria")));
+                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setDataNasc(rs.getString("dataNasc"));
+                funcionario.setDataContratacao(rs.getString("dataContrata"));
                 funcionario.setSalario(Double.parseDouble(rs.getString("salario")));
                 funcionario.setSenha(rs.getString("senha"));
-                
+                funcionario.setPermissao(rs.getInt("permissao"));
+                funcionario.setStatus("status");
                 funcionarios.add(funcionario);
             }
             
@@ -156,16 +182,23 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE funcionario SET nome = ?, cpf = ?, endereco = ?, telefone = ?, cargo = ?, cargaHoraria = ?, salario = ? WHERE idFuncionario = ?");
+            stmt = con.prepareStatement("UPDATE funcionario SET nome = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, telefone = ?, email = ?, cpf = ?, dataNasc = ?, dataContrata = ?, cargo = ?, cargaHoraria = ?, salario = ?, permissao = ? ");
             stmt.setString(1, f.getNome());
-            stmt.setString(2, f.getCpf());
-            stmt.setString(3, f.getEndereco());
-            stmt.setString(4, f.getTelefone());
-            stmt.setString(5, f.getCargo());
-            stmt.setDouble(6, f.getCargaHoraria());
-            stmt.setDouble(7, f.getSalario());
-            stmt.setInt(8, f.getIdFuncionario());
-            
+            stmt.setString(2, f.getEndereco());
+            stmt.setString(3, f.getBairro());
+            stmt.setString(4, f.getCidade());
+            stmt.setString(5, f.getEstado());
+            stmt.setString(6, f.getCEP());
+            stmt.setString(7, f.getTelefone());
+            stmt.setString(8, f.getEmail());
+            stmt.setString(9, f.getCpf());
+            stmt.setString(10, f.getDataNasc());
+            stmt.setString(11, f.getDataContratacao());
+            stmt.setString(12, f.getCargo());
+            stmt.setDouble(13, f.getCargaHoraria());
+            stmt.setDouble(14, f.getSalario());
+            stmt.setInt(15, f.getPermissao());
+
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {

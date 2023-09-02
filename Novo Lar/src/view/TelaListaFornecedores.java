@@ -24,42 +24,52 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
         initComponents();
         atualizarTabela();
     }
-    
+
     private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
         modelo.setRowCount(0); // Limpa os dados da tabela
-        
+
         FornecedorDAO fornecedorDAO = new FornecedorDAO();
         List<Fornecedor> fornecedores = fornecedorDAO.read(); // Obtem a lista de fornecedores
-        
-        for (Fornecedor fornecedor : fornecedores) {
-            modelo.addRow(new Object[] {
-                fornecedor.getIdFornecedor(),
-                fornecedor.getNome(),
-                fornecedor.getEndereco(),
-                fornecedor.getTelefone(),
-                fornecedor.getCnpj()
-            });
-        }
-    }
-    
-        public void searchJTableForName(String nome, String cnpj){
-        DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
-        modelo.setNumRows(0);
-        FornecedorDAO fdao = new FornecedorDAO();
-        
-        for(Fornecedor f: fdao.searchForName(nome, cnpj)){
-            
+
+        for (Fornecedor f : fornecedores) {
             modelo.addRow(new Object[]{
                 f.getIdFornecedor(),
                 f.getNome(),
                 f.getEndereco(),
+                f.getBairro(),
+                f.getCidade(),
+                f.getEstado(),
+                f.getCep(),
                 f.getTelefone(),
+                f.getEmail(),
                 f.getCnpj()
             });
-            
         }
-        
+    }
+
+    public void searchJTableForName(String nome, String cnpj) {
+        DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
+        modelo.setNumRows(0);
+        FornecedorDAO fdao = new FornecedorDAO();
+
+        for (Fornecedor f : fdao.searchForName(nome, cnpj)) {
+
+            modelo.addRow(new Object[]{
+                f.getIdFornecedor(),
+                f.getNome(),
+                f.getEndereco(),
+                f.getBairro(),
+                f.getCidade(),
+                f.getEstado(),
+                f.getCep(),
+                f.getTelefone(),
+                f.getEmail(),
+                f.getCnpj()
+            });
+
+        }
+
     }
 
     /**
@@ -85,11 +95,11 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Endereço", "Telefone", "CNPJ"
+                "Id", "Nome", "Rua", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "E-mail", "CNPJ"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -138,20 +148,20 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(btnExcluir))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1055, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnExcluir)
+                                .addGap(965, 965, 965)))
+                        .addGap(0, 141, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,22 +201,21 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        searchJTableForName(txtBusca.getText(),txtBusca.getText());
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-        
-        if(tabelaForn.getSelectedRow() != -1){
+
+        if (tabelaForn.getSelectedRow() != -1) {
             Fornecedor f = new Fornecedor();
             FornecedorDAO dao = new FornecedorDAO();
 
-            f.setIdFornecedor((int)tabelaForn.getValueAt(tabelaForn.getSelectedRow(),0));
+            f.setIdFornecedor((int) tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 0));
 
             dao.delete(f);
             atualizarTabela();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione um Cliente para excluir");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed

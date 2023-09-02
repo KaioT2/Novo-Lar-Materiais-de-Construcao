@@ -8,8 +8,13 @@ create table fornecedor (
 	idFornecedor int primary key not null auto_increment,
     nome varchar(30) not null,
     cnpj varchar(18) not null,
-    endereco varchar(80) not null,
-    telefone varchar(13) not null
+    endereco varchar (30) not null,
+    bairro varchar(30) not null,
+    cidade varchar (30) not null,
+    estado varchar (2) not null,
+    CEP varchar(9) not null,
+    telefone varchar(13) not null,
+    email varchar(30) not null
 );
 
 create table produto(
@@ -19,7 +24,7 @@ create table produto(
     references fornecedor (idFornecedor),
     nome varchar(30) not null,
     codigo varchar(13) not null, 
-    precoUn double(7,2) not null,
+    precoUn float(7,2) not null,
     quantidade float not null
 );
 
@@ -30,8 +35,8 @@ create table funcionario(
 	endereco varchar(80) not null,
     cpf varchar (14) not null,
     cargo varchar (30) not null,
-    cargaHoraria double not null,
-    salario double(7,2) not null,
+    cargaHoraria float(4,2) not null,
+    salario float(7,2) not null,
     telefone varchar (15) not null
 );
 

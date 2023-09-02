@@ -35,12 +35,19 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 f.getIdFuncionario(),
                 f.getNome(),
                 f.getEndereco(),
+                f.getBairro(),
+                f.getCidade(),
+                f.getEstado(),
+                f.getCEP(),
                 f.getTelefone(),
+                f.getEmail(),
                 f.getCpf(),
+                f.getDataNasc(),
+                f.getDataContratacao(),
                 f.getCargo(),
                 f.getCargaHoraria(),
                 f.getSalario(),
-                f.getSenha()
+                f.getStatus()
             });
             
         }
@@ -58,12 +65,19 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 f.getIdFuncionario(),
                 f.getNome(),
                 f.getEndereco(),
+                f.getBairro(),
+                f.getCidade(),
+                f.getEstado(),
+                f.getCEP(),
                 f.getTelefone(),
+                f.getEmail(),
                 f.getCpf(),
+                f.getDataNasc(),
+                f.getDataContratacao(),
                 f.getCargo(),
                 f.getCargaHoraria(),
                 f.getSalario(),
-                f.getSenha()
+                f.getStatus()
             });
             
         }
@@ -118,11 +132,11 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Endereço", "Telefone", "CPF", "Cargo", "Carga Horaria", "Salário", "Senha"
+                "Id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "E-mail", "CPF", "Data Nascimento", "Data Contratação", "Cargo", "Carga-Horaria", "Salario", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -140,13 +154,16 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tabelaFunc);
+        if (tabelaFunc.getColumnModel().getColumnCount() > 0) {
+            tabelaFunc.getColumnModel().getColumn(10).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(504, Short.MAX_VALUE)
+                .addContainerGap(772, Short.MAX_VALUE)
                 .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -158,8 +175,8 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1440, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
