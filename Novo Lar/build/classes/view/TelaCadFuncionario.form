@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="nivelPermissao">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="nivelStatus">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Cadastro de Funcion&#xe1;rios - Novo Lar"/>
@@ -55,21 +61,37 @@
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtDataNasc" alignment="1" pref="512" max="32767" attributes="0"/>
-                          <Component id="txtCpf3" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jLabel8" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel15" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                          <Component id="txtDataContrata" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCargaHoraria" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jLabel7" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
-                          <Component id="txtCargo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtSalario" alignment="0" pref="512" max="32767" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="txtCpf" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtDataNasc" alignment="1" pref="512" max="32767" attributes="0"/>
+                              <Component id="txtDataContrata" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabel8" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel15" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="jlab" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCargaHoraria" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabel7" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
+                              <Component id="txtCargo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtSalario" alignment="0" pref="512" max="32767" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="txtCpf" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="pAlto" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="pMedio" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="pBaixo" min="-2" pref="98" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel16" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="sAtivo" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="sInativo" min="-2" pref="98" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel17" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
@@ -136,9 +158,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtDataNasc" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtDataContrata" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="jlab" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtCpf3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDataContrata" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -158,10 +180,25 @@
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="66" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pAlto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pMedio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pBaixo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="sAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sInativo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnInserir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -339,14 +376,66 @@
         <Property name="text" type="java.lang.String" value="Data de Nascimento"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCpf3">
+    <Component class="javax.swing.JTextField" name="txtDataContrata">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCpf3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataContrataActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtDataContrata">
+    <Component class="javax.swing.JLabel" name="jlab">
       <Properties>
         <Property name="text" type="java.lang.String" value="Data de Contrata&#xe7;&#xe3;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="pAlto">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="nivelPermissao"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Alto"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="pMedio">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="nivelPermissao"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Medio"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="pBaixo">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="nivelPermissao"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Baixo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel16">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nivel de permiss&#xe3;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="sAtivo">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="nivelStatus"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Ativo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="sInativo">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="nivelStatus"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Inativo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel17">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status"/>
       </Properties>
     </Component>
   </SubComponents>

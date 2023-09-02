@@ -47,7 +47,9 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 f.getCargo(),
                 f.getCargaHoraria(),
                 f.getSalario(),
-                f.getStatus()
+                f.getStatus(),
+                f.getPermissao(),
+                f.getSenha()
             });
             
         }
@@ -77,7 +79,9 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 f.getCargo(),
                 f.getCargaHoraria(),
                 f.getSalario(),
-                f.getStatus()
+                f.getStatus(),
+                f.getPermissao(),
+                f.getSenha()
             });
             
         }

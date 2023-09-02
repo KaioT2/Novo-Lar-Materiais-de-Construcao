@@ -107,6 +107,8 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nivelPermissao = new javax.swing.ButtonGroup();
+        nivelStatus = new javax.swing.ButtonGroup();
         txtTelefone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JTextField();
@@ -139,8 +141,15 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txtDataNasc = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        txtCpf3 = new javax.swing.JTextField();
-        txtDataContrata = new javax.swing.JLabel();
+        txtDataContrata = new javax.swing.JTextField();
+        jlab = new javax.swing.JLabel();
+        pAlto = new javax.swing.JRadioButton();
+        pMedio = new javax.swing.JRadioButton();
+        pBaixo = new javax.swing.JRadioButton();
+        jLabel16 = new javax.swing.JLabel();
+        sAtivo = new javax.swing.JRadioButton();
+        sInativo = new javax.swing.JRadioButton();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Funcionários - Novo Lar");
@@ -278,13 +287,34 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
 
         jLabel15.setText("Data de Nascimento");
 
-        txtCpf3.addActionListener(new java.awt.event.ActionListener() {
+        txtDataContrata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCpf3ActionPerformed(evt);
+                txtDataContrataActionPerformed(evt);
             }
         });
 
-        txtDataContrata.setText("Data de Contratação");
+        jlab.setText("Data de Contratação");
+
+        nivelPermissao.add(pAlto);
+        pAlto.setText("Alto");
+
+        nivelPermissao.add(pMedio);
+        pMedio.setText("Medio");
+
+        nivelPermissao.add(pBaixo);
+        pBaixo.setSelected(true);
+        pBaixo.setText("Baixo");
+
+        jLabel16.setText("Nivel de permissão");
+
+        nivelStatus.add(sAtivo);
+        sAtivo.setSelected(true);
+        sAtivo.setText("Ativo");
+
+        nivelStatus.add(sInativo);
+        sInativo.setText("Inativo");
+
+        jLabel17.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -317,21 +347,34 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
                                 .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDataNasc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
-                            .addComponent(txtCpf3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSenha)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDataContrata)
-                            .addComponent(txtCargaHoraria, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCargo)
-                            .addComponent(txtSalario, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCpf))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtDataNasc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                                .addComponent(txtDataContrata, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSenha)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jlab)
+                                .addComponent(txtCargaHoraria, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCargo)
+                                .addComponent(txtSalario, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCpf))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pAlto, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pMedio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(sAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sInativo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnInserir)
@@ -387,9 +430,9 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDataContrata, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlab, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCpf3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDataContrata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -407,10 +450,22 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pAlto)
+                    .addComponent(pMedio)
+                    .addComponent(pBaixo))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sAtivo)
+                    .addComponent(sInativo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInserir)
                     .addComponent(btnLimpar)
@@ -445,12 +500,48 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
 
         f.setNome(txtNome.getText());
         f.setEndereco(txtEndereco.getText());
+        f.setBairro(txtBairro.getText());
+        f.setCidade(txtCidade.getText());
+        f.setEstado(txtEstado.getText());
+        f.setCEP(txtCep.getText());
         f.setTelefone(txtTelefone.getText());
+        f.setEmail(txtEmail.getText());
         f.setCpf(txtCpf.getText());
+            if (validarData(txtDataNasc.getText())) {
+                f.setDataNasc(dateConverter(txtDataNasc.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de data inválida! 1Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (validarData(txtDataContrata.getText())) {
+                f.setDataContratacao(dateConverter(txtDataContrata.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de data inválida! 2Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         f.setCargo(txtCargo.getText());
         f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
         f.setSalario(Double.parseDouble(txtSalario.getText()));
+        
+        if(pAlto.isSelected()){
+            f.setPermissao(1);
+        }
+        else if(pMedio.isSelected()){
+            f.setPermissao(2);
+        }
+        else if(pBaixo.isSelected()){
+            f.setPermissao(3);
+        }
+        
         f.setSenha(txtSenha.getText());
+        
+        if(sAtivo.isSelected()){
+            f.setStatus("Ativo");
+        }
+        else if(sInativo.isSelected()){
+            f.setStatus("Inativo");
+        }
 
         dao.create(f);
     }//GEN-LAST:event_btnInserirActionPerformed
@@ -460,8 +551,15 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
 
         txtNome.setText("");
         txtEndereco.setText("");
+        txtBairro.setText("");
+        txtCidade.setText("");
+        txtCep.setText("");
+        txtEstado.setText("");
         txtTelefone.setText("");
+        txtEmail.setText("");
         txtCpf.setText("");
+        txtDataNasc.setText("");
+        jlab.setText("");
         txtCargo.setText("");
         txtCargaHoraria.setText("");
         txtSalario.setText("");
@@ -524,9 +622,9 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataNascActionPerformed
 
-    private void txtCpf3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpf3ActionPerformed
+    private void txtDataContrataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataContrataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCpf3ActionPerformed
+    }//GEN-LAST:event_txtDataContrataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -573,6 +671,8 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -581,14 +681,21 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jlab;
+    private javax.swing.ButtonGroup nivelPermissao;
+    private javax.swing.ButtonGroup nivelStatus;
+    private javax.swing.JRadioButton pAlto;
+    private javax.swing.JRadioButton pBaixo;
+    private javax.swing.JRadioButton pMedio;
+    private javax.swing.JRadioButton sAtivo;
+    private javax.swing.JRadioButton sInativo;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCargaHoraria;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtCpf3;
-    private javax.swing.JLabel txtDataContrata;
+    private javax.swing.JTextField txtDataContrata;
     private javax.swing.JTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;

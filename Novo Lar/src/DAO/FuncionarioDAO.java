@@ -51,7 +51,7 @@ public class FuncionarioDAO {
         
         if (rs.next() && rs.getInt(1) == 0) {
             // Se funcionario não existe...
-            stmt = con.prepareStatement("INSERT INTO funcionario (nome, endereco, bairro, cidade, estado, cep, telefone, email, cpf, dataNasc, dataContrata, senha, cargo, cargaHoraria, salario, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO funcionario (nome, endereco, bairro, cidade, estado, cep, telefone, email, cpf, dataNasc, dataContrata, senha, cargo, cargaHoraria, salario, status, permissao) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getEndereco());
             stmt.setString(3, f.getBairro());
@@ -68,6 +68,7 @@ public class FuncionarioDAO {
             stmt.setDouble(14, f.getCargaHoraria());
             stmt.setDouble(15, f.getSalario());
             stmt.setString(16, f.getStatus());
+            stmt.setInt(17, f.getPermissao());
            
 
             stmt.executeUpdate();
