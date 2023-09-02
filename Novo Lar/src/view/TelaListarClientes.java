@@ -35,8 +35,16 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 c.getIdCliente(),
                 c.getNome(),
                 c.getEndereco(),
+                c.getBairro(),
+                c.getCidade(),
+                c.getEstado(),
+                c.getCep(),
+                c.getCnpj(),
+                c.getCpf(),
+                c.getSexo(),
+                c.getDataNasc(),
                 c.getTelefone(),
-                c.getCpf()
+                c.getEmail()
             });
             
         }
@@ -54,8 +62,16 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 c.getIdCliente(),
                 c.getNome(),
                 c.getEndereco(),
+                c.getBairro(),
+                c.getCidade(),
+                c.getEstado(),
+                c.getCep(),
+                c.getCnpj(),
+                c.getCpf(),
+                c.getSexo(),
+                c.getDataNasc(),
                 c.getTelefone(),
-                c.getCpf()
+                c.getEmail()
             });
             
         }
@@ -85,11 +101,11 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Endereço", "Telefone", "CNPJ"
+                "Id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "CNPJ", "CPF", "Sexo", "Data Nascimento", "Telefone", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -137,19 +153,21 @@ public class TelaListarClientes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
-                .addGap(81, 81, 81))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnExcluir)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 646, Short.MAX_VALUE)
+                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addGap(81, 81, 81))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

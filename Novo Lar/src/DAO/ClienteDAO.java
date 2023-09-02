@@ -23,11 +23,20 @@ public class ClienteDAO {
         rs = stmt.executeQuery();
         
         if (rs.next() && rs.getInt(1) == 0) {
-            stmt = con.prepareStatement("INSERT INTO cliente (nome, cpf, endereco, telefone) VALUES(?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO cliente (nome, endereco, bairro, cidade, estado, cep, cnpj, cpf, sexo, dataNasc, telefone, email) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setString(1, f.getNome());
-            stmt.setString(2, f.getCpf());
-            stmt.setString(3, f.getEndereco());
-            stmt.setString(4, f.getTelefone());
+            stmt.setString(2, f.getEndereco());
+            stmt.setString(3, f.getBairro());
+            stmt.setString(4, f.getCidade());
+            stmt.setString(5, f.getEstado());
+            stmt.setString(6, f.getCep());
+            stmt.setString(7, f.getCnpj());
+            stmt.setString(8, f.getCpf());
+            stmt.setString(9, f.getSexo());
+            stmt.setString(10, f.getDataNasc());
+            stmt.setString(11, f.getTelefone());
+            stmt.setString(12, f.getEmail());
+            
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -59,10 +68,18 @@ public class ClienteDAO {
                 
                 cliente.setIdCliente(Integer.valueOf(rs.getInt("idCliente")));
                 cliente.setNome(rs.getString("nome"));
-                cliente.setCpf(rs.getString("cpf"));
                 cliente.setEndereco(rs.getString("endereco"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setEstado(rs.getString("estado"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setCnpj(rs.getString("cnpj"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setSexo(rs.getString("sexo"));
+                cliente.setDataNasc(rs.getString("dataNasc"));
                 cliente.setTelefone(rs.getString("telefone"));
-                
+                cliente.setEmail(rs.getString("email"));
+               
                 clientees.add(cliente);
             }
             
@@ -94,9 +111,17 @@ public class ClienteDAO {
                 
                 cliente.setIdCliente(Integer.valueOf(rs.getInt("idCliente")));
                 cliente.setNome(rs.getString("nome"));
-                cliente.setCpf(rs.getString("cpf"));
                 cliente.setEndereco(rs.getString("endereco"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setEstado(rs.getString("estado"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setCnpj(rs.getString("cnpj"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setSexo(rs.getString("sexo"));
+                cliente.setDataNasc(rs.getString("dataNasc"));
                 cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEmail(rs.getString("email"));
                 
                 clientees.add(cliente);
             }
@@ -116,12 +141,20 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE cliente SET nome = ?, cpf = ?, endereco = ?, telefone = ? WHERE idCliente = ?");
+            stmt = con.prepareStatement("UPDATE cliente SET nome = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, cnpj = ?, cpf = ?, sexo = ?, dataNasc = ?, telefone = ?, email = ? WHERE idCliente = ?");
             stmt.setString(1, f.getNome());
-            stmt.setString(2, f.getCpf());
-            stmt.setString(3, f.getEndereco());
-            stmt.setString(4, f.getTelefone());
-            stmt.setInt(5, f.getIdCliente());
+            stmt.setString(2, f.getEndereco());
+            stmt.setString(3, f.getBairro());
+            stmt.setString(4, f.getCidade());
+            stmt.setString(5, f.getEstado());
+            stmt.setString(6, f.getCep());
+            stmt.setString(7, f.getCnpj());
+            stmt.setString(8, f.getCpf());
+            stmt.setString(9, f.getSexo());
+            stmt.setString(10, f.getDataNasc());
+            stmt.setString(11, f.getTelefone());
+            stmt.setString(12, f.getEmail());
+            stmt.setInt(13, f.getIdCliente());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");

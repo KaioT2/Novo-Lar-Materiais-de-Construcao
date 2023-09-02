@@ -6,6 +6,8 @@ package view;
 
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
@@ -22,6 +24,32 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         initComponents();
     }
 
+    public static String dateConverter(String inputDate) {
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+            LocalDate date = LocalDate.parse(inputDate, inputFormatter);
+
+            String convertedDate = date.format(outputFormatter);
+
+            return convertedDate;
+        } catch (Exception e) {
+            return "Data de entrada inválida";
+        }
+    }
+
+    public boolean validarData(String date) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate d = LocalDate.parse(date, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     private boolean validarCPF(String cpf) {
         // Remove caracteres não numéricos do CPF
         cpf = cpf.replaceAll("[^0-9]", "");
