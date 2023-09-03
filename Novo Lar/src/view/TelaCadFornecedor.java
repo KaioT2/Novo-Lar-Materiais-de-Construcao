@@ -7,6 +7,7 @@ package view;
 import DAO.FornecedorDAO;
 import Fornecedor.Fornecedor;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -23,46 +24,86 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
      */
     public TelaCadFornecedor() {
         initComponents();
-        erroJText();
+        preencherCombo();
+        //erroJText();
+    }
+    
+    private void preencherCombo(){
+        
+        ArrayList<String> lista = new ArrayList<String>();
+        
+        lista.add("AC");
+        lista.add("AL");
+        lista.add("AP");
+        lista.add("AM");
+        lista.add("BA");
+        lista.add("CE");
+        lista.add("DF");
+        lista.add("ES");
+        lista.add("GO");
+        lista.add("MA");
+        lista.add("MT");
+        lista.add("MS");
+        lista.add("MG");
+        lista.add("PA");
+        lista.add("PB");
+        lista.add("PR");
+        lista.add("PE");
+        lista.add("PI");
+        lista.add("RJ");
+        lista.add("RN");
+        lista.add("RS");
+        lista.add("RO");
+        lista.add("RR");
+        lista.add("SC");
+        lista.add("SP");
+        lista.add("SE");
+        lista.add("TO");
+
+        comboEstado.removeAllItems();
+        
+        for (int i = 0; i < lista.size(); i++) {    
+            comboEstado.addItem(lista.get(i).toString());
+        }
     }
 
-    private void erroJText() {
-
-        txtEstado.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                atualizarLabel();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                atualizarLabel();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                atualizarLabel();
-            }
-
-            // Método para atualizar o JLabel com o texto do JTextField
-            private void atualizarLabel() {
-                String tamEstado = txtEstado.getText();
-
-                if (tamEstado.length() > 2) {
-                    txtErroEstado.setText("Digite apenas a abreviação! Ex: MG");
-                    txtErroEstado.setForeground(Color.RED);
-                    txtErroEstado.setVisible(true);
-
-                } else if (tamEstado.length() < 1) {
-                    txtErroEstado.setText("Campo obrigatório");
-                    txtErroEstado.setForeground(Color.RED);
-                    txtErroEstado.setVisible(true);
-                } else {
-
-                }
-            }
-        });
-    }
+//    private void erroJText() {
+//
+//        txtEstado.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                atualizarLabel();
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                atualizarLabel();
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                atualizarLabel();
+//            }
+//
+//            // Método para atualizar o JLabel com o texto do JTextField
+//            private void atualizarLabel() {
+//                String tamEstado = txtEstado.getText();
+//
+//                if (tamEstado.length() > 2) {
+//                    txtErroEstado.setText("Digite apenas a abreviação! Ex: MG");
+//                    txtErroEstado.setForeground(Color.RED);
+//                    txtErroEstado.setVisible(true);
+//
+//                } else if (tamEstado.length() < 1) {
+//                    txtErroEstado.setText("Campo obrigatório");
+//                    txtErroEstado.setForeground(Color.RED);
+//                    txtErroEstado.setVisible(true);
+//                } else {
+//
+//                }
+//            }
+//        });
+//    }
 
     private boolean validarCNPJ(String cnpj) {
         // Remove caracteres não numéricos do CNPJ
@@ -135,7 +176,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCnpj = new javax.swing.JTextField();
         btnInserir = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnListarFornecedores = new javax.swing.JButton();
@@ -143,13 +183,13 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtCep = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtErroEstado = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        comboEstado = new javax.swing.JComboBox<>();
+        txtCep = new javax.swing.JFormattedTextField();
+        txtCnpj = new javax.swing.JFormattedTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,12 +234,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
 
         jLabel4.setText("CNPJ");
 
-        txtCnpj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCnpjActionPerformed(evt);
-            }
-        });
-
         btnInserir.setText("Adicionar");
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,20 +271,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
 
         jLabel6.setText("Cidade");
 
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Estado");
-
-        txtCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCepActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("CEP");
 
         jLabel9.setText("E-mail");
@@ -261,42 +281,59 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("Estado");
+
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEstadoActionPerformed(evt);
+            }
+        });
+
+        try {
+            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtErroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12)
+                    .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnInserir)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpar)
                         .addGap(18, 18, 18)
                         .addComponent(btnListarFornecedores))
-                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCnpj)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCep)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,17 +354,15 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtErroEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,10 +394,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEnderecoActionPerformed
 
-    private void txtCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCnpjActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCnpjActionPerformed
-
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefoneActionPerformed
@@ -384,7 +415,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         f.setEndereco(txtEndereco.getText());
         f.setBairro(txtBairro.getText());
         f.setCidade(txtCidade.getText());
-        f.setEstado(txtEstado.getText());
+        f.setEstado(comboEstado.getSelectedItem().toString());
         f.setCep(txtCep.getText());
         f.setTelefone(txtTelefone.getText());
         f.setEmail(txtEmail.getText());
@@ -400,7 +431,6 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         txtEndereco.setText("");
         txtBairro.setText("");
         txtCidade.setText("");
-        txtEstado.setText("");
         txtCep.setText("");
         txtTelefone.setText("");
         txtEmail.setText("");
@@ -423,17 +453,13 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCidadeActionPerformed
 
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoActionPerformed
-
-    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCepActionPerformed
-
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -477,25 +503,24 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnListarFornecedores;
+    private javax.swing.JComboBox<String> comboEstado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCep;
+    private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
-    private javax.swing.JLabel txtErroEstado;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

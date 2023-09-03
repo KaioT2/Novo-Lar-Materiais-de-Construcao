@@ -116,7 +116,7 @@ public class FuncionarioDAO {
                 funcionario.setSalario(Double.parseDouble(rs.getString("salario")));
                 funcionario.setSenha(rs.getString("senha"));
                 funcionario.setPermissao(rs.getInt("permissao"));
-                funcionario.setStatus("status");
+                funcionario.setStatus(rs.getString("status"));
                 
                 funcionarios.add(funcionario);
             }
