@@ -6,9 +6,13 @@ package view;
 
 import DAO.FornecedorDAO;
 import Fornecedor.Fornecedor;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,10 +24,14 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
     /**
      * Creates new form TelaListaFornecedores
      */
+    
+    
+    
     public TelaListaFornecedores() {
         initComponents();
         atualizarTabela();
     }
+
 
     private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
@@ -86,6 +94,7 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         txtBusca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de fornecedores");
@@ -97,15 +106,7 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
             new String [] {
                 "Id", "Nome", "Rua", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "E-mail", "CNPJ"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tabelaForn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaFornMouseClicked(evt);
@@ -143,6 +144,14 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
             }
         });
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setEnabled(false);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,8 +167,10 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnExcluir)
-                                .addGap(965, 965, 965)))
-                        .addGap(0, 141, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAtualizar)
+                                .addGap(875, 875, 875)))
+                        .addGap(0, 136, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -173,8 +184,10 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExcluir)
-                .addGap(28, 28, 28))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnAtualizar))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -183,6 +196,8 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
 
     private void tabelaFornMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFornMouseClicked
         // TODO add your handling code here:
+       
+        btnAtualizar.setEnabled(true);
     }//GEN-LAST:event_tabelaFornMouseClicked
 
     private void tabelaFornKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaFornKeyReleased
@@ -220,6 +235,32 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        if(tabelaForn.getSelectedRow() != -1){
+            Fornecedor f = new Fornecedor();
+            FornecedorDAO dao = new FornecedorDAO();
+            TelaCadFornecedor t = new TelaCadFornecedor();
+            
+            
+            f.setNome(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 1).toString());
+            f.setEndereco(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 2).toString());
+            f.setBairro(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 3).toString());
+            f.setCidade(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 4).toString());
+            f.setEstado(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 5).toString());
+            f.setCep(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 6).toString());
+            f.setTelefone(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 7).toString());
+            f.setEmail(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 8).toString());
+            f.setCnpj(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 9).toString());
+            f.setIdFornecedor(Integer.parseInt(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 0).toString()));
+            dao.update(f);
+            atualizarTabela();
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,6 +297,7 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane3;

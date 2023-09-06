@@ -12,29 +12,29 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class FuncionarioDAO {
-    public boolean checkLogin(String cpf, String senha){
+    public boolean checkLogin(String cpf, String senha) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         boolean check = false;
-        
+
         try {
-            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE cpf = ? and senha = ?");
+            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE cpf = ? AND senha = ?");
             stmt.setString(1, cpf);
             stmt.setString(2, senha);
             rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                check = true;
             
-            if(rs.next()){
-                
-              check = true;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        
+
         return check;
     }
     
@@ -183,7 +183,7 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE funcionario SET nome = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, telefone = ?, email = ?, cpf = ?, dataNasc = ?, dataContrata = ?, cargo = ?, cargaHoraria = ?, salario = ?, permissao = ? ");
+            stmt = con.prepareStatement("UPDATE funcionario SET nome = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, telefone = ?, email = ?, cpf = ?, dataNasc = ?, dataContrata = ?, cargo = ?, cargaHoraria = ?, status = ?, permissao = ? WHERE idFuncionario = ?");
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getEndereco());
             stmt.setString(3, f.getBairro());
@@ -197,8 +197,9 @@ public class FuncionarioDAO {
             stmt.setString(11, f.getDataContratacao());
             stmt.setString(12, f.getCargo());
             stmt.setDouble(13, f.getCargaHoraria());
-            stmt.setDouble(14, f.getSalario());
+            stmt.setString(14, f.getStatus());
             stmt.setInt(15, f.getPermissao());
+            stmt.setInt(16, f.getIdFuncionario());
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");

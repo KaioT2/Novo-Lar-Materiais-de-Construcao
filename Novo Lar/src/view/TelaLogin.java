@@ -115,7 +115,7 @@ public class TelaLogin extends javax.swing.JFrame {
         
         FuncionarioDAO dao = new FuncionarioDAO();
         
-        if(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
+        if(dao.checkLogin(txtLogin.getText(),txtSenha.getPassword().toString())){
             this.dispose();
             new TelaPrincipal().setVisible(true);
         }

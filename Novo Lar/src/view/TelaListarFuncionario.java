@@ -48,7 +48,6 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 f.getCargaHoraria(),
                 f.getSalario(),
                 f.getPermissao(),
-                f.getSenha(),
                 f.getStatus()
             });
             
@@ -80,8 +79,7 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 f.getCargaHoraria(),
                 f.getSalario(),
                 f.getStatus(),
-                f.getPermissao(),
-                f.getSenha()
+                f.getPermissao()
             });
             
         }
@@ -97,6 +95,7 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAtualizar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         txtBusca = new javax.swing.JTextField();
@@ -105,6 +104,14 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem de funcionários ");
+
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setEnabled(false);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -136,17 +143,9 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "E-mail", "CPF", "Data Nascimento", "Data Contratação", "Cargo", "Carga-Horaria", "Salario", "status"
+                "Id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "E-mail", "CPF", "Data Nascimento", "Data Contratação", "Cargo", "Carga-Horaria", "Salario", "Nivel Permissão", "Status"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tabelaFunc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaFuncMouseClicked(evt);
@@ -158,16 +157,13 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tabelaFunc);
-        if (tabelaFunc.getColumnModel().getColumnCount() > 0) {
-            tabelaFunc.getColumnModel().getColumn(10).setResizable(false);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(772, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -175,12 +171,12 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAtualizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1440, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,14 +185,13 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(437, 437, 437)
-                .addComponent(btnExcluir)
+                .addGap(2, 2, 2)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnAtualizar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(37, Short.MAX_VALUE)))
         );
 
         pack();
@@ -235,11 +230,41 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
     private void tabelaFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncMouseClicked
         // TODO add your handling code here:
+         btnAtualizar.setEnabled(true);
     }//GEN-LAST:event_tabelaFuncMouseClicked
 
     private void tabelaFuncKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaFuncKeyReleased
 
     }//GEN-LAST:event_tabelaFuncKeyReleased
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        
+        if(tabelaFunc.getSelectedRow() != -1){
+            Funcionario f = new Funcionario();
+            FuncionarioDAO dao = new FuncionarioDAO();
+
+            f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());
+            f.setEndereco(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 2).toString());
+            f.setBairro(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 3).toString());
+            f.setCidade(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 4).toString());
+            f.setEstado(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 5).toString());
+            f.setCEP(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 6).toString());
+            f.setTelefone(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 7).toString());
+            f.setEmail(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 8).toString());
+            f.setCpf(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 9).toString());
+            f.setDataNasc(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 10).toString());
+            f.setDataContratacao(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 11).toString());
+            f.setCargo(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 12).toString());
+            f.setCargaHoraria(Double.parseDouble(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 13).toString()));
+            f.setStatus(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 14).toString());
+            f.setPermissao(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 15).toString()));
+            f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
+            
+            dao.update(f);
+            atualizarTabela();
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +302,7 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane3;
