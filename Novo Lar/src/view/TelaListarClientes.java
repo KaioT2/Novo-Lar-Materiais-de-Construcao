@@ -92,6 +92,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
         txtBusca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem de Clientes");
@@ -101,17 +102,9 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "CNPJ", "CPF", "Sexo", "Data Nascimento", "Telefone", "Email"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         tabelaCli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaCliMouseClicked(evt);
@@ -149,6 +142,14 @@ public class TelaListarClientes extends javax.swing.JFrame {
             }
         });
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setEnabled(false);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,6 +159,8 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAtualizar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 646, Short.MAX_VALUE)
@@ -179,7 +182,9 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExcluir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnAtualizar))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -189,6 +194,8 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
     private void tabelaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCliMouseClicked
         // TODO add your handling code here:
+        
+        btnAtualizar.setEnabled(true);
 
     }//GEN-LAST:event_tabelaCliMouseClicked
 
@@ -224,6 +231,44 @@ public class TelaListarClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um Cliente para excluir");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+
+        if(tabelaCli.getSelectedRow() != -1){
+            Cliente c = new Cliente();
+            ClienteDAO dao = new ClienteDAO();
+
+            c.setNome(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
+            
+            c.setEndereco(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 2).toString());
+            
+            c.setBairro(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 3).toString());
+            
+            c.setCidade(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 4).toString());
+            
+            c.setEstado(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 5).toString());
+            
+            c.setCep(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 6).toString());
+            
+            c.setCnpj((String) tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 7));
+            
+            c.setCpf(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 8).toString());
+            
+            c.setSexo(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 9).toString());
+            
+            c.setDataNasc(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 10).toString());
+            
+            c.setTelefone(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 11).toString());
+            
+            c.setEmail(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 12).toString());
+            
+            c.setIdCliente(Integer.parseInt(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0).toString()));
+            
+            dao.update(c);
+            atualizarTabela();
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,6 +307,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane3;
