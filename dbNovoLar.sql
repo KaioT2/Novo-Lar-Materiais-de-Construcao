@@ -24,8 +24,10 @@ create table produto(
     references fornecedor (idFornecedor),
     nome varchar(30) not null,
     codigo varchar(13) not null, 
-    precoUn float(7,2) not null,
-    quantidade float not null
+    categoria varchar (30) not null,
+    precoUn double(7,2) not null,
+    precoCusto double(7,2) not null,
+    estoque double not null
 );
 
 create table funcionario(
@@ -105,12 +107,19 @@ create table compra(
 select * from fornecedor;
 select * from funcionario;
 select * from cliente;
+select * from produto;
 
 delete from funcionario where idFuncionario = 1;
 
 insert into funcionario (idFuncionario, senha, nome, endereco, bairro, cidade, cep, estado, cpf, cargo, cargaHoraria, salario, telefone, email, dataNasc, dataContrata, status, permissao)
 values(null, "admin", "Kaio", "Rua", "Bairro", "cidade", "00", "Estado" ,"admin", "Gerente", 2, 3, "123333", "email", 2022/07/22, 2022/07/22, "ativo", 1);
-    
-    
+
+insert into fornecedor(idFornecedor, nome, cnpj, endereco, bairro, cidade, estado, CEP, telefone, email)
+values(null, "Forn", 1, "rua", "bairro", "cidade", "MG", 1, 1, "q"); 
+
+insert into produto (idProduto, idfornecedor, nome, codigo, categoria, precoUn, precoCusto, estoque)
+values(null, 1, "Teste", 12, "Teste", 12, 1, 1);
+
+SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, categoria, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f ON f.idFornecedor = p.idFornecedor;    
     
     

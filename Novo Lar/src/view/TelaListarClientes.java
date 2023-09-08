@@ -23,14 +23,14 @@ public class TelaListarClientes extends javax.swing.JFrame {
         initComponents();
         atualizarTabela();
     }
-    
-        public void atualizarTabela(){
+
+    public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
         modelo.setNumRows(0);
         ClienteDAO cdao = new ClienteDAO();
-        
-        for(Cliente c: cdao.read()){
-            
+
+        for (Cliente c : cdao.read()) {
+
             modelo.addRow(new Object[]{
                 c.getIdCliente(),
                 c.getNome(),
@@ -46,18 +46,18 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 c.getTelefone(),
                 c.getEmail()
             });
-            
+
         }
-        
+
     }
-    
-    public void searchJTableForName(String nome, String cpf){
+
+    public void searchJTableForName(String nome, String cpf) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
         modelo.setNumRows(0);
         ClienteDAO cdao = new ClienteDAO();
-        
-        for(Cliente c: cdao.searchForName(nome, cpf)){
-            
+
+        for (Cliente c : cdao.searchForName(nome, cpf)) {
+
             modelo.addRow(new Object[]{
                 c.getIdCliente(),
                 c.getNome(),
@@ -73,9 +73,9 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 c.getTelefone(),
                 c.getEmail()
             });
-            
+
         }
-        
+
     }
 
     /**
@@ -102,7 +102,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "CNPJ", "CPF", "Sexo", "Data Nascimento", "Telefone", "Email"
             }
         ));
         tabelaCli.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,7 +194,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
     private void tabelaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCliMouseClicked
         // TODO add your handling code here:
-        
+
         btnAtualizar.setEnabled(true);
 
     }//GEN-LAST:event_tabelaCliMouseClicked
@@ -214,20 +214,19 @@ public class TelaListarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        searchJTableForName(txtBusca.getText(),txtBusca.getText());
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(tabelaCli.getSelectedRow() != -1){
+        if (tabelaCli.getSelectedRow() != -1) {
             Cliente c = new Cliente();
             ClienteDAO dao = new ClienteDAO();
 
-            c.setIdCliente((int)tabelaCli.getValueAt(tabelaCli.getSelectedRow(),0));
+            c.setIdCliente((int) tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0));
 
             dao.delete(c);
             atualizarTabela();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione um Cliente para excluir");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -235,36 +234,24 @@ public class TelaListarClientes extends javax.swing.JFrame {
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
 
-        if(tabelaCli.getSelectedRow() != -1){
+        if (tabelaCli.getSelectedRow() != -1) {
             Cliente c = new Cliente();
             ClienteDAO dao = new ClienteDAO();
 
             c.setNome(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
-            
             c.setEndereco(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 2).toString());
-            
             c.setBairro(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 3).toString());
-            
             c.setCidade(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 4).toString());
-            
             c.setEstado(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 5).toString());
-            
             c.setCep(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 6).toString());
-            
             c.setCnpj((String) tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 7));
-            
             c.setCpf(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 8).toString());
-            
             c.setSexo(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 9).toString());
-            
             c.setDataNasc(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 10).toString());
-            
             c.setTelefone(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 11).toString());
-            
             c.setEmail(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 12).toString());
-            
             c.setIdCliente(Integer.parseInt(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0).toString()));
-            
+
             dao.update(c);
             atualizarTabela();
         }

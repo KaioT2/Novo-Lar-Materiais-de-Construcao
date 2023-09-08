@@ -15,19 +15,23 @@ public class Produto {
     private Fornecedor fornecedor;
     private String nome;
     private int codigo;
+    private String categoria;
     private Double precoUn;
-    private int quantidade;
+    private Double precoCusto;
+    private int estoque;
 
     public Produto() {
     }
 
-    public Produto(int idProduto, Fornecedor fornecedor, String nome, int codigo, Double precoUn, int quantidade) {
+    public Produto(int idProduto, Fornecedor fornecedor, String nome, int codigo, String categoria, Double precoUn, Double precoCusto, int estoque) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
         this.codigo = codigo;
+        this.categoria = categoria;
         this.precoUn = precoUn;
-        this.quantidade = quantidade;
+        this.precoCusto = precoCusto;
+        this.estoque = estoque;
     }
 
     public int getIdProduto() {
@@ -62,6 +66,14 @@ public class Produto {
         this.codigo = codigo;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     public Double getPrecoUn() {
         return precoUn;
     }
@@ -70,12 +82,20 @@ public class Produto {
         this.precoUn = precoUn;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public Double getPrecoCusto() {
+        return precoCusto;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setPrecoCusto(Double precoCusto) {
+        this.precoCusto = precoCusto;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
     }
 
     

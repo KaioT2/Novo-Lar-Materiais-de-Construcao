@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/DAO/FornecedorDAO.java</file>
-            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/view/TelaListarFuncionario.java</file>
-            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/view/TelaListaFornecedores.java</file>
-            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/DAO/FuncionarioDAO.java</file>
+            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/Fornecedor/Fornecedor.java</file>
+            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/view/TelaListarProdutos.java</file>
+            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/view/TelaCadProduto.java</file>
+            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/DAO/ProdutoDAO.java</file>
+            <file>file:/C:/Users/kaiof/Documents/PROJETOS%20DEV/Novo%20Lar/Novo-Lar-Materiais-de-Construcao-main/Novo-Lar-Materiais-de-Construcao/Novo%20Lar/src/view/TelaPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
