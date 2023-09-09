@@ -76,7 +76,10 @@ create table venda(
     references cliente (idCliente),
     idFuncionario int not null,
     foreign key (idfuncionario)
-    references funcionario (idFuncionario)
+    references funcionario (idFuncionario),
+    status_venda varchar(12) not null,
+    desconto double(5,2) not null,
+    dataVenda date not null
 );
 
 create table itens_da_venda(
@@ -88,7 +91,8 @@ create table itens_da_venda(
     foreign key (idProduto)
     references produto (idProduto),
     quantidade double not null,
-    subtotal double  not null
+    subtotal double not null,
+    total double not null
 );
 
 create table compra(
@@ -100,8 +104,26 @@ create table compra(
     idProduto int not null,
     foreign key (idProduto)
     references produto (idProduto),
+    idFuncionario int not null,
+    foreign key (idFuncionario)
+    references funcionario (idFuncionario),
+    total double not null,
+    dataCompra date not null
+);
+
+create table itens_da_compra(
+	idCompra int primary key not null auto_increment,
+    foreign key (idCompra)
+    references compra (idCompra),
+    idFornecedor int not null,
+    foreign key (idFornecedor)
+    references fornecedor (idFornecedor),
+    idProduto int not null,
+    foreign key (idProduto)
+    references produto (idProduto),
     quantidade double not null,
-    subtotal double not null
+    subtotal double not null,
+    total double not null
 );
 
 select * from fornecedor;
