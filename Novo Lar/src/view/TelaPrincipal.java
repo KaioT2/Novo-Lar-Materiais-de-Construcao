@@ -45,6 +45,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -63,15 +64,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesk.setLayout(jDeskLayout);
         jDeskLayout.setHorizontalGroup(
             jDeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 708, Short.MAX_VALUE)
         );
         jDeskLayout.setVerticalGroup(
             jDeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/engrenagem.png"))); // NOI18N
         btnExit.setText("Sistema");
 
+        btnEncerrarSecao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ligar.png"))); // NOI18N
         btnEncerrarSecao.setText("Encerrar Seção");
         btnEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -85,6 +88,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         btnExit.add(btnEncerrarSecao);
 
+        btnTrocarUsuário.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/do-utilizador.png"))); // NOI18N
         btnTrocarUsuário.setText("Trocar Usuário");
         btnTrocarUsuário.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -100,6 +104,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(btnExit);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastrar_icon.png"))); // NOI18N
         jMenu2.setText("Cadastros");
 
         jMenuItem2.setText("Funcionario");
@@ -134,11 +139,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem6);
 
+        jMenuItem7.setText("Categoria");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
+
         jMenuBar1.add(jMenu2);
 
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoque-pronto.png"))); // NOI18N
         jMenu6.setText("Estoque");
         jMenuBar1.add(jMenu6);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/venda_icon.png"))); // NOI18N
         jMenu5.setText("Vendas");
 
         jMenuItem5.setText("Nova Venda");
@@ -229,9 +244,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         TelaCadProduto telaCadProd = new TelaCadProduto();
-
-            telaCadProd.setVisible(true);
+        
+        telaCadProd.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        TelaCadCategoria telaCadCat = new TelaCadCategoria();
+        
+        telaCadCat.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,5 +308,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }

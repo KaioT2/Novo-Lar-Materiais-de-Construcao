@@ -56,7 +56,7 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        ArrayList<Cliente> clientees = new ArrayList();
+        ArrayList<Cliente> clientes = new ArrayList();
         
         try {
             stmt = con.prepareStatement("SELECT * FROM cliente");
@@ -80,7 +80,7 @@ public class ClienteDAO {
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEmail(rs.getString("email"));
                
-                clientees.add(cliente);
+                clientes.add(cliente);
             }
             
         } catch (SQLException ex) {
@@ -89,7 +89,7 @@ public class ClienteDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
-        return clientees;
+        return clientes;
     }
     
     public ArrayList<Cliente> searchForName(String nome, String cpf){

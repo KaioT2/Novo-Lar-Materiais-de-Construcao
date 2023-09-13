@@ -17,6 +17,11 @@ create table fornecedor (
     email varchar(30) not null
 );
 
+create table categoria (
+	idCategoria int primary key not null auto_increment,
+    descricao varchar (30) not null
+);
+
 create table produto(
 	idProduto int primary key not null auto_increment,
     idFornecedor int not null,
@@ -24,7 +29,9 @@ create table produto(
     references fornecedor (idFornecedor),
     nome varchar(30) not null,
     codigo varchar(13) not null, 
-    categoria varchar (30) not null,
+    idcategoria int not null,
+    foreign key (idcategoria)
+    references categoria (idCategoria),
     precoUn double(7,2) not null,
     precoCusto double(7,2) not null,
     estoque double not null
@@ -136,8 +143,8 @@ values(null, "admin", "Kaio", "Rua", "Bairro", "cidade", "00", "Estado" ,"admin"
 insert into fornecedor(idFornecedor, nome, cnpj, endereco, bairro, cidade, estado, CEP, telefone, email)
 values(null, "Forn", 1, "rua", "bairro", "cidade", "MG", 1, 1, "q"); 
 
-insert into produto (idProduto, idfornecedor, nome, codigo, categoria, precoUn, precoCusto, estoque)
-values(null, 1, "Teste", 12, "Teste", 12, 1, 1);
+insert into produto (idProduto, idfornecedor, nome, codigo, idcategoria, precoUn, precoCusto, estoque)
+values(null, 1, "Teste", 12, 1, 12, 1, 1);
 
 SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, categoria, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f ON f.idFornecedor = p.idFornecedor;    
     
