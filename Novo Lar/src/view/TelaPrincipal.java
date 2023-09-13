@@ -45,9 +45,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -126,7 +126,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem6.setText("jMenuItem6");
+        jMenuItem6.setText("Produto");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -136,15 +136,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu6.setText("Estoque");
+        jMenuBar1.add(jMenu6);
+
         jMenu5.setText("Vendas");
 
         jMenuItem5.setText("Nova Venda");
         jMenu5.add(jMenuItem5);
 
         jMenuBar1.add(jMenu5);
-
-        jMenu6.setText("Estoque");
-        jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
 

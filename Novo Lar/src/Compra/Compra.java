@@ -15,7 +15,6 @@ import Produto.Produto;
 public class Compra {
     private int idCompra;
     private Fornecedor fornecedor;
-    private Produto produto;
     private Funcionario funcionario;
     private double total;
     private String dataCompra;
@@ -23,10 +22,9 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(int idCompra, Fornecedor fornecedor, Produto produto, Funcionario funcionario, double total, String dataCompra) {
+    public Compra(int idCompra, Fornecedor fornecedor, Funcionario funcionario, double total, String dataCompra) {
         this.idCompra = idCompra;
         this.fornecedor = fornecedor;
-        this.produto = produto;
         this.funcionario = funcionario;
         this.total = total;
         this.dataCompra = dataCompra;
@@ -46,14 +44,6 @@ public class Compra {
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     public Funcionario getFuncionario() {
@@ -79,6 +69,6 @@ public class Compra {
     public void setDataCompra(String dataCompra) {
         this.dataCompra = dataCompra;
     }
-    
+
     
 }

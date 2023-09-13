@@ -101,9 +101,6 @@ create table compra(
     idFornecedor int not null,
     foreign key (idFornecedor)
     references fornecedor (idFornecedor),
-    idProduto int not null,
-    foreign key (idProduto)
-    references produto (idProduto),
     idFuncionario int not null,
     foreign key (idFuncionario)
     references funcionario (idFuncionario),
