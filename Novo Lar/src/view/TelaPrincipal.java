@@ -47,6 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
 
@@ -64,17 +65,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesk.setLayout(jDeskLayout);
         jDeskLayout.setHorizontalGroup(
             jDeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGap(0, 696, Short.MAX_VALUE)
         );
         jDeskLayout.setVerticalGroup(
             jDeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 461, Short.MAX_VALUE)
         );
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/engrenagem.png"))); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sistema_icon.png"))); // NOI18N
         btnExit.setText("Sistema");
 
-        btnEncerrarSecao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ligar.png"))); // NOI18N
+        btnEncerrarSecao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/power_icon.png"))); // NOI18N
         btnEncerrarSecao.setText("Encerrar Seção");
         btnEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -88,7 +89,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         btnExit.add(btnEncerrarSecao);
 
-        btnTrocarUsuário.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/do-utilizador.png"))); // NOI18N
+        btnTrocarUsuário.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/trocarUsuario_icon.png"))); // NOI18N
         btnTrocarUsuário.setText("Trocar Usuário");
         btnTrocarUsuário.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -149,9 +150,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoque-pronto.png"))); // NOI18N
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoque_icon.png"))); // NOI18N
         jMenu6.setText("Estoque");
         jMenuBar1.add(jMenu6);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorio_icon.png"))); // NOI18N
+        jMenu1.setText("Relatórios");
+        jMenuBar1.add(jMenu1);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/venda_icon.png"))); // NOI18N
         jMenu5.setText("Vendas");
@@ -167,7 +172,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesk)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDesk)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,6 +303,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu btnExit;
     private javax.swing.JMenuItem btnTrocarUsuário;
     private javax.swing.JDesktopPane jDesk;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

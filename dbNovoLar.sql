@@ -68,7 +68,7 @@ create table cliente(
     CEP varchar(9) not null,
     cnpj varchar(18),
     cpf varchar (14),
-    sexo varchar(1) not null,
+    sexo varchar(9) not null,
     dataNasc date not null,
     telefone varchar (15) not null,
     email varchar(30) not null

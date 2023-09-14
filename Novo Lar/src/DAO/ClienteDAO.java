@@ -92,7 +92,7 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public ArrayList<Cliente> searchForName(String nome, String cpf){
+    public ArrayList<Cliente> searchForName(String nome, String cpf, String cnpj){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -100,9 +100,10 @@ public class ClienteDAO {
         ArrayList<Cliente> clientees = new ArrayList();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome LIKE ? or cpf LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome LIKE ? or cpf LIKE ? OR cnpj LIKE ?");
             stmt.setString(1, "%"+nome+"%");
             stmt.setString(2, "%"+cpf+"%");
+            stmt.setString(3, "%"+cnpj+"%");
             rs = stmt.executeQuery();
             
             while(rs.next()){

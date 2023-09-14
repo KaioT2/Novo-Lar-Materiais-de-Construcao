@@ -51,12 +51,12 @@ public class TelaListarClientes extends javax.swing.JFrame {
 
     }
 
-    public void searchJTableForName(String nome, String cpf) {
+    public void searchJTableForName(String nome, String cpf, String cnpj) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
         modelo.setNumRows(0);
         ClienteDAO cdao = new ClienteDAO();
 
-        for (Cliente c : cdao.searchForName(nome, cpf)) {
+        for (Cliente c : cdao.searchForName(nome, cpf, cnpj)) {
 
             modelo.addRow(new Object[]{
                 c.getIdCliente(),
@@ -136,6 +136,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -196,6 +197,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         btnAtualizar.setEnabled(true);
+        btnExcluir.setEnabled(true);
 
     }//GEN-LAST:event_tabelaCliMouseClicked
 
@@ -209,12 +211,12 @@ public class TelaListarClientes extends javax.swing.JFrame {
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            searchJTableForName(txtBusca.getText(), txtBusca.getText());
+            searchJTableForName(txtBusca.getText(), txtBusca.getText(), txtBusca.getText());
         }
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        searchJTableForName(txtBusca.getText(), txtBusca.getText());
+        searchJTableForName(txtBusca.getText(), txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

@@ -30,7 +30,7 @@
         <Menu class="javax.swing.JMenu" name="btnExit">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagens/engrenagem.png"/>
+              <Image iconType="3" name="/Imagens/sistema_icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sistema"/>
           </Properties>
@@ -38,7 +38,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="btnEncerrarSecao">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/ligar.png"/>
+                  <Image iconType="3" name="/Imagens/power_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Encerrar Se&#xe7;&#xe3;o"/>
               </Properties>
@@ -50,7 +50,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="btnTrocarUsu&#xe1;rio">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/do-utilizador.png"/>
+                  <Image iconType="3" name="/Imagens/trocarUsuario_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Trocar Usu&#xe1;rio"/>
               </Properties>
@@ -114,9 +114,17 @@
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagens/estoque-pronto.png"/>
+              <Image iconType="3" name="/Imagens/estoque_icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Estoque"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagens/relatorio_icon.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
@@ -160,7 +168,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jDesk" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jDesk" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -175,7 +187,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="708" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="696" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
