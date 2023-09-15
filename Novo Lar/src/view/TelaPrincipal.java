@@ -60,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAutoRequestFocus(false);
 
         javax.swing.GroupLayout jDeskLayout = new javax.swing.GroupLayout(jDesk);
         jDesk.setLayout(jDeskLayout);
