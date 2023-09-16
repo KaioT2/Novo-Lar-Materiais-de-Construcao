@@ -4,6 +4,7 @@
  */
 package Produto;
 
+import Categoria.Categoria;
 import Fornecedor.Fornecedor;
 
 /**
@@ -15,7 +16,7 @@ public class Produto {
     private Fornecedor fornecedor;
     private String nome;
     private int codigo;
-    private String categoria;
+    private Categoria categoria;
     private Double precoUn;
     private Double precoCusto;
     private int estoque;
@@ -23,7 +24,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(int idProduto, Fornecedor fornecedor, String nome, int codigo, String categoria, Double precoUn, Double precoCusto, int estoque) {
+    public Produto(int idProduto, Fornecedor fornecedor, String nome, int codigo, Categoria categoria, Double precoUn, Double precoCusto, int estoque) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
@@ -66,11 +67,11 @@ public class Produto {
         this.codigo = codigo;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

@@ -145,7 +145,6 @@ values(null, "Forn", 1, "rua", "bairro", "cidade", "MG", 1, 1, "q");
 
 insert into produto (idProduto, idfornecedor, nome, codigo, idcategoria, precoUn, precoCusto, estoque)
 values(null, 1, "Teste", 12, 1, 12, 1, 1);
-
-SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, categoria, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f ON f.idFornecedor = p.idFornecedor;    
     
-    
+SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque 
+FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria;

@@ -83,6 +83,7 @@ public class TelaListarCategoria extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -210,6 +211,7 @@ public class TelaListarCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         btnAtualizar.setEnabled(true);
+        btnExcluir.setEnabled(true);
     }//GEN-LAST:event_tabelaCategoriaMouseClicked
 
     private void tabelaCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCategoriaKeyReleased

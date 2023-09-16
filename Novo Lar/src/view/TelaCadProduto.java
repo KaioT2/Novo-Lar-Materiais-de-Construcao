@@ -4,6 +4,7 @@
  */
 package view;
 
+import Categoria.Categoria;
 import DAO.ProdutoDAO;
 import Fornecedor.Fornecedor;
 import Produto.Produto;
@@ -234,11 +235,14 @@ public class TelaCadProduto extends javax.swing.JFrame {
         
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setIdFornecedor(Integer.parseInt(txtFornecedor.getText()));
+        
+        Categoria categoria = new Categoria();
+        categoria.setIdCategoria(Integer.parseInt(txtCategoria.getText()));
 
         p.setNome(txtNome.getText());
         p.setFornecedor(fornecedor);
         p.setCodigo(Integer.parseInt(txtCodigo.getText()));
-        p.setCategoria(txtCategoria.getText());
+        p.setCategoria(categoria);
         p.setPrecoUn(Double.parseDouble(txtPreco.getText()));
         p.setPrecoCusto(Double.parseDouble(txtCusto.getText()));
         p.setEstoque(Integer.parseInt(txtEstoque.getText()));

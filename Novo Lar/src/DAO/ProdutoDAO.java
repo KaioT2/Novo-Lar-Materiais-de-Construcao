@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Categoria.Categoria;
 import Connection.ConnectionFactory;
 import Fornecedor.Fornecedor;
 import Produto.Produto;
@@ -34,11 +35,11 @@ public class ProdutoDAO {
             rs = stmt.executeQuery();
 
             if (rs.next() && rs.getInt(1) == 0) {
-                stmt = con.prepareStatement("INSERT INTO produto (idFornecedor, nome, codigo, categoria, precoUn, precoCusto, estoque) VALUES(?,?,?,?,?,?,?)");
+                stmt = con.prepareStatement("INSERT INTO produto (idFornecedor, nome, codigo, idCategoria, precoUn, precoCusto, estoque) VALUES(?,?,?,?,?,?,?)");
                 stmt.setInt(1, p.getFornecedor().getIdFornecedor());
                 stmt.setString(2, p.getNome());
                 stmt.setInt(3, p.getCodigo());
-                stmt.setString(4, p.getCategoria());
+                stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
                 stmt.setInt(7, p.getEstoque());
@@ -64,21 +65,26 @@ public class ProdutoDAO {
         ArrayList<Produto> produtos = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, categoria, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f ON f.idFornecedor = p.idFornecedor");
+            stmt = con.prepareStatement("SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
 
                 Produto produto = new Produto();
                 Fornecedor fornecedor = new Fornecedor();
-                
+                Categoria categoria = new Categoria();
 
                 produto.setIdProduto(rs.getInt("pid"));
+                
                 fornecedor.setIdFornecedor(rs.getInt("pforn"));
                 produto.setFornecedor(fornecedor);
+                
                 produto.setNome(rs.getString("pnome"));
                 produto.setCodigo(rs.getInt("codigo"));
-                produto.setCategoria(rs.getString("categoria"));
+                
+                categoria.setIdCategoria(rs.getInt("pcat"));
+                produto.setCategoria(categoria);
+                
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
                 produto.setEstoque(rs.getInt("estoque"));
@@ -112,7 +118,7 @@ public class ProdutoDAO {
 
                 Produto produto = new Produto();
                 Fornecedor fornecedor = new Fornecedor();
-                
+                Categoria categoria = new Categoria();
 
                 produto.setIdProduto(rs.getInt("idProduto"));
                 
@@ -121,7 +127,10 @@ public class ProdutoDAO {
                 
                 produto.setNome(rs.getString("nome"));
                 produto.setCodigo(rs.getInt("codigo"));
-                produto.setCategoria(rs.getString("categoria"));
+                
+                categoria.setIdCategoria(rs.getInt("idCategoria"));
+                produto.setCategoria(categoria);
+                
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
                 produto.setEstoque(rs.getInt("estoque"));
@@ -144,11 +153,11 @@ public class ProdutoDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE produto SET idFornecedor = ?, nome = ?, codigo = ?, categoria = ?, precoUn = ?, precoCusto = ? estoque = ? WHERE idProduto = ?");
+            stmt = con.prepareStatement("UPDATE produto SET idFornecedor = ?, nome = ?, codigo = ?, idCategoria = ?, precoUn = ?, precoCusto = ? estoque = ? WHERE idProduto = ?");
                 stmt.setInt(1, p.getFornecedor().getIdFornecedor());
                 stmt.setString(2, p.getNome());
                 stmt.setInt(3, p.getCodigo());
-                stmt.setString(4, p.getCategoria());
+                stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
                 stmt.setInt(7, p.getIdProduto());
