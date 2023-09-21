@@ -4,8 +4,10 @@
  */
 package view;
 
-import Cliente.Cliente;
-import DAO.ClienteDAO;
+import Categoria.Categoria;
+import Produto.Produto;
+import DAO.ProdutoDAO;
+import Fornecedor.Fornecedor;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,64 +16,54 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Kaio Dias
  */
-public class TelaListarClientes extends javax.swing.JFrame {
+public class TelaProdutosVenda extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaListarFuncionarios
      */
-    public TelaListarClientes() {
+    public TelaProdutosVenda() {
         initComponents();
         atualizarTabela();
     }
 
     public void atualizarTabela() {
-        DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);
-        ClienteDAO cdao = new ClienteDAO();
+        ProdutoDAO pdao = new ProdutoDAO();
 
-        for (Cliente c : cdao.read()) {
+        for (Produto p : pdao.read()) {
 
             modelo.addRow(new Object[]{
-                c.getIdCliente(),
-                c.getNome(),
-                c.getEndereco(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getEstado(),
-                c.getCep(),
-                c.getCnpj(),
-                c.getCpf(),
-                c.getSexo(),
-                c.getDataNasc(),
-                c.getTelefone(),
-                c.getEmail()
+                p.getIdProduto(),
+                p.getFornecedor().getIdFornecedor(),
+                p.getNome(),
+                p.getCodigo(),
+                p.getCategoria().getIdCategoria(),
+                p.getPrecoUn(),
+                p.getPrecoCusto(),
+                p.getEstoque()
             });
 
         }
 
     }
 
-    public void searchJTableForName(String nome, String cpf, String cnpj) {
-        DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
+    public void searchJTableForName(String nome, String codigo) {
+        DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);
-        ClienteDAO cdao = new ClienteDAO();
+        ProdutoDAO pdao = new ProdutoDAO();
 
-        for (Cliente c : cdao.searchForName(nome, cpf, cnpj)) {
+        for (Produto p : pdao.searchForName(nome, codigo)) {
 
             modelo.addRow(new Object[]{
-                c.getIdCliente(),
-                c.getNome(),
-                c.getEndereco(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getEstado(),
-                c.getCep(),
-                c.getCnpj(),
-                c.getCpf(),
-                c.getSexo(),
-                c.getDataNasc(),
-                c.getTelefone(),
-                c.getEmail()
+                p.getIdProduto(),
+                p.getFornecedor().getIdFornecedor(),
+                p.getNome(),
+                p.getCodigo(),
+                p.getCategoria().getIdCategoria(),
+                p.getPrecoUn(),
+                p.getPrecoCusto(),
+                p.getEstoque()
             });
 
         }
@@ -88,34 +80,33 @@ public class TelaListarClientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabelaCli = new javax.swing.JTable();
+        tabelaProd = new javax.swing.JTable();
         txtBusca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Listagem de Clientes");
+        setTitle("Listagem de Produtos");
 
-        tabelaCli.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "CNPJ", "CPF", "Sexo", "Data Nascimento", "Telefone", "Email"
+                "id", "fornecedor", "nome", "codigo", "categoria", "preço", "custo", "estoque"
             }
         ));
-        tabelaCli.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaProd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaCliMouseClicked(evt);
+                tabelaProdMouseClicked(evt);
             }
         });
-        tabelaCli.addKeyListener(new java.awt.event.KeyAdapter() {
+        tabelaProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tabelaCliKeyReleased(evt);
+                tabelaProdKeyReleased(evt);
             }
         });
-        jScrollPane3.setViewportView(tabelaCli);
+        jScrollPane3.setViewportView(tabelaProd);
 
         txtBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,14 +126,6 @@ public class TelaListarClientes extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setText("Excluir");
-        btnExcluir.setEnabled(false);
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         btnAtualizar.setText("Atualizar");
         btnAtualizar.setEnabled(false);
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,11 +141,6 @@ public class TelaListarClientes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAtualizar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 646, Short.MAX_VALUE)
                         .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,7 +149,10 @@ public class TelaListarClientes extends javax.swing.JFrame {
                         .addGap(81, 81, 81))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAtualizar)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +164,7 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnAtualizar))
+                .addComponent(btnAtualizar)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -193,16 +172,15 @@ public class TelaListarClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tabelaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCliMouseClicked
+    private void tabelaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdMouseClicked
         // TODO add your handling code here:
 
         btnAtualizar.setEnabled(true);
         btnExcluir.setEnabled(true);
+    }//GEN-LAST:event_tabelaProdMouseClicked
 
-    }//GEN-LAST:event_tabelaCliMouseClicked
-
-    private void tabelaCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCliKeyReleased
-    }//GEN-LAST:event_tabelaCliKeyReleased
+    private void tabelaProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaProdKeyReleased
+    }//GEN-LAST:event_tabelaProdKeyReleased
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
         // TODO add your handling code here:
@@ -211,49 +189,36 @@ public class TelaListarClientes extends javax.swing.JFrame {
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            searchJTableForName(txtBusca.getText(), txtBusca.getText(), txtBusca.getText());
+            searchJTableForName(txtBusca.getText(), txtBusca.getText());
         }
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        searchJTableForName(txtBusca.getText(), txtBusca.getText(), txtBusca.getText());
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (tabelaCli.getSelectedRow() != -1) {
-            Cliente c = new Cliente();
-            ClienteDAO dao = new ClienteDAO();
-
-            c.setIdCliente((int) tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0));
-
-            dao.delete(c);
-            atualizarTabela();
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um Cliente para excluir");
-        }
-    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
 
-        if (tabelaCli.getSelectedRow() != -1) {
-            Cliente c = new Cliente();
-            ClienteDAO dao = new ClienteDAO();
-
-            c.setNome(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
-            c.setEndereco(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 2).toString());
-            c.setBairro(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 3).toString());
-            c.setCidade(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 4).toString());
-            c.setEstado(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 5).toString());
-            c.setCep(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 6).toString());
-            c.setCnpj((String) tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 7));
-            c.setCpf(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 8).toString());
-            c.setSexo(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 9).toString());
-            c.setDataNasc(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 10).toString());
-            c.setTelefone(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 11).toString());
-            c.setEmail(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 12).toString());
-            c.setIdCliente(Integer.parseInt(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0).toString()));
-
+        if (tabelaProd.getSelectedRow() != -1) {
+            Produto c = new Produto();
+            ProdutoDAO dao = new ProdutoDAO();
+            
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setIdFornecedor(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 1).toString()));
+            c.setFornecedor(fornecedor);
+            
+            c.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
+            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),3).toString()));
+            
+            Categoria categoria = new Categoria();
+            categoria.setIdCategoria(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 4).toString()));
+            c.setCategoria(categoria);
+            
+            c.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),5).toString()));
+            c.setPrecoCusto(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),6).toString()));
+            c.setEstoque(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),7).toString()));
+            c.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),0).toString()));
             dao.update(c);
             atualizarTabela();
         }
@@ -276,31 +241,36 @@ public class TelaListarClientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProdutosVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProdutosVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProdutosVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaListarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProdutosVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaListarClientes().setVisible(true);
+                new TelaProdutosVenda().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
-    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tabelaCli;
+    private javax.swing.JTable tabelaProd;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }
