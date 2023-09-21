@@ -42,7 +42,7 @@ public class ProdutoDAO {
                 stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
-                stmt.setInt(7, p.getEstoque());
+                stmt.setDouble(7, p.getEstoque());
                 
 
                 stmt.executeUpdate();
@@ -87,7 +87,7 @@ public class ProdutoDAO {
                 
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
-                produto.setEstoque(rs.getInt("estoque"));
+                produto.setEstoque(rs.getDouble("estoque"));
 
                 produtos.add(produto);
             }
@@ -133,7 +133,7 @@ public class ProdutoDAO {
                 
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
-                produto.setEstoque(rs.getInt("estoque"));
+                produto.setEstoque(rs.getDouble("estoque"));
 
                 produtos.add(produto);
             }
@@ -160,9 +160,9 @@ public class ProdutoDAO {
                 stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
-                stmt.setInt(7, p.getIdProduto());
-                stmt.setInt(8, p.getEstoque());
-
+                stmt.setDouble(7, p.getEstoque());
+                stmt.setInt(8, p.getIdProduto());
+                
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {

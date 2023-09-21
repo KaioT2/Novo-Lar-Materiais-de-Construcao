@@ -245,7 +245,7 @@ public class TelaCadProduto extends javax.swing.JFrame {
         p.setCategoria(categoria);
         p.setPrecoUn(Double.parseDouble(txtPreco.getText()));
         p.setPrecoCusto(Double.parseDouble(txtCusto.getText()));
-        p.setEstoque(Integer.parseInt(txtEstoque.getText()));
+        p.setEstoque(Double.parseDouble(txtEstoque.getText()));
 
         dao.create(p);
     }//GEN-LAST:event_btnInserirActionPerformed

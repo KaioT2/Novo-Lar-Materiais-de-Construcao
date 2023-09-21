@@ -19,12 +19,12 @@ public class Produto {
     private Categoria categoria;
     private Double precoUn;
     private Double precoCusto;
-    private int estoque;
+    private Double estoque;
 
     public Produto() {
     }
 
-    public Produto(int idProduto, Fornecedor fornecedor, String nome, int codigo, Categoria categoria, Double precoUn, Double precoCusto, int estoque) {
+    public Produto(int idProduto, Fornecedor fornecedor, String nome, int codigo, Categoria categoria, Double precoUn, Double precoCusto, Double estoque) {
         this.idProduto = idProduto;
         this.fornecedor = fornecedor;
         this.nome = nome;
@@ -91,11 +91,11 @@ public class Produto {
         this.precoCusto = precoCusto;
     }
 
-    public int getEstoque() {
+    public Double getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(int estoque) {
+    public void setEstoque(Double estoque) {
         this.estoque = estoque;
     }
 
