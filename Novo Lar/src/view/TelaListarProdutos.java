@@ -233,18 +233,19 @@ public class TelaListarProdutos extends javax.swing.JFrame {
             
             Fornecedor fornecedor = new Fornecedor();
             fornecedor.setIdFornecedor(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 1).toString()));
+            c.setFornecedor(fornecedor);
+            
+            c.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
+            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),3).toString()));
             
             Categoria categoria = new Categoria();
             categoria.setIdCategoria(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 4).toString()));
-
-            c.setFornecedor(fornecedor);
-            c.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
-            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),3).toString()));
             c.setCategoria(categoria);
-            c.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),4).toString()));
-            c.setPrecoCusto(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),5).toString()));
-            c.setEstoque(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),6).toString()));
             
+            c.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),5).toString()));
+            c.setPrecoCusto(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),6).toString()));
+            c.setEstoque(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),7).toString()));
+            c.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),0).toString()));
             dao.update(c);
             atualizarTabela();
         }

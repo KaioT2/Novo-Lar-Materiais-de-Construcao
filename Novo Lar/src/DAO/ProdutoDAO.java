@@ -42,7 +42,7 @@ public class ProdutoDAO {
                 stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
-                stmt.setDouble(7, p.getEstoque());
+                stmt.setInt(7, p.getEstoque());
                 
 
                 stmt.executeUpdate();
@@ -87,7 +87,7 @@ public class ProdutoDAO {
                 
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
-                produto.setEstoque(rs.getDouble("estoque"));
+                produto.setEstoque(rs.getInt("estoque"));
 
                 produtos.add(produto);
             }
@@ -133,7 +133,7 @@ public class ProdutoDAO {
                 
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
-                produto.setEstoque(rs.getDouble("estoque"));
+                produto.setEstoque(rs.getInt("estoque"));
 
                 produtos.add(produto);
             }
@@ -153,17 +153,18 @@ public class ProdutoDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE produto SET idFornecedor = ?, nome = ?, codigo = ?, idCategoria = ?, precoUn = ?, precoCusto = ? estoque = ? WHERE idProduto = ?");
+            stmt = con.prepareStatement("UPDATE produto SET idFornecedor = ?, nome = ?, codigo = ?, idCategoria = ?, precoUn = ?, precoCusto = ?, estoque = ? WHERE idProduto = ?");
                 stmt.setInt(1, p.getFornecedor().getIdFornecedor());
                 stmt.setString(2, p.getNome());
                 stmt.setInt(3, p.getCodigo());
                 stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
-                stmt.setDouble(7, p.getEstoque());
+                stmt.setInt(7, p.getEstoque());
                 stmt.setInt(8, p.getIdProduto());
                 
             stmt.executeUpdate();
+            
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
