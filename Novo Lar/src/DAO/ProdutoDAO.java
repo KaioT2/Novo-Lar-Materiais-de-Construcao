@@ -113,7 +113,6 @@ public class ProdutoDAO {
             stmt.setString(1, "%" + nome + "%");
             stmt.setString(2, "%" + codigo + "%");
             rs = stmt.executeQuery();
-
             while (rs.next()) {
 
                 Produto produto = new Produto();

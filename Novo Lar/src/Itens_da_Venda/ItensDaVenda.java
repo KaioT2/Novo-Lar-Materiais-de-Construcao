@@ -12,21 +12,33 @@ import Venda.Venda;
  * @author Kaio Dias
  */
 public class ItensDaVenda {
+    private int idItemVenda;
     private Venda venda;
     private Produto produto;
     private double quantidade;
+    private double desconto;
     private double subtotal;
     private double total;
 
     public ItensDaVenda() {
     }
 
-    public ItensDaVenda(Venda venda, Produto produto, double quantidade, double subtotal, double total) {
+    public ItensDaVenda(int idItemVenda, Venda venda, Produto produto, double quantidade, double desconto, double subtotal, double total) {
+        this.idItemVenda = idItemVenda;
         this.venda = venda;
         this.produto = produto;
         this.quantidade = quantidade;
+        this.desconto = desconto;
         this.subtotal = subtotal;
         this.total = total;
+    }
+
+    public int getIdItemVenda() {
+        return idItemVenda;
+    }
+
+    public void setIdItemVenda(int idItemVenda) {
+        this.idItemVenda = idItemVenda;
     }
 
     public Venda getVenda() {
@@ -53,6 +65,14 @@ public class ItensDaVenda {
         this.quantidade = quantidade;
     }
 
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+
     public double getSubtotal() {
         return subtotal;
     }
@@ -68,6 +88,7 @@ public class ItensDaVenda {
     public void setTotal(double total) {
         this.total = total;
     }
+
     
     
 }

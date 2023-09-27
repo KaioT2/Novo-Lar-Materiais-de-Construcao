@@ -72,7 +72,7 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnAlterar" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnNovoItem" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
@@ -128,7 +128,7 @@
                   <Component id="jTabbedPane1" min="-2" pref="315" max="-2" attributes="0"/>
                   <EmptySpace pref="28" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNovoItem" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -171,13 +171,13 @@
                 <Component class="javax.swing.JTable" name="tabelaVenda">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="1">
+                      <Table columnCount="7" rowCount="2">
                         <Column editable="true" title="Item" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Nome" type="java.lang.Object"/>
+                        <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
                         <Column editable="true" title="Quantidade" type="java.lang.Object"/>
                         <Column editable="true" title="Desconto" type="java.lang.Object"/>
-                        <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
                         <Column editable="true" title="Subtotal" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -278,15 +278,21 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnAlterar">
+        <Component class="javax.swing.JButton" name="btnNovoItem">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="text" type="java.lang.String" value="Novo Item"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoItemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluir">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="text" type="java.lang.String" value="Excluir Item"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotal">
         </Component>
@@ -327,7 +333,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Validade:"/>
+            <Property name="text" type="java.lang.String" value="Vencimento:"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -13,6 +13,7 @@ import Produto.Produto;
  * @author Kaio Dias
  */
 public class ItensDaCompra {
+    private int idItemCompra;
     private Compra compra;
     private Fornecedor fornecedor;
     private Produto produto;
@@ -23,13 +24,22 @@ public class ItensDaCompra {
     public ItensDaCompra() {
     }
 
-    public ItensDaCompra(Compra compra, Fornecedor fornecedor, Produto produto, double quantidade, double subtotal, double total) {
+    public ItensDaCompra(int idItemCompra, Compra compra, Fornecedor fornecedor, Produto produto, double quantidade, double subtotal, double total) {
+        this.idItemCompra = idItemCompra;
         this.compra = compra;
         this.fornecedor = fornecedor;
         this.produto = produto;
         this.quantidade = quantidade;
         this.subtotal = subtotal;
         this.total = total;
+    }
+
+    public int getIdItemCompra() {
+        return idItemCompra;
+    }
+
+    public void setIdItemCompra(int idItemCompra) {
+        this.idItemCompra = idItemCompra;
     }
 
     public Compra getCompra() {
@@ -79,6 +89,6 @@ public class ItensDaCompra {
     public void setTotal(double total) {
         this.total = total;
     }
-    
+
     
 }

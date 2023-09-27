@@ -4,43 +4,45 @@
  */
 package view;
 
-import DAO.ProdutoDAO;
+import Itens_da_Venda.ItensDaVenda;
 import Produto.Produto;
-import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import view.TelaListarProdutos;
+import Produto.ProdutoTableModel;
 
 /**
  *
  * @author Kaio Dias
  */
-public class Tela extends javax.swing.JFrame {
-
+public class TelaVenda extends javax.swing.JFrame {
+    ProdutoTableModel model = new ProdutoTableModel();
     /**
      * Creates new form TelaVenda
      */
-    public Tela() {
+    
+    public TelaVenda() {
         initComponents();
+        tabelaVenda.setModel(model);
+        model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn());
     }
     
-        public void inserirProduto() {
-        DefaultTableModel modelo = (DefaultTableModel) tabelaVenda.getModel();
-        modelo.setNumRows(0);
-        ProdutoDAO pdao = new ProdutoDAO();
-
-        for (Produto p : pdao.read()) {
-
-            modelo.addRow(new Object[]{
-                p.getNome(),
-                p.getCodigo(),
-                p.getPrecoUn(),
-            });
-        }
-
+    
+    public void inserirItem(Produto pr, ItensDaVenda i) {
+        
+        Produto novoProduto = new Produto();
+        
+        novoProduto.setCodigo(pr.getCodigo());
+        novoProduto.setNome(pr.getNome());
+        novoProduto.setPrecoUn(pr.getPrecoUn());
+        
+        ItensDaVenda novoItem = new ItensDaVenda();
+        
+        novoItem.setDesconto(i.getDesconto());
+        novoItem.setQuantidade(i.getQuantidade());
+        
+        model.addRow(novoProduto,novoItem);
+        
+        model.calcularEAtualizarSubtotal(model.getRowCount()-1);
     }
-
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +65,7 @@ public class Tela extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        btnAlterar = new javax.swing.JButton();
+        btnNovoItem = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         txtTotal = new javax.swing.JTextField();
         comboFuncionario = new javax.swing.JComboBox<>();
@@ -78,10 +80,11 @@ public class Tela extends javax.swing.JFrame {
 
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Item", "Código", "Nome", "Quantidade", "Desconto", "Preço", "Subtotal"
+                "Item", "Código", "Nome", "Preço", "Quantidade", "Desconto", "Subtotal"
             }
         ));
         tabelaVenda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -115,9 +118,19 @@ public class Tela extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Observações", jPanel2);
 
-        btnAlterar.setText("Alterar");
+        btnNovoItem.setText("Novo Item");
+        btnNovoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoItemActionPerformed(evt);
+            }
+        });
 
-        btnExcluir.setText("Excluir");
+        btnExcluir.setText("Excluir Item");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         comboFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -129,7 +142,7 @@ public class Tela extends javax.swing.JFrame {
 
         jLabel4.setText("Data:");
 
-        jLabel5.setText("Validade:");
+        jLabel5.setText("Vencimento:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,7 +175,7 @@ public class Tela extends javax.swing.JFrame {
                             .addComponent(txtData)
                             .addComponent(txtValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAlterar)
+                        .addComponent(btnNovoItem)
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -204,7 +217,7 @@ public class Tela extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlterar)
+                    .addComponent(btnNovoItem)
                     .addComponent(btnExcluir)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
@@ -225,16 +238,22 @@ public class Tela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaVendaKeyPressed
+    }//GEN-LAST:event_tabelaVendaKeyPressed
+
+    private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
         // TODO add your handling code here:
         
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if (tabelaVenda.getSelectedRow() != -1) {
-                        TelaProdutosVenda tela = new TelaProdutosVenda();
-                        
-                        tela.setVisible(true);
-                    }
-                }
-    }//GEN-LAST:event_tabelaVendaKeyPressed
+        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
+        telaProdutos.setVisible(true);
+    }//GEN-LAST:event_btnNovoItemActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        
+        if(tabelaVenda.getSelectedRow() != -1){
+            model.removeRow(tabelaVenda.getSelectedRow());
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,28 +272,30 @@ public class Tela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tela().setVisible(true);
+                new TelaVenda().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovoItem;
     private javax.swing.JComboBox<String> comboFuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

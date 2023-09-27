@@ -7,7 +7,10 @@ package view;
 import Categoria.Categoria;
 import Produto.Produto;
 import DAO.ProdutoDAO;
+import DAO.VendaDAO;
 import Fornecedor.Fornecedor;
+import Itens_da_Venda.ItensDaVenda;
+import Produto.ProdutoTableModel;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,13 +20,21 @@ import javax.swing.table.DefaultTableModel;
  * @author Kaio Dias
  */
 public class TelaProdutosVenda extends javax.swing.JFrame {
-
+    private TelaVenda telaVenda;
     /**
      * Creates new form TelaListarFuncionarios
      */
     public TelaProdutosVenda() {
+        this.telaVenda = telaVenda;
         initComponents();
         atualizarTabela();
+    }
+    
+    public TelaProdutosVenda(TelaVenda telaVenda) {
+        this.telaVenda = telaVenda;
+        initComponents();
+        atualizarTabela();
+        // Outras inicializações
     }
 
     public void atualizarTabela() {
@@ -47,8 +58,8 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         }
 
     }
-
-    public void searchJTableForName(String nome, String codigo) {
+    
+       public void searchJTableForName(String nome, String codigo) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);
         ProdutoDAO pdao = new ProdutoDAO();
@@ -69,6 +80,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         }
 
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,7 +107,15 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
             new String [] {
                 "id", "fornecedor", "nome", "codigo", "categoria", "preço", "custo", "estoque"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaProd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaProdMouseClicked(evt);
@@ -173,10 +193,28 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdMouseClicked
-        // TODO add your handling code here:
-
         btnAtualizar.setEnabled(true);
-        btnExcluir.setEnabled(true);
+
+        if (evt.getClickCount() == 2) { // Duplo clique
+            if (tabelaProd.getSelectedRow() != -1) {
+                
+                Produto p = new Produto();
+                
+                p.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
+                p.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString()));
+                p.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
+                p.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
+                
+                ItensDaVenda i = new ItensDaVenda();
+                
+                i.setDesconto(0.0);
+                i.setQuantidade(1);
+
+                // Use a referência da TelaVenda para chamar o método atualizarTabela na instância correta
+                telaVenda.inserirItem(p, i);
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_tabelaProdMouseClicked
 
     private void tabelaProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaProdKeyReleased
@@ -203,22 +241,22 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         if (tabelaProd.getSelectedRow() != -1) {
             Produto c = new Produto();
             ProdutoDAO dao = new ProdutoDAO();
-            
+
             Fornecedor fornecedor = new Fornecedor();
             fornecedor.setIdFornecedor(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 1).toString()));
             c.setFornecedor(fornecedor);
-            
+
             c.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
-            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),3).toString()));
-            
+            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString()));
+
             Categoria categoria = new Categoria();
             categoria.setIdCategoria(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 4).toString()));
             c.setCategoria(categoria);
-            
-            c.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),5).toString()));
-            c.setPrecoCusto(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),6).toString()));
-            c.setEstoque(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),7).toString()));
-            c.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),0).toString()));
+
+            c.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
+            c.setPrecoCusto(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 6).toString()));
+            c.setEstoque(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 7).toString()));
+            c.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
             dao.update(c);
             atualizarTabela();
         }

@@ -1,8 +1,19 @@
-create database dbNovoLar;
-
 drop database dbNovoLar;
 
+create database dbNovoLar;
+
 use dbNovoLar;
+
+select * from fornecedor;
+select * from funcionario;
+select * from cliente;
+select * from produto;
+select * from itens_da_venda;
+select * from venda;
+
+select sum(total) from itens_da_venda where idvenda = 1;
+
+delete from funcionario where idFuncionario = 1;
 
 create table fornecedor (
 	idFornecedor int primary key not null auto_increment,
@@ -13,7 +24,7 @@ create table fornecedor (
     cidade varchar (30) not null,
     estado varchar (2) not null,
     CEP varchar(9) not null,
-    telefone varchar(13) not null,
+    telefone varchar(15) not null,
     email varchar(30) not null
 );
 
@@ -90,7 +101,8 @@ create table venda(
 );
 
 create table itens_da_venda(
-	idVenda int primary key not null,
+	idItemVenda int primary key not null auto_increment,
+	idVenda int not null,
     foreign key (idVenda)
     references venda (idVenda),
     data date not null,
@@ -98,7 +110,8 @@ create table itens_da_venda(
     foreign key (idProduto)
     references produto (idProduto),
     quantidade double not null,
-    subtotal double not null,
+    precoUn double(7,2) not null,
+    desconto double(5,2) not null,
     total double not null
 );
 
@@ -116,7 +129,8 @@ create table compra(
 );
 
 create table itens_da_compra(
-	idCompra int primary key not null auto_increment,
+	idItemCompra int primary key not null auto_increment,
+	idCompra int not null ,
     foreign key (idCompra)
     references compra (idCompra),
     idFornecedor int not null,
@@ -130,19 +144,13 @@ create table itens_da_compra(
     total double not null
 );
 
-select * from fornecedor;
-select * from funcionario;
-select * from cliente;
-select * from produto;
-
-delete from funcionario where idFuncionario = 1;
 
 insert into funcionario (idFuncionario, senha, nome, endereco, bairro, cidade, cep, estado, cpf, cargo, cargaHoraria, salario, telefone, email, dataNasc, dataContrata, status, permissao)
 values(null, "admin", "Kaio", "Rua", "Bairro", "cidade", "00", "Estado" ,"admin", "Gerente", 2, 3, "123333", "email", 2022/07/22, 2022/07/22, "ativo", 1);
     
     -- Select que conecta tabelas com chave estrangeira no programa;
 SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque 
-FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria;
+FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria where p.idProduto =1;
 
 -- Inserção de funcionários
 INSERT INTO funcionario (senha, nome, endereco, bairro, cidade, CEP, estado, cpf, cargo, cargaHoraria, salario, telefone, email, dataNasc, dataContrata, status, permissao)
@@ -186,19 +194,19 @@ VALUES
   ('Fornecedor I', '98.765.432/0001-09', 'Avenida dos Pisos, 678', 'Centro', 'Cidade E', 'RJ', '23456-789', '(21) 6666-6666', 'fornecedorI@example.com'),
   ('Fornecedor J', '76.543.210/0001-10', 'Rua das Luminárias, 123', 'Bairro G', 'Cidade F', 'SP', '98765-432', '(11) 7777-7777', 'fornecedorJ@example.com');
   
-  -- Inserir produtos 
+-- Inserir produtos
 INSERT INTO produto (idFornecedor, nome, codigo, idcategoria, precoUn, precoCusto, estoque)
 VALUES
-    (1, 'Cimento', 'CM001', 1, 25.99, 18.99, 500),
-    (2, 'Tijolos', 'TJ002', 1, 0.89, 0.55, 10000),
-    (3, 'Tinta Branca', 'TN003', 2, 19.99, 12.49, 300),
-    (4, 'Pregos', 'PG004', 3, 4.99, 3.25, 5000),
-    (5, 'Telhas de Cerâmica', 'TL005', 4, 5.49, 3.99, 1000),
-    (6, 'Luminárias LED', 'LM006', 5, 12.99, 8.99, 800),
-    (7, 'Ferramenta Elétrica', 'FE007', 6, 89.99, 65.99, 200),
-    (8, 'Pisos de Madeira', 'PM008', 7, 34.99, 28.99, 600),
-    (9, 'Tubos de PVC', 'TP009', 8, 2.49, 1.89, 3000),
-    (10, 'Portas de Aço', 'PA010', 9, 99.99, 79.99, 100);
+    (1, 'Cimento', 001, 1, 25.99, 18.99, 500),
+    (2, 'Tijolos', 002, 1, 0.89, 0.55, 10000),
+    (3, 'Tinta Branca', 003, 2, 19.99, 12.49, 300),
+    (4, 'Pregos', 004, 3, 4.99, 3.25, 5000),
+    (5, 'Telhas de Cerâmica', 005, 4, 5.49, 3.99, 1000),
+    (6, 'Luminárias LED', 006, 5, 12.99, 8.99, 800),
+    (7, 'Ferramenta Elétrica', 007, 6, 89.99, 65.99, 200),
+    (8, 'Pisos de Madeira', 008, 7, 34.99, 28.99, 600),
+    (9, 'Tubos de PVC', 009, 8, 2.49, 1.89, 3000),
+    (10, 'Portas de Aço', 010, 9, 99.99, 79.99, 100);
     
 -- Inserir clientes FÍSICA
 INSERT INTO cliente (nome, endereco, bairro, cidade, estado, CEP, cnpj, cpf, sexo, dataNasc, telefone, email)
@@ -229,3 +237,81 @@ VALUES
     ('Construções Avançadas S.A.', 'Rua das Obras Grandes, 555', 'Bairro V', 'Cidade V', 'RJ', '23456-789', '23.456.789/0001-08', NULL, 'Jurídico', '1985-08-30', '(21) 1234-5678', 'construcoesAvancadas@example.com'),
     ('Loja de Material para Construção M', 'Av. das Grandes Obras, 666', 'Centro', 'Cidade W', 'MG', '98765-432', '98.765.432/0001-09', NULL, 'Jurídico', '1999-04-15', '(31) 2345-6789', 'lojaM@example.com'),
     ('Construção e Reforma Constru', 'Rua dos Engenheiros, 777', 'Bairro X', 'Cidade Y', 'SP', '54321-876', '54.321.876/0001-10', NULL, 'Jurídico', '1996-07-01', '(11) 5678-9012', 'construConstru@example.com');
+    
+    -- Inserir vendas
+INSERT INTO venda (idVenda, data, total, idCliente, idFuncionario, status_venda, desconto, dataVenda)
+VALUES
+    (null,'2023-09-20', 350.00, 1, 1, 'Concluída', 10.00, '2023-09-20'),
+    (null,'2023-09-21', 500.00, 2, 2, 'Concluída', 20.00, '2023-09-21'),
+    (null,'2023-09-22', 120.00, 3, 3, 'Concluída', 5.00, '2023-09-22'),
+    (null,'2023-09-23', 250.00, 4, 4, 'Concluída', 15.00, '2023-09-23'),
+    (null,'2023-09-24', 180.00, 5, 5, 'Concluída', 10.00, '2023-09-24'),
+    (null,'2023-09-25', 300.00, 6, 6, 'Concluída', 20.00, '2023-09-25'),
+    (null,'2023-09-26', 420.00, 7, 7, 'Concluída', 30.00, '2023-09-26'),
+    (null,'2023-09-27', 150.00, 8, 8, 'Concluída', 8.00, '2023-09-27'),
+    (null,'2023-09-28', 270.00, 9, 9, 'Concluída', 12.00, '2023-09-28'),
+    (null,'2023-09-29', 90.00, 10, 10, 'Concluída', 5.00, '2023-09-29');
+
+-- Inserir itens de venda correspondentes
+INSERT INTO itens_da_venda (idItemVenda, idVenda, data, idProduto, quantidade, precoUn, desconto, total)
+VALUES
+    (null, 1, '2023-09-20', 1, 5, 129.95, 0.00 ,119.95),
+    (null,1, '2023-09-20', 3, 2, 39.98, 2.00 ,29.98),
+    (null,2, '2023-09-21', 2, 10, 8.90,  0.00 ,.90),
+    (null,2, '2023-09-21', 4, 3, 14.97,  0.00 ,4.97),
+    (null,3, '2023-09-22', 5, 4, 21.96,  0.00 ,16.96),
+    (null,3, '2023-09-22', 7, 1, 89.99,  0.00 ,84.99),
+    (null,4, '2023-09-23', 6, 3, 38.97,  0.00 ,23.97),
+    (null,4, '2023-09-23', 8, 2, 69.98,  0.00 ,59.98),
+    (null,5, '2023-09-24', 9, 6, 14.94,  0.00 ,4.94),
+    (null,5, '2023-09-24', 10, 2, 199.98,  0.00 ,189.98),
+    (null,6, '2023-09-25', 1, 7, 181.93,  0.00 ,171.93),
+    (null,6, '2023-09-25', 3, 3, 59.97,  0.00 ,49.97),
+    (null,7, '2023-09-26', 2, 8, 71.20,  0.00 ,61.20),
+    (null,7, '2023-09-26', 4, 5, 24.95,  0.00 ,19.95),
+    (null,8, '2023-09-27', 5, 2, 10.98,  0.00 ,0.98),
+    (null,8, '2023-09-27', 7, 3, 269.97,  0.00 ,259.97),
+    (null,9, '2023-09-28', 6, 5, 64.95,  0.00 ,54.95),
+    (null,9, '2023-09-28', 8, 4, 115.96,  0.00 ,105.96),
+    (null,10, '2023-09-29', 9, 10, 24.90,  0.00 ,19.90),
+    (null,10, '2023-09-29', 10, 1, 99.99,  0.00 ,94.99);
+    
+    
+-- Inserir compras
+INSERT INTO compra (data, idFornecedor, idFuncionario, total, dataCompra)
+VALUES
+    ('2023-09-20', 1, 1, 1000.00, '2023-09-20'),
+    ('2023-09-21', 2, 2, 800.00, '2023-09-21'),
+    ('2023-09-22', 3, 3, 600.00, '2023-09-22'),
+    ('2023-09-23', 4, 4, 700.00, '2023-09-23'),
+    ('2023-09-24', 5, 5, 1200.00, '2023-09-24'),
+    ('2023-09-25', 6, 6, 900.00, '2023-09-25'),
+    ('2023-09-26', 7, 7, 1500.00, '2023-09-26'),
+    ('2023-09-27', 8, 8, 1800.00, '2023-09-27'),
+    ('2023-09-28', 9, 9, 1600.00, '2023-09-28'),
+    ('2023-09-29', 10, 10, 2000.00, '2023-09-29');
+
+-- Inserir itens de compra correspondentes
+INSERT INTO itens_da_compra (idCompra, idFornecedor, idProduto, quantidade, subtotal, total)
+VALUES
+    (1, 1, 1, 50, 1299.50, 1199.50),
+    (1, 1, 3, 20, 799.60, 599.60),
+    (2, 2, 2, 100, 890.00, 690.00),
+    (2, 2, 4, 30, 449.70, 249.70),
+    (3, 3, 5, 40, 879.60, 779.60),
+    (3, 3, 7, 10, 899.90, 799.90),
+    (4, 4, 6, 30, 1169.10, 969.10),
+    (4, 4, 8, 20, 1399.80, 1199.80),
+    (5, 5, 9, 60, 899.40, 799.40),
+    (5, 5, 10, 20, 1999.80, 1899.80),
+    (6, 6, 1, 70, 1813.10, 1713.10),
+    (6, 6, 3, 30, 599.40, 499.40),
+    (7, 7, 2, 80, 712.00, 612.00),
+    (7, 7, 4, 50, 624.50, 524.50),
+    (8, 8, 5, 20, 219.60, 119.60),
+    (8, 8, 7, 30, 809.70, 709.70),
+    (9, 9, 6, 50, 649.50, 549.50),
+    (9, 9, 8, 40, 1119.80, 1019.80),
+    (10, 10, 9, 100, 249.00, 149.00),
+    (10, 10, 10, 10, 999.90, 899.90);
+

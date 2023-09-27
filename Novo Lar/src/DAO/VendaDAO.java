@@ -15,13 +15,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author Kaio Dias
  */
 public class VendaDAO {
-    public ArrayList<Produto> read() {
+
+    public ArrayList<Produto> read(Produto p) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -29,29 +32,20 @@ public class VendaDAO {
         ArrayList<Produto> produtos = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria");
+            stmt = con.prepareStatement("SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria where idproduto = ?");
+            stmt.setInt(1, p.getIdProduto());
             rs = stmt.executeQuery();
-
+            System.out.println(stmt.toString());
             while (rs.next()) {
 
                 Produto produto = new Produto();
                 Fornecedor fornecedor = new Fornecedor();
                 Categoria categoria = new Categoria();
 
-                produto.setIdProduto(rs.getInt("pid"));
-                
-                fornecedor.setIdFornecedor(rs.getInt("pforn"));
-                produto.setFornecedor(fornecedor);
-                
                 produto.setNome(rs.getString("pnome"));
                 produto.setCodigo(rs.getInt("codigo"));
-                
-                categoria.setIdCategoria(rs.getInt("pcat"));
-                produto.setCategoria(categoria);
-                
-                produto.setPrecoCusto(rs.getDouble("precoCusto"));
+
                 produto.setPrecoUn(rs.getDouble("precoUn"));
-                produto.setEstoque(rs.getInt("estoque"));
 
                 produtos.add(produto);
             }
