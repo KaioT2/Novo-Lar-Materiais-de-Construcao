@@ -7,7 +7,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -68,7 +68,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtData" max="32767" attributes="0"/>
-                              <Component id="txtValidade" pref="100" max="32767" attributes="0"/>
+                              <Component id="txtVencimento" pref="100" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -97,7 +97,7 @@
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtValidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtVencimento" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -141,6 +141,12 @@
         <Component class="javax.swing.JTextField" name="jTextField1">
         </Component>
         <Component class="javax.swing.JTextField" name="txtData">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtIdCliente">
         </Component>
@@ -148,7 +154,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtIdFuncion&#xe1;rio">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtValidade">
+        <Component class="javax.swing.JTextField" name="txtVencimento">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
 
@@ -177,7 +186,7 @@
                         <Column editable="true" title="Nome" type="java.lang.Object"/>
                         <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
                         <Column editable="true" title="Quantidade" type="java.lang.Object"/>
-                        <Column editable="true" title="Desconto" type="java.lang.Object"/>
+                        <Column editable="true" title="Desconto %" type="java.lang.Object"/>
                         <Column editable="true" title="Subtotal" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -295,6 +304,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotal">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboFuncionario">
           <Properties>

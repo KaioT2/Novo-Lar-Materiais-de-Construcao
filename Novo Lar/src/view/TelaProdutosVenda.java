@@ -95,7 +95,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         tabelaProd = new javax.swing.JTable();
         txtBusca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btnAtualizar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem de Produtos");
@@ -137,6 +137,9 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
         });
 
         jButton1.setText("Buscar");
@@ -146,11 +149,10 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
             }
         });
 
-        btnAtualizar.setText("Atualizar");
-        btnAtualizar.setEnabled(false);
-        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Selecionar produto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -171,7 +173,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                         .addComponent(jScrollPane3)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAtualizar)
+                        .addComponent(jButton2)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -184,7 +186,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAtualizar)
+                .addComponent(jButton2)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -193,8 +195,6 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdMouseClicked
-        btnAtualizar.setEnabled(true);
-
         if (evt.getClickCount() == 2) { // Duplo clique
             if (tabelaProd.getSelectedRow() != -1) {
                 
@@ -209,8 +209,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                 
                 i.setDesconto(0.0);
                 i.setQuantidade(1);
-
-                // Use a referência da TelaVenda para chamar o método atualizarTabela na instância correta
+                
                 telaVenda.inserirItem(p, i);
                 this.dispose();
             }
@@ -235,32 +234,29 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
         // TODO add your handling code here:
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
-        if (tabelaProd.getSelectedRow() != -1) {
-            Produto c = new Produto();
-            ProdutoDAO dao = new ProdutoDAO();
-
-            Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setIdFornecedor(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 1).toString()));
-            c.setFornecedor(fornecedor);
-
-            c.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
-            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString()));
-
-            Categoria categoria = new Categoria();
-            categoria.setIdCategoria(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 4).toString()));
-            c.setCategoria(categoria);
-
-            c.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
-            c.setPrecoCusto(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 6).toString()));
-            c.setEstoque(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 7).toString()));
-            c.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
-            dao.update(c);
-            atualizarTabela();
-        }
-    }//GEN-LAST:event_btnAtualizarActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+if (tabelaProd.getSelectedRow() != -1) {
+                
+                Produto p = new Produto();
+                
+                p.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
+                p.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString()));
+                p.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
+                p.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
+                
+                ItensDaVenda i = new ItensDaVenda();
+                
+                i.setDesconto(0.0);
+                i.setQuantidade(1);
+                
+                telaVenda.inserirItem(p, i);
+                this.dispose();
+            }    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,8 +301,8 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tabelaProd;
     private javax.swing.JTextField txtBusca;

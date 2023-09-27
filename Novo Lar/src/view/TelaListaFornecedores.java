@@ -135,6 +135,9 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
         });
 
         jButton1.setText("Buscar");
@@ -201,7 +204,6 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaFornMouseClicked
 
     private void tabelaFornKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaFornKeyReleased
-
     }//GEN-LAST:event_tabelaFornKeyReleased
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
@@ -210,9 +212,8 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
 
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            searchJTableForName(txtBusca.getText(), txtBusca.getText());
-        }
+        
+        
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -260,6 +261,11 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
             atualizarTabela();
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        // TODO add your handling code here:
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
     /**
      * @param args the command line arguments

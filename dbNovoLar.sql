@@ -146,7 +146,7 @@ create table itens_da_compra(
 
 
 insert into funcionario (idFuncionario, senha, nome, endereco, bairro, cidade, cep, estado, cpf, cargo, cargaHoraria, salario, telefone, email, dataNasc, dataContrata, status, permissao)
-values(null, "admin", "Kaio", "Rua", "Bairro", "cidade", "00", "Estado" ,"admin", "Gerente", 2, 3, "123333", "email", 2022/07/22, 2022/07/22, "ativo", 1);
+values(null, "admin", "Kaio", "Rua", "Bairro", "cidade", "00", "MG" ,"admin", "Gerente", 2, 3, "123333", "email", 2022/07/22, 2022/07/22, "ativo", 1);
     
     -- Select que conecta tabelas com chave estrangeira no programa;
 SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque 
@@ -211,6 +211,7 @@ VALUES
 -- Inserir clientes FÍSICA
 INSERT INTO cliente (nome, endereco, bairro, cidade, estado, CEP, cnpj, cpf, sexo, dataNasc, telefone, email)
 VALUES
+	('Conumidor Final', '', '', ' ', '', '', NULL, '', '', '', '', ''),
     ('João da Silva', 'Rua das Flores, 123', 'Centro', 'Cidade A', 'SP', '12345-678', NULL, '123.456.789-00', 'Masculino', '1990-05-15', '(11) 1234-5678', 'joao@example.com'),
     ('Maria Souza', 'Av. Principal, 456', 'Bairro X', 'Cidade B', 'RJ', '98765-432', NULL, '987.654.321-00', 'Feminino', '1988-08-25', '(21) 9876-5432', 'maria@example.com'),
     ('José Oliveira', 'Rua das Palmeiras, 789', 'Centro', 'Cidade C', 'MG', '54321-987', NULL, '456.789.123-00', 'Masculino', '1995-02-10', '(31) 4567-8901', 'jose@example.com'),
@@ -238,45 +239,55 @@ VALUES
     ('Loja de Material para Construção M', 'Av. das Grandes Obras, 666', 'Centro', 'Cidade W', 'MG', '98765-432', '98.765.432/0001-09', NULL, 'Jurídico', '1999-04-15', '(31) 2345-6789', 'lojaM@example.com'),
     ('Construção e Reforma Constru', 'Rua dos Engenheiros, 777', 'Bairro X', 'Cidade Y', 'SP', '54321-876', '54.321.876/0001-10', NULL, 'Jurídico', '1996-07-01', '(11) 5678-9012', 'construConstru@example.com');
     
-    -- Inserir vendas
-INSERT INTO venda (idVenda, data, total, idCliente, idFuncionario, status_venda, desconto, dataVenda)
+-- Inserir 10 vendas
+INSERT INTO venda (data, total, idCliente, idFuncionario, status_venda, desconto, dataVenda)
 VALUES
-    (null,'2023-09-20', 350.00, 1, 1, 'Concluída', 10.00, '2023-09-20'),
-    (null,'2023-09-21', 500.00, 2, 2, 'Concluída', 20.00, '2023-09-21'),
-    (null,'2023-09-22', 120.00, 3, 3, 'Concluída', 5.00, '2023-09-22'),
-    (null,'2023-09-23', 250.00, 4, 4, 'Concluída', 15.00, '2023-09-23'),
-    (null,'2023-09-24', 180.00, 5, 5, 'Concluída', 10.00, '2023-09-24'),
-    (null,'2023-09-25', 300.00, 6, 6, 'Concluída', 20.00, '2023-09-25'),
-    (null,'2023-09-26', 420.00, 7, 7, 'Concluída', 30.00, '2023-09-26'),
-    (null,'2023-09-27', 150.00, 8, 8, 'Concluída', 8.00, '2023-09-27'),
-    (null,'2023-09-28', 270.00, 9, 9, 'Concluída', 12.00, '2023-09-28'),
-    (null,'2023-09-29', 90.00, 10, 10, 'Concluída', 5.00, '2023-09-29');
+    ('2023-09-20', 169.93, 1, 1, 'Concluída', 00.00, '2023-09-20'),
+    ('2023-09-21', 23.87, 2, 2, 'Concluída', 00.00, '2023-09-21'),
+    ('2023-09-22', 34.95, 3, 3, 'Concluída', 00.00, '2023-09-22'),
+    ('2023-09-23', 339.95, 4, 4, 'Concluída', 00.00, '2023-09-23'),
+    ('2023-09-24', 214.92, 5, 5, 'Concluída', 00.00, '2023-09-24'),
+    ('2023-09-25', 241.90, 6, 6, 'Concluída', 00.00, '2023-09-25'),
+    ('2023-09-26', 32.07, 7, 7, 'Concluída', 00.00, '2023-09-26'),
+    ('2023-09-27', 49.95, 8, 8, 'Concluída', 00.00, '2023-09-27'),
+    ('2023-09-28', 589.91, 9, 9, 'Concluída', 00.00, '2023-09-28'),
+    ('2023-09-29', 124.89, 10, 10, 'Concluída', 00.00, '2023-09-29');
 
--- Inserir itens de venda correspondentes
-INSERT INTO itens_da_venda (idItemVenda, idVenda, data, idProduto, quantidade, precoUn, desconto, total)
+  INSERT INTO itens_da_venda (idVenda, data, idProduto, quantidade, precoUn, desconto, total)
 VALUES
-    (null, 1, '2023-09-20', 1, 5, 129.95, 0.00 ,119.95),
-    (null,1, '2023-09-20', 3, 2, 39.98, 2.00 ,29.98),
-    (null,2, '2023-09-21', 2, 10, 8.90,  0.00 ,.90),
-    (null,2, '2023-09-21', 4, 3, 14.97,  0.00 ,4.97),
-    (null,3, '2023-09-22', 5, 4, 21.96,  0.00 ,16.96),
-    (null,3, '2023-09-22', 7, 1, 89.99,  0.00 ,84.99),
-    (null,4, '2023-09-23', 6, 3, 38.97,  0.00 ,23.97),
-    (null,4, '2023-09-23', 8, 2, 69.98,  0.00 ,59.98),
-    (null,5, '2023-09-24', 9, 6, 14.94,  0.00 ,4.94),
-    (null,5, '2023-09-24', 10, 2, 199.98,  0.00 ,189.98),
-    (null,6, '2023-09-25', 1, 7, 181.93,  0.00 ,171.93),
-    (null,6, '2023-09-25', 3, 3, 59.97,  0.00 ,49.97),
-    (null,7, '2023-09-26', 2, 8, 71.20,  0.00 ,61.20),
-    (null,7, '2023-09-26', 4, 5, 24.95,  0.00 ,19.95),
-    (null,8, '2023-09-27', 5, 2, 10.98,  0.00 ,0.98),
-    (null,8, '2023-09-27', 7, 3, 269.97,  0.00 ,259.97),
-    (null,9, '2023-09-28', 6, 5, 64.95,  0.00 ,54.95),
-    (null,9, '2023-09-28', 8, 4, 115.96,  0.00 ,105.96),
-    (null,10, '2023-09-29', 9, 10, 24.90,  0.00 ,19.90),
-    (null,10, '2023-09-29', 10, 1, 99.99,  0.00 ,94.99);
+    (1, '2023-09-20', 1, 5, 25.99, 0.00, 129.95),
+    (1, '2023-09-20', 3, 2, 19.99, 00.00, 39.98),
+    (2, '2023-09-21', 2, 10, 0.89, 0.00, 8.90),
+    (2, '2023-09-21', 4, 3, 4.99, 0.00, 14.97),
+    (3, '2023-09-22', 5, 4, 5.49, 0.00, 21.96),
+    (3, '2023-09-22', 7, 1, 12.99, 0.00, 12.99),
+    (4, '2023-09-23', 6, 3, 89.99, 0.00, 269.97),
+    (4, '2023-09-23', 8, 2, 34.99, 0.00, 69.98),
+    (5, '2023-09-24', 9, 6, 2.49, 0.00, 14.94),
+    (5, '2023-09-24', 10, 2, 99.99, 0.00, 199.98),
+    (6, '2023-09-25', 1, 7, 25.99, 0.00, 181.93),
+    (6, '2023-09-25', 3, 3, 19.99, 0.00, 59.97),
+    (7, '2023-09-26', 2, 8, 0.89, 0.00, 7.12),
+    (7, '2023-09-26', 4, 5, 4.99, 0.00, 24.95),
+    (8, '2023-09-27', 5, 2, 5.49, 0.00, 10.98),
+    (8, '2023-09-27', 7, 3, 12.99, 0.00, 38.97),
+    (9, '2023-09-28', 6, 5, 89.99, 0.00, 449.95),
+    (9, '2023-09-28', 8, 4, 34.99, 0.00, 139.96),
+    (10, '2023-09-29', 9, 10, 2.49, 0.00, 24.90),
+    (10, '2023-09-29', 10, 1, 99.99, 0.00, 99.99);
+
+    select sum(quantidade*precoUn) from itens_da_venda group by idvenda;
     
-    
+    SELECT
+    v.idVenda,
+    v.total AS total_venda,
+    SUM(iv.total) AS total_itens_venda
+FROM venda v
+INNER JOIN itens_da_venda iv ON v.idVenda = iv.idVenda
+GROUP BY v.idVenda
+HAVING v.total = SUM(iv.total);
+
+
 -- Inserir compras
 INSERT INTO compra (data, idFornecedor, idFuncionario, total, dataCompra)
 VALUES

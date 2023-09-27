@@ -137,6 +137,9 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
         });
 
         tabelaFunc.setModel(new javax.swing.table.DefaultTableModel(
@@ -224,9 +227,6 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            searchJTableForName(txtBusca.getText(), txtBusca.getText());
-        }
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void tabelaFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncMouseClicked
@@ -267,6 +267,11 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
             atualizarTabela();
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        // TODO add your handling code here:
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
     /**
      * @param args the command line arguments

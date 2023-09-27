@@ -7,42 +7,85 @@ package view;
 import Itens_da_Venda.ItensDaVenda;
 import Produto.Produto;
 import Produto.ProdutoTableModel;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
  * @author Kaio Dias
  */
 public class TelaVenda extends javax.swing.JFrame {
+
     ProdutoTableModel model = new ProdutoTableModel();
     /**
      * Creates new form TelaVenda
      */
-    
+
+    private boolean janelaAberta = true;
+    private Calendar dataAtual = Calendar.getInstance();
+    private Calendar dataVencimento = Calendar.getInstance();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     public TelaVenda() {
+
         initComponents();
         tabelaVenda.setModel(model);
         model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn());
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                formWindowClosing(windowEvent);
+            }
+        });
+
+        Thread loopThread = new Thread(() -> {
+            while (janelaAberta) {
+                double total = model.calcularTotalSubtotal();
+
+                DecimalFormat df = new DecimalFormat("#0.00");
+                String totalFormatado = df.format(total);
+
+                txtTotal.setText("Total: " + totalFormatado);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        loopThread.start();
+        
+        txtData.setText(sdf.format(dataAtual.getTime()));
+        
+        dataVencimento.add(Calendar.DAY_OF_MONTH, 30);
+        txtVencimento.setText(sdf.format(dataVencimento.getTime()));
     }
-    
-    
+
     public void inserirItem(Produto pr, ItensDaVenda i) {
-        
+
         Produto novoProduto = new Produto();
-        
+
         novoProduto.setCodigo(pr.getCodigo());
         novoProduto.setNome(pr.getNome());
         novoProduto.setPrecoUn(pr.getPrecoUn());
-        
+
         ItensDaVenda novoItem = new ItensDaVenda();
-        
+
         novoItem.setDesconto(i.getDesconto());
         novoItem.setQuantidade(i.getQuantidade());
-        
-        model.addRow(novoProduto,novoItem);
-        
-        model.calcularEAtualizarSubtotal(model.getRowCount()-1);
+
+        model.addRow(novoProduto, novoItem);
+
+        model.calcularEAtualizarSubtotal(model.getRowCount() - 1);
     }
-    
+
+    private void fecharJanela() {
+        janelaAberta = false; // Define a variável para false
+        dispose(); // Fecha a janela
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +101,7 @@ public class TelaVenda extends javax.swing.JFrame {
         txtIdCliente = new javax.swing.JTextField();
         txtCliente = new javax.swing.JTextField();
         txtIdFuncionário = new javax.swing.JTextField();
-        txtValidade = new javax.swing.JTextField();
+        txtVencimento = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaVenda = new javax.swing.JTable();
@@ -78,13 +121,22 @@ public class TelaVenda extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vendas - Novo Lar Materiais de Construção");
 
+        txtData.setEnabled(false);
+        txtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataActionPerformed(evt);
+            }
+        });
+
+        txtVencimento.setEnabled(false);
+
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Item", "Código", "Nome", "Preço", "Quantidade", "Desconto", "Subtotal"
+                "Item", "Código", "Nome", "Preço", "Quantidade", "Desconto %", "Subtotal"
             }
         ));
         tabelaVenda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -132,6 +184,8 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
 
+        txtTotal.setEnabled(false);
+
         comboFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setText("ID Venda");
@@ -173,7 +227,7 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtData)
-                            .addComponent(txtValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                            .addComponent(txtVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnNovoItem)
                         .addGap(18, 18, 18)
@@ -195,7 +249,7 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -235,25 +289,34 @@ public class TelaVenda extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+        fecharJanela(); // Chama o método para fechar a janela
+    }
 
     private void tabelaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaVendaKeyPressed
     }//GEN-LAST:event_tabelaVendaKeyPressed
 
     private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
         // TODO add your handling code here:
-        
+
         TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
         telaProdutos.setVisible(true);
     }//GEN-LAST:event_btnNovoItemActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-        
-        if(tabelaVenda.getSelectedRow() != -1){
+
+        if (tabelaVenda.getSelectedRow() != -1) {
             model.removeRow(tabelaVenda.getSelectedRow());
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,6 +378,6 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtIdFuncionário;
     private javax.swing.JTextField txtTotal;
-    private javax.swing.JTextField txtValidade;
+    private javax.swing.JTextField txtVencimento;
     // End of variables declaration//GEN-END:variables
 }

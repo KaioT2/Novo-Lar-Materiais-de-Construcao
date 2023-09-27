@@ -51,7 +51,6 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 5:
                 return dadosVenda.get(linha).getDesconto();
             case 6:
-                // Formata o subtotal com duas casas decimais
                 double subtotal = dadosVenda.get(linha).getSubtotal();
                 return decimalFormat.format(subtotal);
         }
@@ -92,7 +91,6 @@ public class ProdutoTableModel extends AbstractTableModel {
     
     @Override
     public boolean isCellEditable(int linha, int coluna) {
-        // Permite a edição apenas nas colunas de quantidade e desconto
         return coluna == 4 || coluna == 5;
     }
 
@@ -117,18 +115,25 @@ public class ProdutoTableModel extends AbstractTableModel {
         double quantidade = item.getQuantidade();
         double subtotal = preco * quantidade;
 
-        // Verifica se há um desconto definido no item da venda
         if (item.getDesconto() > 0) {
             double descontoPorcentagem = item.getDesconto();
             double desconto = (descontoPorcentagem / 100) * subtotal;
             subtotal -= desconto;
         }
 
-        // Atualiza o subtotal na lista de dadosVenda
         item.setSubtotal(subtotal);
 
-        // Atualiza o valor na tabela
-        fireTableCellUpdated(linha, 6); // Onde 6 é o índice da coluna Subtotal
+        fireTableCellUpdated(linha, 6);
+    }
+    
+    public double calcularTotalSubtotal() {
+        double total = 0.0;
+
+        for (ItensDaVenda item : dadosVenda) {
+            total += item.getSubtotal();
+        }
+
+        return total;
     }
 
 }

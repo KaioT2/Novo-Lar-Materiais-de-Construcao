@@ -126,6 +126,9 @@ public class TelaListarClientes extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
         });
 
         jButton1.setText("Buscar");
@@ -258,6 +261,11 @@ public class TelaListarClientes extends javax.swing.JFrame {
             atualizarTabela();
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        // TODO add your handling code here:
+        searchJTableForName(txtBusca.getText(), txtBusca.getText(), txtBusca.getText());
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
     /**
      * @param args the command line arguments
