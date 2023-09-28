@@ -38,7 +38,7 @@ public class ProdutoDAO {
                 stmt = con.prepareStatement("INSERT INTO produto (idFornecedor, nome, codigo, idCategoria, precoUn, precoCusto, estoque) VALUES(?,?,?,?,?,?,?)");
                 stmt.setInt(1, p.getFornecedor().getIdFornecedor());
                 stmt.setString(2, p.getNome());
-                stmt.setInt(3, p.getCodigo());
+                stmt.setString(3, p.getCodigo());
                 stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
@@ -80,7 +80,7 @@ public class ProdutoDAO {
                 produto.setFornecedor(fornecedor);
                 
                 produto.setNome(rs.getString("pnome"));
-                produto.setCodigo(rs.getInt("codigo"));
+                produto.setCodigo(rs.getString("codigo"));
                 
                 categoria.setIdCategoria(rs.getInt("pcat"));
                 produto.setCategoria(categoria);
@@ -125,7 +125,7 @@ public class ProdutoDAO {
                 produto.setFornecedor(fornecedor);
                 
                 produto.setNome(rs.getString("nome"));
-                produto.setCodigo(rs.getInt("codigo"));
+                produto.setCodigo(rs.getString("codigo"));
                 
                 categoria.setIdCategoria(rs.getInt("idCategoria"));
                 produto.setCategoria(categoria);
@@ -155,7 +155,7 @@ public class ProdutoDAO {
             stmt = con.prepareStatement("UPDATE produto SET idFornecedor = ?, nome = ?, codigo = ?, idCategoria = ?, precoUn = ?, precoCusto = ?, estoque = ? WHERE idProduto = ?");
                 stmt.setInt(1, p.getFornecedor().getIdFornecedor());
                 stmt.setString(2, p.getNome());
-                stmt.setInt(3, p.getCodigo());
+                stmt.setString(3, p.getCodigo());
                 stmt.setInt(4, p.getCategoria().getIdCategoria());
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());

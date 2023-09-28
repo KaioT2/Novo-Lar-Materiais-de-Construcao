@@ -43,7 +43,7 @@ public class VendaDAO {
                 Categoria categoria = new Categoria();
 
                 produto.setNome(rs.getString("pnome"));
-                produto.setCodigo(rs.getInt("codigo"));
+                produto.setCodigo(rs.getString("codigo"));
 
                 produto.setPrecoUn(rs.getDouble("precoUn"));
 

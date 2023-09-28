@@ -65,7 +65,7 @@ public class ProdutoTableModel extends AbstractTableModel {
                  dados.get(linha);
                  break;
             case 1:
-                 dados.get(linha).setCodigo(Integer.parseInt(valor.toString()));
+                 dados.get(linha).setCodigo(valor.toString());
                  break;
             case 2:
                  dados.get(linha).setNome(valor.toString());

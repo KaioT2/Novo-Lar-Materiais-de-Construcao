@@ -201,7 +201,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                 Produto p = new Produto();
                 
                 p.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
-                p.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString()));
+                p.setCodigo(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString());
                 p.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
                 p.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
                 
@@ -245,7 +245,7 @@ if (tabelaProd.getSelectedRow() != -1) {
                 Produto p = new Produto();
                 
                 p.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
-                p.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString()));
+                p.setCodigo(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString());
                 p.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
                 p.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
                 

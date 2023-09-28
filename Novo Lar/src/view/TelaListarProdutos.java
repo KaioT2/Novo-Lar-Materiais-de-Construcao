@@ -237,7 +237,7 @@ public class TelaListarProdutos extends javax.swing.JFrame {
             c.setFornecedor(fornecedor);
             
             c.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
-            c.setCodigo(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),3).toString()));
+            c.setCodigo(tabelaProd.getValueAt(tabelaProd.getSelectedRow(),3).toString());
             
             Categoria categoria = new Categoria();
             categoria.setIdCategoria(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 4).toString()));
