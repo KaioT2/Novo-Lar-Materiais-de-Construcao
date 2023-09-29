@@ -4,15 +4,10 @@
  */
 package view;
 
-import Categoria.Categoria;
 import Produto.Produto;
 import DAO.ProdutoDAO;
-import DAO.VendaDAO;
-import Fornecedor.Fornecedor;
 import Itens_da_Venda.ItensDaVenda;
-import Produto.ProdutoTableModel;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,7 +20,6 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
      * Creates new form TelaListarFuncionarios
      */
     public TelaProdutosVenda() {
-        this.telaVenda = telaVenda;
         initComponents();
         atualizarTabela();
     }
@@ -34,7 +28,6 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         this.telaVenda = telaVenda;
         initComponents();
         atualizarTabela();
-        // Outras inicializações
     }
 
     public void atualizarTabela() {
@@ -95,7 +88,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         tabelaProd = new javax.swing.JTable();
         txtBusca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSelecionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem de Produtos");
@@ -149,10 +142,10 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Selecionar produto");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSelecionar.setText("Selecionar produto");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSelecionarActionPerformed(evt);
             }
         });
 
@@ -173,7 +166,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                         .addComponent(jScrollPane3)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnSelecionar)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -186,7 +179,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnSelecionar)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -210,7 +203,7 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
                 i.setDesconto(0.0);
                 i.setQuantidade(1);
                 
-                telaVenda.inserirItem(p, i);
+                telaVenda.inserirProduto(p, i);
                 this.dispose();
             }
         }
@@ -239,24 +232,25 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
         searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_txtBuscaKeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-if (tabelaProd.getSelectedRow() != -1) {
-                
-                Produto p = new Produto();
-                
-                p.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
-                p.setCodigo(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString());
-                p.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
-                p.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
-                
-                ItensDaVenda i = new ItensDaVenda();
-                
-                i.setDesconto(0.0);
-                i.setQuantidade(1);
-                
-                telaVenda.inserirItem(p, i);
-                this.dispose();
-            }    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        if (tabelaProd.getSelectedRow() != -1) {
+
+            Produto p = new Produto();
+
+            p.setIdProduto(Integer.parseInt(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 0).toString()));
+            p.setCodigo(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 3).toString());
+            p.setNome(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 2).toString());
+            p.setPrecoUn(Double.parseDouble(tabelaProd.getValueAt(tabelaProd.getSelectedRow(), 5).toString()));
+
+            ItensDaVenda i = new ItensDaVenda();
+
+            i.setDesconto(0.0);
+            i.setQuantidade(1);
+
+            telaVenda.inserirProduto(p, i);
+            this.dispose();
+
+            }    }//GEN-LAST:event_btnSelecionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,8 +295,8 @@ if (tabelaProd.getSelectedRow() != -1) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tabelaProd;
     private javax.swing.JTextField txtBusca;

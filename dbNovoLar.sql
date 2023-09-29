@@ -76,7 +76,6 @@ create table cliente(
 
 create table venda(
 	idVenda int primary key not null auto_increment,
-    data date not null,
     total double(7,2) not null,
     idCliente int not null,
     foreign key (idCliente)
@@ -331,32 +330,31 @@ VALUES
     ('Consultoria XYZ123 S.A.', 'Av. S', 'Consultoria Empresarial', 'Curitiba', 'PR', '80000-000', '55.555.555/0001-08', NULL, 'Jurídico', '1996-09-30', '(41) 1111-1111', 'contato@consultoriaxyz123.com'),
     ('Comércio de Alimentos ABCDE Eireli', 'Rua R', 'Comércio Alimentício', 'Fortaleza', 'CE', '60000-000', '66.666.666/0001-09', NULL, 'Jurídico', '2002-02-22', '(85) 3333-3333', 'contato@comerciodealimentos.com'),
     ('Indústria Metalúrgica XYZ1234 S.A.', 'Av. Q', 'Indústria Metalúrgica', 'Manaus', 'AM', '69000-000', '77.777.777/0001-10', NULL, 'Jurídico', '1991-07-07', '(92) 7777-7777', 'contato@industriametalurgica.com');
-    
--- Inserir 10 vendas
-INSERT INTO venda (data, total, idCliente, idFuncionario, status_venda, desconto, dataVenda)
-VALUES
-    ('2023-09-20', 169.93, 1, 1, 'Concluída', 00.00, '2023-09-20'),
-    ('2023-09-21', 23.87, 2, 2, 'Concluída', 00.00, '2023-09-21'),
-    ('2023-09-22', 111.95, 3, 3, 'Concluída', 00.00, '2023-09-22'),
-    ('2023-09-23', 108.95, 4, 4, 'Concluída', 00.00, '2023-09-23'),
-    ('2023-09-24', 214.92, 5, 5, 'Concluída', 00.00, '2023-09-24'),
-    ('2023-09-25', 241.90, 6, 6, 'Concluída', 00.00, '2023-09-25'),
-    ('2023-09-26', 32.07, 7, 7, 'Concluída', 00.00, '2023-09-26'),
-    ('2023-09-27', 280.95, 8, 8, 'Concluída', 00.00, '2023-09-27'),
-    ('2023-09-28', 204.91, 9, 9, 'Concluída', 00.00, '2023-09-28'),
-    ('2023-09-29', 124.90, 10, 10, 'Concluída', 00.00, '2023-09-29'),
-	('2023-09-01', 169.93, 1, 1, 'Concluída', 0.00, '2023-09-01'),
-    ('2023-09-02', 23.87, 2, 2, 'Concluída', 0.00, '2023-09-02'),
-    ('2023-09-03', 111.95, 3, 3, 'Concluída', 0.00, '2023-09-03'),
-    ('2023-09-04', 108.95, 4, 4, 'Concluída', 0.00, '2023-09-04'),
-    ('2023-09-05', 214.92, 5, 5, 'Concluída', 0.00, '2023-09-05'),
-    ('2023-09-06', 241.90, 6, 6, 'Concluída', 0.00, '2023-09-06'),
-    ('2023-09-07', 32.07, 7, 7, 'Concluída', 0.00, '2023-09-07'),
-    ('2023-09-08', 280.95, 8, 8, 'Concluída', 0.00, '2023-09-08'),
-    ('2023-09-09', 204.91, 9, 9, 'Concluída', 0.00, '2023-09-09'),
-    ('2023-09-10', 124.89, 10, 10, 'Concluída', 0.00, '2023-09-10');
 
-  INSERT INTO itens_da_venda (idVenda, data, idProduto, quantidade, precoUn, desconto, total)
+INSERT INTO venda (total, idCliente, idFuncionario, status_venda, desconto, dataVenda)
+VALUES
+    (169.93, 1, 1, 'Concluída', 00.00, '2023-09-20'),
+    (23.87, 2, 2, 'Concluída', 00.00, '2023-09-21'),
+    (111.95, 3, 3, 'Concluída', 00.00, '2023-09-22'),
+    (108.95, 4, 4, 'Concluída', 00.00, '2023-09-23'),
+    (214.92, 5, 5, 'Concluída', 00.00, '2023-09-24'),
+    (241.90, 6, 6, 'Concluída', 00.00, '2023-09-25'),
+    (32.07, 7, 7, 'Concluída', 00.00, '2023-09-26'),
+    (280.95, 8, 8, 'Concluída', 00.00, '2023-09-27'),
+    (204.91, 9, 9, 'Concluída', 00.00, '2023-09-28'),
+    (124.90, 10, 10, 'Concluída', 00.00, '2023-09-29'),
+	(169.93, 1, 1, 'Concluída', 0.00, '2023-09-01'),
+    (23.87, 2, 2, 'Concluída', 0.00, '2023-09-02'),
+    (111.95, 3, 3, 'Concluída', 0.00, '2023-09-03'),
+    (108.95, 4, 4, 'Concluída', 0.00, '2023-09-04'),
+    (214.92, 5, 5, 'Concluída', 0.00, '2023-09-05'),
+    (241.90, 6, 6, 'Concluída', 0.00, '2023-09-06'),
+    (32.07, 7, 7, 'Concluída', 0.00, '2023-09-07'),
+    (280.95, 8, 8, 'Concluída', 0.00, '2023-09-08'),
+    (204.91, 9, 9, 'Concluída', 0.00, '2023-09-09'),
+    (124.89, 10, 10, 'Concluída', 0.00, '2023-09-10');
+
+INSERT INTO itens_da_venda (idVenda, data, idProduto, quantidade, precoUn, desconto, total)
 VALUES
     (1, '2023-09-20', 1, 5, 25.99, 0.00, 129.95),
     (1, '2023-09-20', 3, 2, 19.99, 00.00, 39.98),

@@ -18,19 +18,21 @@ public class ItensDaVenda {
     private double quantidade;
     private double desconto;
     private double subtotal;
-    private double total;
+    private String data;
+    private double precoUn;
 
     public ItensDaVenda() {
     }
 
-    public ItensDaVenda(int idItemVenda, Venda venda, Produto produto, double quantidade, double desconto, double subtotal, double total) {
+    public ItensDaVenda(int idItemVenda, Venda venda, Produto produto, double quantidade, double desconto, double subtotal, String data, double precoUn) {
         this.idItemVenda = idItemVenda;
         this.venda = venda;
         this.produto = produto;
         this.quantidade = quantidade;
         this.desconto = desconto;
         this.subtotal = subtotal;
-        this.total = total;
+        this.data = data;
+        this.precoUn = precoUn;
     }
 
     public int getIdItemVenda() {
@@ -81,14 +83,21 @@ public class ItensDaVenda {
         this.subtotal = subtotal;
     }
 
-    public double getTotal() {
-        return total;
+    public String getData() {
+        return data;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    
+    public double getPrecoUn() {
+        return precoUn;
+    }
+
+    public void setPrecoUn(double precoUn) {
+        this.precoUn = precoUn;
+    }
+
     
 }

@@ -24,11 +24,11 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
      */
     public TelaCadFuncionario() {
         initComponents();
-        preencherCombo();
+        preencherComboEstado();
     }
             
     
-    private void preencherCombo(){
+    private void preencherComboEstado(){
         
         ArrayList<String> lista = new ArrayList<String>();
         
@@ -718,6 +718,11 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         f.setTelefone(txtTelefone.getText());
         f.setEmail(txtEmail.getText());
         f.setCpf(txtCpf.getText());
+        f.setSenha(txtSenha.getText());
+        f.setCargo(txtCargo.getText());
+        f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
+        f.setSalario(Double.parseDouble(txtSalario.getText()));
+
         if (validarData(txtDataNasc.getText())) {
             f.setDataNasc(dateConverter(txtDataNasc.getText()));
         } else {
@@ -731,26 +736,18 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Formato de data inválida! 2Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        f.setCargo(txtCargo.getText());
-        f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
-        f.setSalario(Double.parseDouble(txtSalario.getText()));
 
-        if(pAlto.isSelected()){
+        if (pAlto.isSelected()) {
             f.setPermissao(1);
-        }
-        else if(pMedio.isSelected()){
+        } else if (pMedio.isSelected()) {
             f.setPermissao(2);
-        }
-        else if(pBaixo.isSelected()){
+        } else if (pBaixo.isSelected()) {
             f.setPermissao(3);
         }
 
-        f.setSenha(txtSenha.getText());
-
-        if(sAtivo.isSelected()){
+        if (sAtivo.isSelected()) {
             f.setStatus(sAtivo.getText());
-        }
-        else if(sInativo.isSelected()){
+        } else if (sInativo.isSelected()) {
             f.setStatus(sInativo.getText());
         }
 

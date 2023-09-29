@@ -15,7 +15,7 @@ public class Venda {
     private int idVenda;
     private Cliente cliente;
     private Funcionario funcionario;
-    private int total;
+    private double total;
     private String statusVenda;
     private double desconto;
     private String dataVenda;
@@ -23,7 +23,7 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(int idVenda, Cliente cliente, Funcionario funcionario, int total, String statusVenda, double desconto, String dataVenda) {
+    public Venda(int idVenda, Cliente cliente, Funcionario funcionario, double total, String statusVenda, double desconto, String dataVenda) {
         this.idVenda = idVenda;
         this.cliente = cliente;
         this.funcionario = funcionario;
@@ -57,11 +57,11 @@ public class Venda {
         this.funcionario = funcionario;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -88,6 +88,6 @@ public class Venda {
     public void setDataVenda(String dataVenda) {
         this.dataVenda = dataVenda;
     }
-    
+
     
 }

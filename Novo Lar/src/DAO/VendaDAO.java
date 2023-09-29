@@ -4,19 +4,13 @@
  */
 package DAO;
 
-import Categoria.Categoria;
 import Connection.ConnectionFactory;
-import Fornecedor.Fornecedor;
-import Produto.Produto;
+import Venda.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -24,38 +18,59 @@ import javax.swing.JOptionPane;
  */
 public class VendaDAO {
 
-    public ArrayList<Produto> read(Produto p) {
+    public int numVendas() {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
-        ArrayList<Produto> produtos = new ArrayList();
-
+        int numLinhas = 0;
         try {
-            stmt = con.prepareStatement("SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque FROM produto p inner join fornecedor f on f.idFornecedor = p.idfornecedor inner join categoria c on p.idcategoria = c.idCategoria where idproduto = ?");
-            stmt.setInt(1, p.getIdProduto());
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM venda");
             rs = stmt.executeQuery();
-            System.out.println(stmt.toString());
-            while (rs.next()) {
 
-                Produto produto = new Produto();
-                Fornecedor fornecedor = new Fornecedor();
-                Categoria categoria = new Categoria();
-
-                produto.setNome(rs.getString("pnome"));
-                produto.setCodigo(rs.getString("codigo"));
-
-                produto.setPrecoUn(rs.getDouble("precoUn"));
-
-                produtos.add(produto);
+            // Move o cursor para a primeira linha do resultado (se houver)
+            if (rs.next()) {
+                numLinhas = rs.getInt(1); // Obtém o valor da primeira coluna do resultado
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
+            System.out.println("Erro ao contar as linhas: " + ex.getMessage());
 
-        return produtos;
+            return 0;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs); // Certifique-se de fechar o ResultSet também
+        }
+        return numLinhas;
+    }
+
+    public void create(Venda v) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            // Verifica se a venda já existe com base no CNPJ e no nome
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM venda WHERE idvenda = ?");
+            stmt.setInt(1, v.getIdVenda());
+            rs = stmt.executeQuery();
+
+            if (rs.next() && rs.getInt(1) == 0) {
+                // Se venda não existe...
+                stmt = con.prepareStatement("INSERT INTO venda (dataVenda, total, idCliente, idFuncionario, status_venda, desconto) VALUES(?,?,?,?,?,?)");
+                stmt.setString(1, v.getDataVenda());
+                stmt.setDouble(2, v.getTotal());
+                stmt.setInt(3, v.getCliente().getIdCliente());
+                stmt.setInt(4, v.getFuncionario().getIdFuncionario());
+                stmt.setString(5, v.getStatusVenda());
+                stmt.setDouble(6, v.getDesconto());
+
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Venda já existe!");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar2: " + ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
     }
 }
