@@ -14,8 +14,8 @@ public class ProdutoTableModel extends AbstractTableModel {
 
     private List<Produto> dados = new ArrayList<>();
     private List<ItensDaVenda> dadosVenda = new ArrayList<>();
-
-    private String[] colunas = {"Item", "id", "Código", "Nome", "Preco", "Quantidade", "Desconto%", "Subtotal"};
+    //o problema é colocar o id na lista de colunas. Não sei o porquê
+    private String[] colunas = {"Item", "id", "Código", "Nome", "Preco", "Quantidade", "Desconto %", "Subtotal"};
 
     @Override
     public String getColumnName(int column) {
@@ -65,24 +65,27 @@ public class ProdutoTableModel extends AbstractTableModel {
                 dados.get(linha);
                 break;
             case 1:
-                dados.get(linha).setCodigo(valor.toString());
+                dados.get(linha).setIdProduto(Integer.parseInt(valor.toString()));
                 break;
             case 2:
-                dados.get(linha).setNome(valor.toString());
+                dados.get(linha).setCodigo(valor.toString());
                 break;
             case 3:
-                dados.get(linha).setPrecoUn(Double.parseDouble(valor.toString()));
+                dados.get(linha).setNome(valor.toString());
                 break;
             case 4:
+                dados.get(linha).setPrecoUn(Double.parseDouble(valor.toString()));
+                break;
+            case 5:
                 dadosVenda.get(linha).setQuantidade(Double.parseDouble(valor.toString()));
                 calcularEAtualizarSubtotal(linha);
                 break;
-            case 5:
+            case 6:
                 dadosVenda.get(linha).setDesconto(Double.parseDouble(valor.toString()));
                 calcularEAtualizarSubtotal(linha);
                 break;
-            case 6:
-
+            case 7:
+                dadosVenda.get(linha).setSubtotal(Double.parseDouble(valor.toString()));
                 break;
         }
 
@@ -91,7 +94,7 @@ public class ProdutoTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int linha, int coluna) {
-        return coluna == 4 || coluna == 5;
+        return coluna == 5 || coluna == 6;
     }
 
     public void addRow(Produto p, ItensDaVenda i) {

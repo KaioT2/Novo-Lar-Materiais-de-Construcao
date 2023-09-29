@@ -51,7 +51,6 @@ public class TelaVenda extends javax.swing.JFrame {
         Thread loopThread = new Thread(() -> {
             while (janelaAberta) {
                 double total = model.calcularTotalSubtotal();
-                
 
                 DecimalFormat df = new DecimalFormat("#0.00");
                 String totalFormatado = df.format(total);
@@ -173,15 +172,7 @@ public class TelaVenda extends javax.swing.JFrame {
             new String [] {
                 "Item", "Id", "Código", "Nome", "Preço", "Quantidade", "Desconto %", "Subtotal"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, true, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tabelaVenda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tabelaVendaKeyPressed(evt);
@@ -464,10 +455,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 itemDao.create(iv);
             }
         }
-        
-        btnExcluir.setEnabled(false);
-        btnNovoItem.setEnabled(false);
-        btnSalvar.setEnabled(false);
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaVendaActionPerformed
