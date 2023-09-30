@@ -92,7 +92,7 @@ public class FuncionarioDAO {
         ArrayList<Funcionario> funcionarios = new ArrayList();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM funcionario");
+            stmt = con.prepareStatement("SELECT * FROM funcionario order by nome");
             rs = stmt.executeQuery();
             
             while(rs.next()){

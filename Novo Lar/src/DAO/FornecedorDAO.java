@@ -55,7 +55,7 @@ public class FornecedorDAO {
         ArrayList<Fornecedor> fornecedores = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM fornecedor");
+            stmt = con.prepareStatement("SELECT * FROM fornecedor order by nome");
             rs = stmt.executeQuery();
 
             while (rs.next()) {

@@ -6,6 +6,7 @@ package DAO;
 
 import Connection.ConnectionFactory;
 import Itens_da_Venda.ItensDaVenda;
+import Produto.Produto;
 import Venda.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,6 +46,24 @@ public class ItensDaVendaDAO {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar1: " + ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    
+    public void atualizarEstoque(ItensDaVenda iv){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("UPDATE produto SET estoque = estoque - ? WHERE idProduto = ?");
+            stmt.setDouble(1, iv.getQuantidade());
+            stmt.setInt(2, iv.getProduto().getIdProduto());
+
+            stmt.executeUpdate();
+            System.out.println("Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            System.out.println("Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }

@@ -59,7 +59,7 @@ public class ClienteDAO {
         ArrayList<Cliente> clientes = new ArrayList();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente");
+            stmt = con.prepareStatement("SELECT * FROM cliente order by nome");
             rs = stmt.executeQuery();
             
             while(rs.next()){

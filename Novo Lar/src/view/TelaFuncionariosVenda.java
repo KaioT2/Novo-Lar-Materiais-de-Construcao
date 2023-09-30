@@ -29,9 +29,9 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
     public void atualizarTabela(){
         DefaultTableModel modelo = (DefaultTableModel) tabelaFunc.getModel();
         modelo.setNumRows(0);
-        FuncionarioDAO cdao = new FuncionarioDAO();
+        FuncionarioDAO fdao = new FuncionarioDAO();
         
-        for(Funcionario f: cdao.read()){
+        for(Funcionario f: fdao.read()){
             
             modelo.addRow(new Object[]{
                 f.getIdFuncionario(),
@@ -47,16 +47,15 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
     public void searchJTableForName(String nome, String cpf){
         DefaultTableModel modelo = (DefaultTableModel) tabelaFunc.getModel();
         modelo.setNumRows(0);
-        FuncionarioDAO cdao = new FuncionarioDAO();
+        FuncionarioDAO fdao = new FuncionarioDAO();
         
-        for(Funcionario f: cdao.searchForName(nome, cpf)){
+        for(Funcionario f: fdao.searchForName(nome, cpf)){
             
             modelo.addRow(new Object[]{
                 f.getIdFuncionario(),
                 f.getNome(),
                 f.getCargo(),
-                f.getStatus(),
-                
+                f.getStatus()
             });
             
         }
@@ -136,6 +135,9 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tabelaFunc);
+        if (tabelaFunc.getColumnModel().getColumnCount() > 0) {
+            tabelaFunc.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,12 +149,11 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addGap(81, 81, 81))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1468, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnSelecionar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSelecionar)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1462, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

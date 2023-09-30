@@ -120,6 +120,9 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tabelaProd);
+        if (tabelaProd.getColumnModel().getColumnCount() > 0) {
+            tabelaProd.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
 
         txtBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

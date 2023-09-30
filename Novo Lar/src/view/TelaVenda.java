@@ -30,6 +30,7 @@ public class TelaVenda extends javax.swing.JFrame {
      */
 
     private boolean janelaAberta = true;
+    
     private Calendar dataAtual = Calendar.getInstance();
     private Calendar dataVencimento = Calendar.getInstance();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -82,23 +83,8 @@ public class TelaVenda extends javax.swing.JFrame {
         txtIdVenda.setText(String.valueOf(v.numVendas()+1));
     }
 
-    
-    
-    public void inserirProduto(Produto pr, ItensDaVenda i) {
-
-        Produto novoProduto = new Produto();
-
-        novoProduto.setCodigo(pr.getCodigo());
-        novoProduto.setIdProduto(pr.getIdProduto());
-        novoProduto.setNome(pr.getNome());
-        novoProduto.setPrecoUn(pr.getPrecoUn());
-
-        ItensDaVenda novoItem = new ItensDaVenda();
-
-        novoItem.setDesconto(i.getDesconto());
-        novoItem.setQuantidade(i.getQuantidade());
-
-        model.addRow(novoProduto, novoItem);
+    public void inserirProduto(Produto produto, ItensDaVenda item) {
+        model.addRow(produto, item);
 
         model.calcularEAtualizarSubtotal(model.getRowCount() - 1);
     }
@@ -106,6 +92,11 @@ public class TelaVenda extends javax.swing.JFrame {
     public void inserirFuncionario(Funcionario f){
         txtFuncionario.setText(f.getNome());
         txtIdFuncionário.setText(String.valueOf(f.getIdFuncionario()));
+    }
+    
+    public void inserirCliente(Cliente c){
+        txtCliente.setText(c.getNome());
+        txtIdCliente.setText(String.valueOf(c.getIdCliente()));
     }
 
     private void fecharJanela() {
@@ -159,6 +150,34 @@ public class TelaVenda extends javax.swing.JFrame {
         txtData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDataActionPerformed(evt);
+            }
+        });
+
+        txtIdCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdClienteKeyPressed(evt);
+            }
+        });
+
+        txtCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClienteActionPerformed(evt);
+            }
+        });
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClienteKeyPressed(evt);
+            }
+        });
+
+        txtIdFuncionário.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdFuncionárioActionPerformed(evt);
+            }
+        });
+        txtIdFuncionário.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdFuncionárioKeyPressed(evt);
             }
         });
 
@@ -453,9 +472,9 @@ public class TelaVenda extends javax.swing.JFrame {
                 iv.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
                 
                 itemDao.create(iv);
+                itemDao.atualizarEstoque(iv);
             }
         }
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaVendaActionPerformed
@@ -471,11 +490,49 @@ public class TelaVenda extends javax.swing.JFrame {
         txtIdCliente.setText("");
         txtIdFuncionário.setText("");
 
-        
-        for(int i=0; i< model.getRowCount();i++){
-            model.removeRow(i);
-        }
+        model.removeAllRows();
     }//GEN-LAST:event_btnNovaVendaActionPerformed
+
+    private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClienteActionPerformed
+
+    private void txtClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyPressed
+        // TODO add your handling code here:
+        
+         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TelaClientesvenda telaClientes = new TelaClientesvenda();
+
+            telaClientes.setTelaVenda(this);
+            telaClientes.setVisible(true);
+        }
+    }//GEN-LAST:event_txtClienteKeyPressed
+
+    private void txtIdClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdClienteKeyPressed
+        // TODO add your handling code here:
+        
+         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TelaClientesvenda telaClientes = new TelaClientesvenda();
+
+            telaClientes.setTelaVenda(this);
+            telaClientes.setVisible(true);
+        }
+    }//GEN-LAST:event_txtIdClienteKeyPressed
+
+    private void txtIdFuncionárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdFuncionárioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdFuncionárioActionPerformed
+
+    private void txtIdFuncionárioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdFuncionárioKeyPressed
+        // TODO add your handling code here:
+        
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TelaFuncionariosVenda telaFuncionario = new TelaFuncionariosVenda();
+            
+            telaFuncionario.setTelaVenda(this);
+            telaFuncionario.setVisible(true);
+        } 
+    }//GEN-LAST:event_txtIdFuncionárioKeyPressed
 
     /**
      * @param args the command line arguments

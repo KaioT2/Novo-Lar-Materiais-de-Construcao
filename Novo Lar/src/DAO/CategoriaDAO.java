@@ -53,7 +53,7 @@ public class CategoriaDAO {
         ArrayList<Categoria> categorias = new ArrayList();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM categoria");
+            stmt = con.prepareStatement("SELECT * FROM categoria ORDER BY descricao");
             rs = stmt.executeQuery();
             
             while(rs.next()){

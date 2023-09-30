@@ -109,6 +109,12 @@ public class ProdutoTableModel extends AbstractTableModel {
         this.dadosVenda.remove(linha);
         this.fireTableRowsDeleted(linha, linha);
     }
+    
+    public void removeAllRows() {
+        dados.clear(); 
+        dadosVenda.clear(); 
+        fireTableDataChanged(); 
+    }
 
     public double calcularEAtualizarSubtotal(int linha) {
         Produto produto = dados.get(linha);
