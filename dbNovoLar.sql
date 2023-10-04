@@ -543,3 +543,118 @@ VALUES
     (46, 12, 3, 0.55, 1.65), -- Compra 46, Produto 12
     (47, 13, 1, 12.49, 12.49), -- Compra 47, Produto 13
     (47, 14, 2, 3.25, 6.50); -- Compra 47, Produto 14
+    
+    
+    
+    
+SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, p.codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque FROM produto p 
+inner join fornecedor f on f.idFornecedor = p.idfornecedor 
+inner join categoria c on p.idcategoria = c.idCategoria;
+
+select iv.idVenda, sum(iv.quantidade*iv.precoUn) as p from itens_da_venda iv 
+inner join venda v on v.idVenda=iv.idVenda group by iv.idvenda ;
+    
+select i.idItemVenda, p.precoUn as p, i.precoUn from itens_da_venda i 
+inner join produto p on p.idProduto=i.idProduto;
+
+select ic.idCompra, sum(ic.quantidade*ic.precoCusto) as p from itens_da_compra ic 
+inner join compra c on c.idCompra=ic.idCompra group by ic.idCompra ;
+
+select p.idProduto ,i.idItemCompra, p.precoCusto as p, i.precoCusto from itens_da_compra i 
+inner join produto p on p.idProduto=i.idProduto and p.precoCusto != i.precoCusto;
+
+UPDATE itens_da_compra AS ic
+JOIN produto AS p ON ic.idproduto = p.idproduto
+SET ic.precoCusto = p.precoCusto;
+
+SELECT idcompra, SUM(total) AS total_venda
+FROM itens_da_compra
+GROUP BY idcompra;
+    
+SELECT
+	c.idCompra,
+	c.total AS total_compra,
+	SUM(ic.total) AS total_itens_compra
+FROM compra c
+	INNER JOIN itens_da_compra ic ON c.idCompra = ic.idCompra
+	GROUP BY c.idCompra
+	HAVING c.total = SUM(ic.total);
+
+
+
+-- Calcula a idade 
+SELECT nome, dataNasc, TIMESTAMPDIFF(YEAR, dataNasc, CURDATE()) AS idade
+FROM cliente;
+
+-- Exibe aqueles que tem mais de 10 anos;
+select count(nome) from(
+	select nome, dataNasc, timestampdiff(year, dataNasc, curdate()) as idade from cliente
+) j where idade >10;
+
+ -- Exibe todas as venda feitas antes do mês 10;
+select * from venda where month(dataVenda) < 10;
+
+-- nome dos funcionarios que venderam para alguma maria;
+select f.nome from funcionario f inner join venda v on v.idFuncionario = f.idFuncionario
+inner join cliente c on v.idCliente = c.idCliente 
+where c.nome like "%Maria%";
+
+-- nome dos clientes que compram algúm produto fonecido pelo fornecedor id=5;
+select c.nome, p.nome, iv.idItemVenda from cliente c inner join venda v on c.idCliente = v.idCliente
+inner join itens_da_venda iv on v.idvenda = iv.idVenda
+inner join produto p on iv.idProduto = p.idProduto
+inner join fornecedor f on p.idFornecedor = f.idFornecedor
+where f.idFornecedor = 5;
+
+-- todas as vendas de produtos que pertencem a categoria Ferramentas Elétricas;
+select v.idVenda, v.data, v.total, v.idCliente, p.idProduto, p.idCategoria from venda v inner join itens_da_venda iv on v.idVenda = iv.idVenda
+inner join produto p on iv.idProduto = p.idProduto
+inner join categoria c on p.idcategoria = c.idCategoria 
+where c.idCategoria in(
+	select c.idCategoria where c.descricao like "Ferramentas Elétricas"
+);
+
+-- faz a média das idades dos clientes registrados;
+select avg(idade) from (
+	select timestampdiff(year, datanasc, curdate()) as idade from cliente
+) j;
+
+-- nome do cliente e do produto que foi comprado no dia 21/09 e que é fornecido pelo fornecedor 2;
+select c.nome, p.nome from cliente c inner join venda v on c.idCliente = v.idCliente
+inner join itens_da_venda iv on v.idvenda = iv.idVenda
+inner join produto p on iv.idProduto = p.idProduto
+inner join fornecedor f on p.idFornecedor = f.idFornecedor
+where v.dataVenda = '2023-09-21' and f.idFornecedor = 2;
+
+-- quais as compras que têm o item da compra 2 ou 3;
+select c.idCompra, c.total from compra c inner join itens_da_compra ic on c.idCompra = ic.idCompra
+where ic.idItemCompra = 2 or ic.idItemCompra = 3;
+
+-- nome dos funcionarios que já realizaram compras que tem o fonecedor 2;
+select f.nome from funcionario f inner join compra c on f.idFuncionario = c.idFuncionario
+inner join fornecedor fo on c.idFornecedor = fo.idFornecedor
+where fo.idFornecedor = 2 group by f.nome;
+
+-- Conta qts funcionários tem carga-horaria 
+select count(nome) from funcionario where cargaHoraria = 2;
+
+-- Faz a média salarial dos funcionarios
+select avg(salario) from funcionario;
+
+-- Seleciona o valor máximo e o mínimo dentre os salários
+select max(salario) from funcionario;
+select min(salario) from funcionario;
+
+-- A soma dos salários
+select sum(salario) from funcionario;
+
+-- seleciona todos os itens da venda quando o id da venda é maior que 2 agrupados por idVenda
+select * from itens_da_venda where idVenda > 2 group by idvenda; 
+
+-- seleciona a soma dos salários agrupados por data de contratação em que a soma de salários seja maior que 4000
+select sum(salario), dataContrata from funcionario
+group by dataContrata
+having sum(salario) >4000;
+
+-- seleciona as cidades 
+select distinct cidade as cidade from cliente; 
