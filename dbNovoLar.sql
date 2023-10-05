@@ -658,3 +658,28 @@ having sum(salario) >4000;
 
 -- seleciona as cidades 
 select distinct cidade as cidade from cliente; 
+
+
+-- seleciona os clientes que não fizeram compras
+select c.nome from cliente c inner join venda v on c.idcliente = v.idcliente 
+group by c.idCliente
+having count(v.idVenda) = 0;
+
+-- produtos que foram comprados mais de 2 vezes
+select p.nome, count(iv.idproduto) from produto p inner join itens_da_venda iv on p.idProduto = iv.idProduto
+group by iv.idProduto
+having  count(iv.idproduto)> 2; 
+
+-- os 3 clientes que fizeram as compras mais caras
+
+select c.nome from cliente c inner join venda v on c.idcliente = v.idCliente
+order by v.total desc limit 3;
+
+-- os 3 produtos mais comprados da categoria 3
+select p.nome, c.descricao from produto p inner join itens_da_venda iv on p.idProduto = iv.idProduto
+inner join categoria c on c.idcategoria = p.idcategoria
+where c.idCategoria = 3
+group by iv.idProduto
+order by count(iv.idItemVenda) desc limit 3;
+ 
+ 
