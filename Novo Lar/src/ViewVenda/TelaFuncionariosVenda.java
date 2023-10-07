@@ -196,6 +196,7 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
                 
                 f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
                 f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());
+                f.setStatus(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 3).toString());
                 
                 telaVenda.inserirFuncionario(f);
                 this.dispose();
@@ -216,7 +217,8 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
                 
                 f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
                 f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());
-                
+                f.setStatus(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 3).toString());
+
                 telaVenda.inserirFuncionario(f);
                 this.dispose();
             }
