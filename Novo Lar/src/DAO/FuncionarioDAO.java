@@ -149,21 +149,21 @@ public class FuncionarioDAO {
                 
                 funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
                 funcionario.setNome(rs.getString("nome"));
-//                funcionario.setEndereco(rs.getString("endereco"));
-//                funcionario.setBairro(rs.getString("bairro"));
-//                funcionario.setCidade(rs.getString("cidade"));
-//                funcionario.setEstado(rs.getString("estado"));
-//                funcionario.setCEP(rs.getString("cep"));
-//                funcionario.setTelefone(rs.getString("telefone"));
-//                funcionario.setEmail(rs.getString("email"));
-//                funcionario.setCpf(rs.getString("cpf"));
-//                funcionario.setCargaHoraria(Double.parseDouble(rs.getString("cargaHoraria")));
+                funcionario.setEndereco(rs.getString("endereco"));
+                funcionario.setBairro(rs.getString("bairro"));
+                funcionario.setCidade(rs.getString("cidade"));
+                funcionario.setEstado(rs.getString("estado"));
+                funcionario.setCEP(rs.getString("cep"));
+                funcionario.setTelefone(rs.getString("telefone"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setCpf(rs.getString("cpf"));
+                funcionario.setCargaHoraria(Double.parseDouble(rs.getString("cargaHoraria")));
                 funcionario.setCargo(rs.getString("cargo"));
-//                funcionario.setDataNasc(rs.getString("dataNasc"));
-//                funcionario.setDataContratacao(rs.getString("dataContrata"));
-//                funcionario.setSalario(Double.parseDouble(rs.getString("salario")));
-//                funcionario.setSenha(rs.getString("senha"));
-//                funcionario.setPermissao(rs.getInt("permissao"));
+                funcionario.setDataNasc(rs.getString("dataNasc"));
+                funcionario.setDataContratacao(rs.getString("dataContrata"));
+                funcionario.setSalario(Double.parseDouble(rs.getString("salario")));
+                funcionario.setSenha(rs.getString("senha"));
+                funcionario.setPermissao(rs.getInt("permissao"));
                 funcionario.setStatus("status");
                 funcionarios.add(funcionario);
             }

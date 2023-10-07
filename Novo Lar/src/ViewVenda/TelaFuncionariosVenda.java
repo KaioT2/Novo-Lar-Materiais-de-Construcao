@@ -13,11 +13,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Kaio Dias
  */
 public class TelaFuncionariosVenda extends javax.swing.JFrame {
+
     private TelaVenda telaVenda;
 
     public void setTelaVenda(TelaVenda telaVenda) {
         this.telaVenda = telaVenda;
     }
+
     /**
      * Creates new form TelaListarFuncionario
      */
@@ -25,41 +27,41 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
         initComponents();
         atualizarTabela();
     }
-    
-    public void atualizarTabela(){
+
+    public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaFunc.getModel();
         modelo.setNumRows(0);
         FuncionarioDAO fdao = new FuncionarioDAO();
-        
-        for(Funcionario f: fdao.read()){
-            
+
+        for (Funcionario f : fdao.read()) {
+
             modelo.addRow(new Object[]{
                 f.getIdFuncionario(),
                 f.getNome(),
                 f.getCargo(),
                 f.getStatus()
             });
-            
+
         }
-        
+
     }
-    
-    public void searchJTableForName(String nome, String cpf){
+
+    public void searchJTableForName(String nome, String cpf) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaFunc.getModel();
         modelo.setNumRows(0);
         FuncionarioDAO fdao = new FuncionarioDAO();
-        
-        for(Funcionario f: fdao.searchForName(nome, cpf)){
-            
+
+        for (Funcionario f : fdao.searchForName(nome, cpf)) {
+
             modelo.addRow(new Object[]{
                 f.getIdFuncionario(),
                 f.getNome(),
                 f.getCargo(),
                 f.getStatus()
             });
-            
+
         }
-        
+
     }
 
     /**
@@ -175,7 +177,7 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        searchJTableForName(txtBusca.getText(),txtBusca.getText());
+        searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
@@ -188,16 +190,16 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
 
     private void tabelaFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncMouseClicked
         // TODO add your handling code here:
-         
-         if (evt.getClickCount() == 2) { // Duplo clique
+
+        if (evt.getClickCount() == 2) { // Duplo clique
             if (tabelaFunc.getSelectedRow() != -1) {
-                
+
                 Funcionario f = new Funcionario();
-                
+
                 f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
                 f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());
                 f.setStatus(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 3).toString());
-                
+
                 telaVenda.inserirFuncionario(f);
                 this.dispose();
             }
@@ -210,25 +212,24 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         // TODO add your handling code here:
-        
-        if (tabelaFunc.getSelectedRow() != -1) {
-                //TelaVenda telaVenda = new TelaVenda();
-                Funcionario f = new Funcionario();
-                
-                f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
-                f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());
-                f.setStatus(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 3).toString());
 
-                telaVenda.inserirFuncionario(f);
-                this.dispose();
-            }
+        if (tabelaFunc.getSelectedRow() != -1) {
+            //TelaVenda telaVenda = new TelaVenda();
+            Funcionario f = new Funcionario();
+
+            f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
+            f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());
+            f.setStatus(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 3).toString());
+
+            telaVenda.inserirFuncionario(f);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
         // TODO add your handling code here:
         searchJTableForName(txtBusca.getText(), txtBusca.getText());
     }//GEN-LAST:event_txtBuscaKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionar;
