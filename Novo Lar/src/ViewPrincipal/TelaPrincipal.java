@@ -13,6 +13,7 @@ import ViewCadastro.TelaCadProduto;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.Dimension;
 import ViewCadastro.TelaCadFuncionario;
+import ViewCompra.TelaCompra;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -68,6 +69,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -215,6 +218,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu7.setText("Compras");
+
+        jMenuItem9.setText("Nova Compra");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu7);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -312,6 +327,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaEstoque.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        TelaCompra telaCompra = new TelaCompra();
+        telaCompra.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     
 //    public static void main(String args[]) {
 //        FlatIntelliJLaf.registerCustomDefaultsSource("style");
@@ -358,6 +379,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
@@ -368,6 +390,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

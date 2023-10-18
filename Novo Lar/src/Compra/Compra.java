@@ -17,16 +17,18 @@ public class Compra {
     private Fornecedor fornecedor;
     private Funcionario funcionario;
     private double total;
+    private double desconto;
     private String dataCompra;
 
     public Compra() {
     }
 
-    public Compra(int idCompra, Fornecedor fornecedor, Funcionario funcionario, double total, String dataCompra) {
+    public Compra(int idCompra, Fornecedor fornecedor, Funcionario funcionario, double total, double desconto, String dataCompra) {
         this.idCompra = idCompra;
         this.fornecedor = fornecedor;
         this.funcionario = funcionario;
         this.total = total;
+        this.desconto = desconto;
         this.dataCompra = dataCompra;
     }
 
@@ -62,6 +64,14 @@ public class Compra {
         this.total = total;
     }
 
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+
     public String getDataCompra() {
         return dataCompra;
     }
@@ -69,6 +79,5 @@ public class Compra {
     public void setDataCompra(String dataCompra) {
         this.dataCompra = dataCompra;
     }
-
     
 }

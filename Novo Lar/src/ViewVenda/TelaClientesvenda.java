@@ -6,9 +6,7 @@ package ViewVenda;
 
 import Cliente.Cliente;
 import DAO.ClienteDAO;
-import Venda.Venda;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**

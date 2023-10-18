@@ -112,6 +112,7 @@ create table compra(
     foreign key (idFuncionario)
     references funcionario (idFuncionario),
     total double(7,2) not null,
+    desconto double(5,2) not null,
     dataCompra date not null
 );
 
@@ -125,6 +126,7 @@ create table itens_da_compra(
     references produto (idProduto),
     quantidade double not null,
     precoCusto double(7,2) not null,
+    desconto double(5,2) not null,
     total double(7,2) not null
 );
 
@@ -397,289 +399,151 @@ VALUES
     (20, '2023-09-10', 9, 10, 2.49, 0.00, 24.90),
     (20, '2023-09-10', 10, 1, 99.99, 0.00, 99.99);
 
-INSERT INTO compra (dataCompra, total, idfuncionario, idfornecedor)
+INSERT INTO compra (dataCompra, total, idfuncionario, idfornecedor, desconto)
 VALUES
-    ('2023-09-27', 39.63, 1, 1),
-    ('2023-09-27', 18.99, 2, 2),
-    ('2023-09-28', 16.97, 3, 3),
-    ('2023-09-29', 255.95, 4, 4),
-    ('2023-09-29', 163.76, 1, 2),
-    ('2023-09-30', 76.51, 2, 3),
-    ('2023-09-30', 43.97, 3, 4),
-    ('2023-10-01', 16.97, 4, 1),
-    ('2023-10-01', 416.92, 1, 2),
-    ('2023-10-02', 163.76, 2, 3),
-    ('2023-10-02', 21.97, 3, 4),
-    ('2023-10-03', 53.46, 4, 1),
-    ('2023-10-03', 28.97, 1, 2),
-    ('2023-10-04', 373.95, 2, 3),
-    ('2023-10-04', 125.57, 3, 4),
-    ('2023-10-05', 39.63, 4, 1),
-    ('2023-10-05', 18.99, 1, 2),
-    ('2023-10-06', 16.97, 2, 3),
-    ('2023-10-06', 255.95, 3, 4),
-    ('2023-10-07', 163.76, 4, 1),
-    ('2023-10-07', 21.97, 1, 2),
-    ('2023-10-08', 53.46, 2, 3),
-    ('2023-10-08', 28.97, 3, 4),
-    ('2023-10-09', 373.95, 4, 1),
-    ('2023-10-09', 125.57, 1, 2),
-    ('2023-10-10', 39.63, 2, 3),
-    ('2023-10-10', 18.99, 3, 4),
-    ('2023-10-11', 16.97, 4, 1),
-    ('2023-10-11', 255.95, 1, 2),
-    ('2023-10-12', 163.76, 2, 3),
-    ('2023-10-12', 21.97, 3, 4),
-    ('2023-10-13', 53.46, 4, 1),
-    ('2023-10-13', 28.97, 1, 2),
-    ('2023-10-14', 373.95, 2, 3),
-    ('2023-10-14', 125.57, 3, 4),
-    ('2023-10-15', 39.63, 4, 1),
-    ('2023-10-15', 18.99, 1, 2),
-    ('2023-10-16', 16.97, 2, 3),
-    ('2023-10-16', 255.95, 3, 4),
-    ('2023-10-17', 163.76, 4, 1),
-    ('2023-10-17', 21.97, 1, 2),
-    ('2023-10-18', 53.46, 2, 3),
-    ('2023-10-18', 28.97, 3, 4),
-    ('2023-10-19', 373.95, 4, 1),
-    ('2023-10-19', 125.57, 1, 2),
-    ('2023-10-20', 39.63, 2, 3),
-    ('2023-10-20', 18.99, 3, 4);
+    ('2023-09-27', 39.63, 1, 1, 0.00),
+    ('2023-09-27', 18.99, 2, 2, 0.00),
+    ('2023-09-28', 16.97, 3, 3, 0.00),
+    ('2023-09-29', 255.95, 4, 4, 0.00),
+    ('2023-09-29', 163.76, 1, 2, 0.00),
+    ('2023-09-30', 76.51, 2, 3, 0.00),
+    ('2023-09-30', 43.97, 3, 4, 0.00),
+    ('2023-10-01', 16.97, 4, 1, 0.00),
+    ('2023-10-01', 416.92, 1, 2, 0.00),
+    ('2023-10-02', 163.76, 2, 3, 0.00),
+    ('2023-10-02', 21.97, 3, 4, 0.00),
+    ('2023-10-03', 53.46, 4, 1, 0.00),
+    ('2023-10-03', 28.97, 1, 2, 0.00),
+    ('2023-10-04', 373.95, 2, 3, 0.00),
+    ('2023-10-04', 125.57, 3, 4, 0.00),
+    ('2023-10-05', 39.63, 4, 1, 0.00),
+    ('2023-10-05', 18.99, 1, 2, 0.00),
+    ('2023-10-06', 16.97, 2, 3, 0.00),
+    ('2023-10-06', 255.95, 3, 4, 0.00),
+    ('2023-10-07', 163.76, 4, 1, 0.00),
+    ('2023-10-07', 21.97, 1, 2, 0.00),
+    ('2023-10-08', 53.46, 2, 3, 0.00),
+    ('2023-10-08', 28.97, 3, 4, 0.00),
+    ('2023-10-09', 373.95, 4, 1, 0.00),
+    ('2023-10-09', 125.57, 1, 2, 0.00),
+    ('2023-10-10', 39.63, 2, 3, 0.00),
+    ('2023-10-10', 18.99, 3, 4, 0.00),
+    ('2023-10-11', 16.97, 4, 1, 0.00),
+    ('2023-10-11', 255.95, 1, 2, 0.00),
+    ('2023-10-12', 163.76, 2, 3, 0.00),
+    ('2023-10-12', 21.97, 3, 4, 0.00),
+    ('2023-10-13', 53.46, 4, 1, 0.00),
+    ('2023-10-13', 28.97, 1, 2, 0.00),
+    ('2023-10-14', 373.95, 2, 3, 0.00),
+    ('2023-10-14', 125.57, 3, 4, 0.00),
+    ('2023-10-15', 39.63, 4, 1, 0.00),
+    ('2023-10-15', 18.99, 1, 2, 0.00),
+    ('2023-10-16', 16.97, 2, 3, 0.00),
+    ('2023-10-16', 255.95, 3, 4, 0.00),
+    ('2023-10-17', 163.76, 4, 1, 0.00),
+    ('2023-10-17', 21.97, 1, 2, 0.00),
+    ('2023-10-18', 53.46, 2, 3, 0.00),
+    ('2023-10-18', 28.97, 3, 4, 0.00),
+    ('2023-10-19', 373.95, 4, 1, 0.00),
+    ('2023-10-19', 125.57, 1, 2, 0.00),
+    ('2023-10-20', 39.63, 2, 3, 0.00),
+    ('2023-10-20', 18.99, 3, 4, 0.00);
 
-INSERT INTO itens_da_compra (idcompra, idproduto, quantidade, precoCusto, total)
+INSERT INTO itens_da_compra (idcompra, idproduto, quantidade, precoCusto, total, desconto)
 VALUES
-    (1, 1, 2, 18.99, 37.98), -- Compra 1, Produto 1
-    (1, 2, 3, 0.55, 1.65), -- Compra 1, Produto 2
-    (2, 3, 1, 12.49, 12.49), -- Compra 2, Produto 3
-    (2, 4, 2, 3.25, 6.50), -- Compra 2, Produto 4
-    (3, 5, 2, 3.99, 7.98), -- Compra 3, Produto 5
-    (3, 6, 1, 8.99, 8.99), -- Compra 3, Produto 6
-    (4, 7, 3, 65.99, 197.97), -- Compra 4, Produto 7
-    (4, 8, 2, 28.99, 57.98), -- Compra 4, Produto 8
-    (5, 9, 2, 1.89, 3.78), -- Compra 5, Produto 9
-    (5, 10, 2, 79.99, 159.98), -- Compra 5, Produto 10
-    (6, 11, 4, 18.99, 75.96), -- Compra 6, Produto 11
-    (6, 12, 1, 0.55, 0.55), -- Compra 6, Produto 12
-    (7, 13, 3, 12.49, 37.47), -- Compra 7, Produto 13
-    (7, 14, 2, 3.25, 6.50), -- Compra 7, Produto 14
-    (8, 15, 2, 3.99, 7.98), -- Compra 8, Produto 15
-    (8, 16, 1, 8.99, 8.99), -- Compra 8, Produto 16
-    (9, 17, 5, 65.99, 329.95), -- Compra 9, Produto 17
-    (9, 18, 3, 28.99, 86.97), -- Compra 9, Produto 18
-    (10, 19, 2, 1.89, 3.78), -- Compra 10, Produto 19
-    (10, 20, 2, 79.99, 159.98), -- Compra 10, Produto 20
-    (11, 21, 1, 20.99, 20.99), -- Compra 11, Produto 21
-    (11, 22, 2, 0.49, 0.98), -- Compra 11, Produto 22
-    (12, 23, 3, 16.99, 50.97), -- Compra 12, Produto 23
-    (12, 24, 1, 2.49, 2.49), -- Compra 12, Produto 24
-    (13, 25, 2, 4.99, 9.98), -- Compra 13, Produto 25
-    (13, 26, 1, 18.99, 18.99), -- Compra 13, Produto 26
-    (14, 27, 3, 99.99, 299.97), -- Compra 14, Produto 27
-    (14, 28, 2, 36.99, 73.98), -- Compra 14, Produto 28
-    (15, 29, 2, 2.79, 5.58), -- Compra 15, Produto 29
-    (15, 30, 1, 119.99, 119.99), -- Compra 15, Produto 30
-    (16, 11, 2, 18.99, 37.98), -- Compra 16, Produto 11
-    (16, 12, 3, 0.55, 1.65), -- Compra 16, Produto 12
-    (17, 13, 1, 12.49, 12.49), -- Compra 17, Produto 13
-    (17, 14, 2, 3.25, 6.50), -- Compra 17, Produto 14
-    (18, 15, 2, 3.99, 7.98), -- Compra 18, Produto 15
-    (18, 16, 1, 8.99, 8.99), -- Compra 18, Produto 16
-    (19, 17, 3, 65.99, 197.97), -- Compra 19, Produto 17
-    (19, 18, 2, 28.99, 57.98), -- Compra 19, Produto 18
-    (20, 19, 2, 1.89, 3.78), -- Compra 20, Produto 19
-    (20, 20, 2, 79.99, 159.98), -- Compra 20, Produto 20
-    (21, 21, 1, 20.99, 20.99), -- Compra 21, Produto 21
-    (21, 22, 2, 0.49, 0.98), -- Compra 21, Produto 22
-    (22, 23, 3, 16.99, 50.97), -- Compra 22, Produto 23
-    (22, 24, 1, 2.49, 2.49), -- Compra 22, Produto 24
-    (23, 25, 2, 4.99, 9.98), -- Compra 23, Produto 25
-    (23, 26, 1, 18.99, 18.99), -- Compra 23, Produto 26
-    (24, 27, 3, 99.99, 299.97), -- Compra 24, Produto 27
-    (24, 28, 2, 36.99, 73.98), -- Compra 24, Produto 28
-    (25, 29, 2, 2.79, 5.58), -- Compra 25, Produto 29
-    (25, 30, 1, 119.99, 119.99), -- Compra 25, Produto 30
-    (26, 11, 2, 18.99, 37.98), -- Compra 26, Produto 11
-    (26, 12, 3, 0.55, 1.65), -- Compra 26, Produto 12
-    (27, 13, 1, 12.49, 12.49), -- Compra 27, Produto 13
-    (27, 14, 2, 3.25, 6.50), -- Compra 27, Produto 14
-    (28, 15, 2, 3.99, 7.98), -- Compra 28, Produto 15
-    (28, 16, 1, 8.99, 8.99), -- Compra 28, Produto 16
-    (29, 17, 3, 65.99, 197.97), -- Compra 29, Produto 17
-    (29, 18, 2, 28.99, 57.98), -- Compra 29, Produto 18
-    (30, 19, 2, 1.89, 3.78), -- Compra 30, Produto 19
-    (30, 20, 2, 79.99, 159.98), -- Compra 30, Produto 20
-    (31, 21, 1, 20.99, 20.99), -- Compra 31, Produto 21
-    (31, 22, 2, 0.49, 0.98), -- Compra 31, Produto 22
-    (32, 23, 3, 16.99, 50.97), -- Compra 32, Produto 23
-    (32, 24, 1, 2.49, 2.49), -- Compra 32, Produto 24
-    (33, 25, 2, 4.99, 9.98), -- Compra 33, Produto 25
-    (33, 26, 1, 18.99, 18.99), -- Compra 33, Produto 26
-    (34, 27, 3, 99.99, 299.97), -- Compra 34, Produto 27
-    (34, 28, 2, 36.99, 73.98), -- Compra 34, Produto 28
-    (35, 29, 2, 2.79, 5.58), -- Compra 35, Produto 29
-    (35, 30, 1, 119.99, 119.99), -- Compra 35, Produto 30
-    (36, 11, 2, 18.99, 37.98), -- Compra 36, Produto 11
-    (36, 12, 3, 0.55, 1.65), -- Compra 36, Produto 12
-    (37, 13, 1, 12.49, 12.49), -- Compra 37, Produto 13
-    (37, 14, 2, 3.25, 6.50), -- Compra 37, Produto 14
-    (38, 15, 2, 3.99, 7.98), -- Compra 38, Produto 15
-    (38, 16, 1, 8.99, 8.99), -- Compra 38, Produto 16
-    (39, 17, 3, 65.99, 197.97), -- Compra 39, Produto 17
-    (39, 18, 2, 28.99, 57.98), -- Compra 39, Produto 18
-    (40, 19, 2, 1.89, 3.78), -- Compra 40, Produto 19
-    (40, 20, 2, 79.99, 159.98), -- Compra 40, Produto 20
-    (41, 21, 1, 20.99, 20.99), -- Compra 41, Produto 21
-    (41, 22, 2, 0.49, 0.98), -- Compra 41, Produto 22
-    (42, 23, 3, 16.99, 50.97), -- Compra 42, Produto 23
-    (42, 24, 1, 2.49, 2.49), -- Compra 42, Produto 24
-    (43, 25, 2, 4.99, 9.98), -- Compra 43, Produto 25
-    (43, 26, 1, 18.99, 18.99), -- Compra 43, Produto 26
-    (44, 27, 3, 99.99, 299.97), -- Compra 44, Produto 27
-    (44, 28, 2, 36.99, 73.98), -- Compra 44, Produto 28
-    (45, 29, 2, 2.79, 5.58), -- Compra 45, Produto 29
-    (45, 30, 1, 119.99, 119.99), -- Compra 45, Produto 30
-    (46, 11, 2, 18.99, 37.98), -- Compra 46, Produto 11
-    (46, 12, 3, 0.55, 1.65), -- Compra 46, Produto 12
-    (47, 13, 1, 12.49, 12.49), -- Compra 47, Produto 13
-    (47, 14, 2, 3.25, 6.50); -- Compra 47, Produto 14
-    
-    
-    
-    
-SELECT p.idProduto as pid, p.idFornecedor as pforn, p.nome as pnome, p.codigo, p.idcategoria as pcat, precoUn, precoCusto, estoque FROM produto p 
-inner join fornecedor f on f.idFornecedor = p.idfornecedor 
-inner join categoria c on p.idcategoria = c.idCategoria;
-
-select iv.idVenda, sum(iv.quantidade*iv.precoUn) as p from itens_da_venda iv 
-inner join venda v on v.idVenda=iv.idVenda group by iv.idvenda ;
-    
-select i.idItemVenda, p.precoUn as p, i.precoUn from itens_da_venda i 
-inner join produto p on p.idProduto=i.idProduto;
-
-select ic.idCompra, sum(ic.quantidade*ic.precoCusto) as p from itens_da_compra ic 
-inner join compra c on c.idCompra=ic.idCompra group by ic.idCompra ;
-
-select p.idProduto ,i.idItemCompra, p.precoCusto as p, i.precoCusto from itens_da_compra i 
-inner join produto p on p.idProduto=i.idProduto and p.precoCusto != i.precoCusto;
-
-UPDATE itens_da_compra AS ic
-JOIN produto AS p ON ic.idproduto = p.idproduto
-SET ic.precoCusto = p.precoCusto;
-
-SELECT idcompra, SUM(total) AS total_venda
-FROM itens_da_compra
-GROUP BY idcompra;
-    
-SELECT
-	c.idCompra,
-	c.total AS total_compra,
-	SUM(ic.total) AS total_itens_compra
-FROM compra c
-	INNER JOIN itens_da_compra ic ON c.idCompra = ic.idCompra
-	GROUP BY c.idCompra
-	HAVING c.total = SUM(ic.total);
-
-
-
--- Calcula a idade 
-SELECT nome, dataNasc, TIMESTAMPDIFF(YEAR, dataNasc, CURDATE()) AS idade
-FROM cliente;
-
--- Exibe aqueles que tem mais de 10 anos;
-select count(nome) from(
-	select nome, dataNasc, timestampdiff(year, dataNasc, curdate()) as idade from cliente
-) j where idade >10;
-
- -- Exibe todas as venda feitas antes do mês 10;
-select * from venda where month(dataVenda) < 10;
-
--- nome dos funcionarios que venderam para alguma maria;
-select f.nome from funcionario f inner join venda v on v.idFuncionario = f.idFuncionario
-inner join cliente c on v.idCliente = c.idCliente 
-where c.nome like "%Maria%";
-
--- nome dos clientes que compram algúm produto fonecido pelo fornecedor id=5;
-select c.nome, p.nome, iv.idItemVenda from cliente c inner join venda v on c.idCliente = v.idCliente
-inner join itens_da_venda iv on v.idvenda = iv.idVenda
-inner join produto p on iv.idProduto = p.idProduto
-inner join fornecedor f on p.idFornecedor = f.idFornecedor
-where f.idFornecedor = 5;
-
--- todas as vendas de produtos que pertencem a categoria Ferramentas Elétricas;
-select v.idVenda, v.data, v.total, v.idCliente, p.idProduto, p.idCategoria from venda v inner join itens_da_venda iv on v.idVenda = iv.idVenda
-inner join produto p on iv.idProduto = p.idProduto
-inner join categoria c on p.idcategoria = c.idCategoria 
-where c.idCategoria in(
-	select c.idCategoria where c.descricao like "Ferramentas Elétricas"
-);
-
--- faz a média das idades dos clientes registrados;
-select avg(idade) from (
-	select timestampdiff(year, datanasc, curdate()) as idade from cliente
-) j;
-
--- nome do cliente e do produto que foi comprado no dia 21/09 e que é fornecido pelo fornecedor 2;
-select c.nome, p.nome from cliente c inner join venda v on c.idCliente = v.idCliente
-inner join itens_da_venda iv on v.idvenda = iv.idVenda
-inner join produto p on iv.idProduto = p.idProduto
-inner join fornecedor f on p.idFornecedor = f.idFornecedor
-where v.dataVenda = '2023-09-21' and f.idFornecedor = 2;
-
--- quais as compras que têm o item da compra 2 ou 3;
-select c.idCompra, c.total from compra c inner join itens_da_compra ic on c.idCompra = ic.idCompra
-where ic.idItemCompra = 2 or ic.idItemCompra = 3;
-
--- nome dos funcionarios que já realizaram compras que tem o fonecedor 2;
-select f.nome from funcionario f inner join compra c on f.idFuncionario = c.idFuncionario
-inner join fornecedor fo on c.idFornecedor = fo.idFornecedor
-where fo.idFornecedor = 2 group by f.nome;
-
--- Conta qts funcionários tem carga-horaria 
-select count(nome) from funcionario where cargaHoraria = 2;
-
--- Faz a média salarial dos funcionarios
-select avg(salario) from funcionario;
-
--- Seleciona o valor máximo e o mínimo dentre os salários
-select max(salario) from funcionario;
-select min(salario) from funcionario;
-
--- A soma dos salários
-select sum(salario) from funcionario;
-
--- seleciona todos os itens da venda quando o id da venda é maior que 2 agrupados por idVenda
-select * from itens_da_venda where idVenda > 2 group by idvenda; 
-
--- seleciona a soma dos salários agrupados por data de contratação em que a soma de salários seja maior que 4000
-select sum(salario), dataContrata from funcionario
-group by dataContrata
-having sum(salario) >4000;
-
--- seleciona as cidades 
-select distinct cidade as cidade from cliente; 
-
-
--- seleciona os clientes que não fizeram compras
-select c.nome from cliente c inner join venda v on c.idcliente = v.idcliente 
-group by c.idCliente
-having count(v.idVenda) = 0;
-
--- produtos que foram comprados mais de 2 vezes
-select p.nome, count(iv.idproduto) from produto p inner join itens_da_venda iv on p.idProduto = iv.idProduto
-group by iv.idProduto
-having  count(iv.idproduto)> 2; 
-
--- os 3 clientes que fizeram as compras mais caras
-
-select c.nome from cliente c inner join venda v on c.idcliente = v.idCliente
-order by v.total desc limit 3;
-
--- os 3 produtos mais comprados da categoria 3
-select p.nome, c.descricao from produto p inner join itens_da_venda iv on p.idProduto = iv.idProduto
-inner join categoria c on c.idcategoria = p.idcategoria
-where c.idCategoria = 3
-group by iv.idProduto
-order by count(iv.idItemVenda) desc limit 3;
+    (1, 1, 2, 18.99, 37.98, 0.00), -- Compra 1, Produto 1
+    (1, 2, 3, 0.55, 1.65, 0.00), -- Compra 1, Produto 2
+    (2, 3, 1, 12.49, 12.49, 0.00), -- Compra 2, Produto 3
+    (2, 4, 2, 3.25, 6.50, 0.00), -- Compra 2, Produto 4
+    (3, 5, 2, 3.99, 7.98, 0.00), -- Compra 3, Produto 5
+    (3, 6, 1, 8.99, 8.99, 0.00), -- Compra 3, Produto 6
+    (4, 7, 3, 65.99, 197.97, 0.00), -- Compra 4, Produto 7
+    (4, 8, 2, 28.99, 57.98, 0.00), -- Compra 4, Produto 8
+    (5, 9, 2, 1.89, 3.78, 0.00), -- Compra 5, Produto 9
+    (5, 10, 2, 79.99, 159.98, 0.00), -- Compra 5, Produto 10
+    (6, 11, 4, 18.99, 75.96, 0.00), -- Compra 6, Produto 11
+    (6, 12, 1, 0.55, 0.55, 0.00), -- Compra 6, Produto 12
+    (7, 13, 3, 12.49, 37.47, 0.00), -- Compra 7, Produto 13
+    (7, 14, 2, 3.25, 6.50, 0.00), -- Compra 7, Produto 14
+    (8, 15, 2, 3.99, 7.98, 0.00), -- Compra 8, Produto 15
+    (8, 16, 1, 8.99, 8.99, 0.00), -- Compra 8, Produto 16
+    (9, 17, 5, 65.99, 329.95, 0.00), -- Compra 9, Produto 17
+    (9, 18, 3, 28.99, 86.97, 0.00), -- Compra 9, Produto 18
+    (10, 19, 2, 1.89, 3.78, 0.00), -- Compra 10, Produto 19
+    (10, 20, 2, 79.99, 159.98, 0.00), -- Compra 10, Produto 20
+    (11, 21, 1, 20.99, 20.99, 0.00), -- Compra 11, Produto 21
+    (11, 22, 2, 0.49, 0.98, 0.00), -- Compra 11, Produto 22
+    (12, 23, 3, 16.99, 50.97, 0.00), -- Compra 12, Produto 23
+    (12, 24, 1, 2.49, 2.49, 0.00), -- Compra 12, Produto 24
+    (13, 25, 2, 4.99, 9.98, 0.00), -- Compra 13, Produto 25
+    (13, 26, 1, 18.99, 18.99, 0.00), -- Compra 13, Produto 26
+    (14, 27, 3, 99.99, 299.97, 0.00), -- Compra 14, Produto 27
+    (14, 28, 2, 36.99, 73.98, 0.00), -- Compra 14, Produto 28
+    (15, 29, 2, 2.79, 5.58, 0.00), -- Compra 15, Produto 29
+    (15, 30, 1, 119.99, 119.99, 0.00), -- Compra 15, Produto 30
+    (16, 11, 2, 18.99, 37.98, 0.00), -- Compra 16, Produto 11
+    (16, 12, 3, 0.55, 1.65, 0.00), -- Compra 16, Produto 12
+    (17, 13, 1, 12.49, 12.49, 0.00), -- Compra 17, Produto 13
+    (17, 14, 2, 3.25, 6.50, 0.00), -- Compra 17, Produto 14
+    (18, 15, 2, 3.99, 7.98, 0.00), -- Compra 18, Produto 15
+    (18, 16, 1, 8.99, 8.99, 0.00), -- Compra 18, Produto 16
+    (19, 17, 3, 65.99, 197.97, 0.00), -- Compra 19, Produto 17
+    (19, 18, 2, 28.99, 57.98, 0.00), -- Compra 19, Produto 18
+    (20, 19, 2, 1.89, 3.78, 0.00), -- Compra 20, Produto 19
+    (20, 20, 2, 79.99, 159.98, 0.00), -- Compra 20, Produto 20
+    (21, 21, 1, 20.99, 20.99, 0.00), -- Compra 21, Produto 21
+    (21, 22, 2, 0.49, 0.98, 0.00), -- Compra 21, Produto 22
+    (22, 23, 3, 16.99, 50.97, 0.00), -- Compra 22, Produto 23
+    (22, 24, 1, 2.49, 2.49, 0.00), -- Compra 22, Produto 24
+    (23, 25, 2, 4.99, 9.98, 0.00), -- Compra 23, Produto 25
+    (23, 26, 1, 18.99, 18.99, 0.00), -- Compra 23, Produto 26
+    (24, 27, 3, 99.99, 299.97, 0.00), -- Compra 24, Produto 27
+    (24, 28, 2, 36.99, 73.98, 0.00), -- Compra 24, Produto 28
+    (25, 29, 2, 2.79, 5.58, 0.00), -- Compra 25, Produto 29
+    (25, 30, 1, 119.99, 119.99, 0.00), -- Compra 25, Produto 30
+    (26, 11, 2, 18.99, 37.98, 0.00), -- Compra 26, Produto 11
+    (26, 12, 3, 0.55, 1.65, 0.00), -- Compra 26, Produto 12
+    (27, 13, 1, 12.49, 12.49, 0.00), -- Compra 27, Produto 13
+    (27, 14, 2, 3.25, 6.50, 0.00), -- Compra 27, Produto 14
+    (28, 15, 2, 3.99, 7.98, 0.00), -- Compra 28, Produto 15
+    (28, 16, 1, 8.99, 8.99, 0.00), -- Compra 28, Produto 16
+    (29, 17, 3, 65.99, 197.97, 0.00), -- Compra 29, Produto 17
+    (29, 18, 2, 28.99, 57.98, 0.00), -- Compra 29, Produto 18
+    (30, 19, 2, 1.89, 3.78, 0.00), -- Compra 30, Produto 19
+    (30, 20, 2, 79.99, 159.98, 0.00), -- Compra 30, Produto 20
+    (31, 21, 1, 20.99, 20.99, 0.00), -- Compra 31, Produto 21
+    (31, 22, 2, 0.49, 0.98, 0.00), -- Compra 31, Produto 22
+    (32, 23, 3, 16.99, 50.97, 0.00), -- Compra 32, Produto 23
+    (32, 24, 1, 2.49, 2.49, 0.00), -- Compra 32, Produto 24
+    (33, 25, 2, 4.99, 9.98, 0.00), -- Compra 33, Produto 25
+    (33, 26, 1, 18.99, 18.99, 0.00), -- Compra 33, Produto 26
+    (34, 27, 3, 99.99, 299.97, 0.00), -- Compra 34, Produto 27
+    (34, 28, 2, 36.99, 73.98, 0.00), -- Compra 34, Produto 28
+    (35, 29, 2, 2.79, 5.58, 0.00), -- Compra 35, Produto 29
+    (35, 30, 1, 119.99, 119.99, 0.00), -- Compra 35, Produto 30
+    (36, 11, 2, 18.99, 37.98, 0.00), -- Compra 36, Produto 11
+    (36, 12, 3, 0.55, 1.65, 0.00), -- Compra 36, Produto 12
+    (37, 13, 1, 12.49, 12.49, 0.00), -- Compra 37, Produto 13
+    (37, 14, 2, 3.25, 6.50, 0.00), -- Compra 37, Produto 14
+    (38, 15, 2, 3.99, 7.98, 0.00), -- Compra 38, Produto 15
+    (38, 16, 1, 8.99, 8.99, 0.00), -- Compra 38, Produto 16
+    (39, 17, 3, 65.99, 197.97, 0.00), -- Compra 39, Produto 17
+    (39, 18, 2, 28.99, 57.98, 0.00), -- Compra 39, Produto 18
+    (40, 19, 2, 1.89, 3.78, 0.00), -- Compra 40, Produto 19
+    (40, 20, 2, 79.99, 159.98, 0.00), -- Compra 40, Produto 20
+    (41, 21, 1, 20.99, 20.99, 0.00), -- Compra 41, Produto 21
+    (41, 22, 2, 0.49, 0.98, 0.00), -- Compra 41, Produto 22
+    (42, 23, 3, 16.99, 50.97, 0.00), -- Compra 42, Produto 23
+    (42, 24, 1, 2.49, 2.49, 0.00), -- Compra 42, Produto 24
+    (43, 25, 2, 4.99, 9.98, 0.00), -- Compra 43, Produto 25
+    (43, 26, 1, 18.99, 18.99, 0.00), -- Compra 43, Produto 26
+    (44, 27, 3, 99.99, 299.97, 0.00), -- Compra 44, Produto 27
+    (44, 28, 2, 36.99, 73.98, 0.00), -- Compra 44, Produto 28
+    (45, 29, 2, 2.79, 5.58, 0.00), -- Compra 45, Produto 29
+    (45, 30, 1, 119.99, 119.99, 0.00), -- Compra 45, Produto 30
+    (46, 11, 2, 18.99, 37.98, 0.00), -- Compra 46, Produto 11
+    (46, 12, 3, 0.55, 1.65, 0.00), -- Compra 46, Produto 12
+    (47, 13, 1, 12.49, 12.49, 0.00), -- Compra 47, Produto 13
+    (47, 14, 2, 3.25, 6.50, 0.00); -- Compra 47, Produto 14
  
  

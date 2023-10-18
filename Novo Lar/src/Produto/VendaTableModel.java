@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Kaio Dias
  */
-public class ProdutoTableModel extends AbstractTableModel {
+public class VendaTableModel extends AbstractTableModel {
 
     private List<Produto> dados = new ArrayList<>();
     private List<ItensDaVenda> dadosVenda = new ArrayList<>();

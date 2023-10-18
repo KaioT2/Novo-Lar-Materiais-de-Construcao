@@ -10,7 +10,7 @@ import DAO.VendaDAO;
 import Funcionario.Funcionario;
 import Itens_da_Venda.ItensDaVenda;
 import Produto.Produto;
-import Produto.ProdutoTableModel;
+import Produto.VendaTableModel;
 import Venda.Venda;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaVenda extends javax.swing.JFrame {
 
-    ProdutoTableModel model = new ProdutoTableModel();
+    VendaTableModel model = new VendaTableModel();
     /**
      * Creates new form TelaVenda
      */
@@ -37,7 +37,6 @@ public class TelaVenda extends javax.swing.JFrame {
     private SimpleDateFormat da = new SimpleDateFormat("yyyy/MM/dd");
 
     public TelaVenda() {
-
         initComponents();
         tabelaVenda.setModel(model);
         model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn());
@@ -408,6 +407,7 @@ public class TelaVenda extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaFuncionariosVenda telaFuncionario = new TelaFuncionariosVenda();
             
+            telaFuncionario.atualizarTabela();
             telaFuncionario.setTelaVenda(this);
             telaFuncionario.setVisible(true);
         }        
@@ -474,6 +474,10 @@ public class TelaVenda extends javax.swing.JFrame {
                 itemDao.create(iv);
                 itemDao.atualizarEstoque(iv);
             }
+            
+            btnExcluir.setEnabled(false);
+            btnNovoItem.setEnabled(false);
+            btnSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -489,6 +493,10 @@ public class TelaVenda extends javax.swing.JFrame {
         txtFuncionario.setText("");
         txtIdCliente.setText("");
         txtIdFuncionário.setText("");
+        
+            btnExcluir.setEnabled(true);
+            btnNovoItem.setEnabled(true);
+            btnSalvar.setEnabled(true);
 
         model.removeAllRows();
     }//GEN-LAST:event_btnNovaVendaActionPerformed
@@ -529,6 +537,7 @@ public class TelaVenda extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaFuncionariosVenda telaFuncionario = new TelaFuncionariosVenda();
             
+            telaFuncionario.atualizarTabela();
             telaFuncionario.setTelaVenda(this);
             telaFuncionario.setVisible(true);
         } 

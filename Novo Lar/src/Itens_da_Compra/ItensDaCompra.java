@@ -19,19 +19,21 @@ public class ItensDaCompra {
     private Produto produto;
     private double quantidade;
     private double precoCusto;
-    private double total;
+    private double desconto;
+    private double subtotal;
 
     public ItensDaCompra() {
     }
 
-    public ItensDaCompra(int idItemCompra, Compra compra, Fornecedor fornecedor, Produto produto, double quantidade, double precoCusto, double total) {
+    public ItensDaCompra(int idItemCompra, Compra compra, Fornecedor fornecedor, Produto produto, double quantidade, double precoCusto, double desconto, double subtotal) {
         this.idItemCompra = idItemCompra;
         this.compra = compra;
         this.fornecedor = fornecedor;
         this.produto = produto;
         this.quantidade = quantidade;
         this.precoCusto = precoCusto;
-        this.total = total;
+        this.desconto = desconto;
+        this.subtotal = subtotal;
     }
 
     public int getIdItemCompra() {
@@ -82,13 +84,20 @@ public class ItensDaCompra {
         this.precoCusto = precoCusto;
     }
 
-    public double getTotal() {
-        return total;
+    public double getDesconto() {
+        return desconto;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
     }
 
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
     
 }

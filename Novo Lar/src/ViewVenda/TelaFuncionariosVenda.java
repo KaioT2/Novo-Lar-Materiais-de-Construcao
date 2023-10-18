@@ -6,6 +6,7 @@ package ViewVenda;
 
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
+import ViewCompra.TelaCompra;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,10 +16,16 @@ import javax.swing.table.DefaultTableModel;
 public class TelaFuncionariosVenda extends javax.swing.JFrame {
 
     private TelaVenda telaVenda;
+    private TelaCompra telaCompra;
 
     public void setTelaVenda(TelaVenda telaVenda) {
         this.telaVenda = telaVenda;
     }
+
+    public void setTelaCompra(TelaCompra telaCompra) {
+        this.telaCompra = telaCompra;
+    }
+    
 
     /**
      * Creates new form TelaListarFuncionario
@@ -214,7 +221,6 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (tabelaFunc.getSelectedRow() != -1) {
-            //TelaVenda telaVenda = new TelaVenda();
             Funcionario f = new Funcionario();
 
             f.setIdFuncionario(Integer.parseInt(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 0).toString()));
