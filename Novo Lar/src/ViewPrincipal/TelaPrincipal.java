@@ -4,39 +4,40 @@
  */
 package ViewPrincipal;
 
-import ViewEstoque.TelaEstoque;
-import ViewVenda.TelaVenda;
+import ViewLogin.TelaLogin;
+import ViewCadastro.TelaCadCategoria;
 import ViewCadastro.TelaCadCliente;
 import ViewCadastro.TelaCadFornecedor;
-import ViewCadastro.TelaCadCategoria;
-import ViewCadastro.TelaCadProduto;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import java.awt.Dimension;
 import ViewCadastro.TelaCadFuncionario;
+import ViewCadastro.TelaCadProduto;
 import ViewCompra.TelaCompra;
+import ViewEstoque.TelaEstoque;
+import ViewVenda.TelaVenda;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Kaio Dias
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+
     private int confirmacaoTrocaUsuario;
     private int confirmarEncerrarSecao;
-       
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
         //this.setExtendedState(MAXIMIZED_BOTH);  
-        
+
         setSize(new Dimension(1366, 768));
         setLocationRelativeTo(null);
-        setBackground(UIManager.getColor("drawer.header.background"));
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
+        ativarMenu();
     }
 
     /**
@@ -52,8 +53,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jDesk = new javax.swing.JDesktopPane();
-        jPanel1 = new javax.swing.JPanel();
+        jDesktopPane2 = new javax.swing.JDesktopPane();
+        jPanel4 = new javax.swing.JPanel();
+        btn_menu1 = new javax.swing.JPanel();
+        indicador1 = new javax.swing.JPanel();
+        label1 = new javax.swing.JLabel();
+        btn_menu2 = new javax.swing.JPanel();
+        indicador2 = new javax.swing.JPanel();
+        label2 = new javax.swing.JLabel();
+        btn_menu3 = new javax.swing.JPanel();
+        indicador3 = new javax.swing.JPanel();
+        label3 = new javax.swing.JLabel();
+        btn_menu4 = new javax.swing.JPanel();
+        indicador4 = new javax.swing.JPanel();
+        lebal4 = new javax.swing.JLabel();
+        btn_menu5 = new javax.swing.JPanel();
+        indicador5 = new javax.swing.JPanel();
+        label5 = new javax.swing.JLabel();
+        btn_menu6 = new javax.swing.JPanel();
+        indicador6 = new javax.swing.JPanel();
+        label6 = new javax.swing.JLabel();
+        btn_menu7 = new javax.swing.JPanel();
+        indicador7 = new javax.swing.JPanel();
+        label7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnExit = new javax.swing.JMenu();
         btnEncerrarSecao = new javax.swing.JMenuItem();
@@ -83,37 +106,365 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Novo Lar Materiais de Construção");
         setAutoRequestFocus(false);
+        setBackground(new java.awt.Color(14, 33, 69));
+        setPreferredSize(new java.awt.Dimension(962, 768));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+        jDesktopPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopPane2.setPreferredSize(new java.awt.Dimension(962, 768));
+
+        jPanel4.setBackground(new java.awt.Color(14, 33, 69));
+        jPanel4.setPreferredSize(new java.awt.Dimension(245, 572));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_menu1.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu1.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu1MousePressed(evt);
+            }
+        });
+
+        indicador1.setBackground(new java.awt.Color(255, 255, 255));
+        indicador1.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador1Layout = new javax.swing.GroupLayout(indicador1);
+        indicador1.setLayout(indicador1Layout);
+        indicador1Layout.setHorizontalGroup(
+            indicador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+        indicador1Layout.setVerticalGroup(
+            indicador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jDesk.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        label1.setText("Home");
 
-        javax.swing.GroupLayout jDeskLayout = new javax.swing.GroupLayout(jDesk);
-        jDesk.setLayout(jDeskLayout);
-        jDeskLayout.setHorizontalGroup(
-            jDeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout btn_menu1Layout = new javax.swing.GroupLayout(btn_menu1);
+        btn_menu1.setLayout(btn_menu1Layout);
+        btn_menu1Layout.setHorizontalGroup(
+            btn_menu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menu1Layout.createSequentialGroup()
+                .addComponent(indicador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(label1)
+                .addGap(0, 96, Short.MAX_VALUE))
         );
-        jDeskLayout.setVerticalGroup(
-            jDeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        btn_menu1Layout.setVerticalGroup(
+            btn_menu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(indicador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btn_menu1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(label1)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jDesk, java.awt.BorderLayout.CENTER);
+        jPanel4.add(btn_menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 50));
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sistema_icon.png"))); // NOI18N
+        btn_menu2.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu2.setOpaque(false);
+        btn_menu2.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu2MousePressed(evt);
+            }
+        });
+
+        indicador2.setBackground(new java.awt.Color(255, 255, 255));
+        indicador2.setOpaque(false);
+        indicador2.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador2Layout = new javax.swing.GroupLayout(indicador2);
+        indicador2.setLayout(indicador2Layout);
+        indicador2Layout.setHorizontalGroup(
+            indicador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        indicador2Layout.setVerticalGroup(
+            indicador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        label2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        label2.setText("Cadastros");
+
+        javax.swing.GroupLayout btn_menu2Layout = new javax.swing.GroupLayout(btn_menu2);
+        btn_menu2.setLayout(btn_menu2Layout);
+        btn_menu2Layout.setHorizontalGroup(
+            btn_menu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menu2Layout.createSequentialGroup()
+                .addComponent(indicador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(label2)
+                .addGap(0, 72, Short.MAX_VALUE))
+        );
+        btn_menu2Layout.setVerticalGroup(
+            btn_menu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(indicador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btn_menu2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(label2)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(btn_menu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
+
+        btn_menu3.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu3.setOpaque(false);
+        btn_menu3.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu3MousePressed(evt);
+            }
+        });
+
+        indicador3.setBackground(new java.awt.Color(255, 255, 255));
+        indicador3.setOpaque(false);
+        indicador3.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador3Layout = new javax.swing.GroupLayout(indicador3);
+        indicador3.setLayout(indicador3Layout);
+        indicador3Layout.setHorizontalGroup(
+            indicador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        indicador3Layout.setVerticalGroup(
+            indicador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        label3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        label3.setText("Estoque");
+
+        javax.swing.GroupLayout btn_menu3Layout = new javax.swing.GroupLayout(btn_menu3);
+        btn_menu3.setLayout(btn_menu3Layout);
+        btn_menu3Layout.setHorizontalGroup(
+            btn_menu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menu3Layout.createSequentialGroup()
+                .addComponent(indicador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 83, Short.MAX_VALUE))
+        );
+        btn_menu3Layout.setVerticalGroup(
+            btn_menu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(indicador3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btn_menu3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(label3)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(btn_menu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 50));
+
+        btn_menu4.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu4.setOpaque(false);
+        btn_menu4.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu4MousePressed(evt);
+            }
+        });
+
+        indicador4.setBackground(new java.awt.Color(255, 255, 255));
+        indicador4.setOpaque(false);
+        indicador4.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador4Layout = new javax.swing.GroupLayout(indicador4);
+        indicador4.setLayout(indicador4Layout);
+        indicador4Layout.setHorizontalGroup(
+            indicador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        indicador4Layout.setVerticalGroup(
+            indicador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        lebal4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lebal4.setText("Vendas");
+
+        javax.swing.GroupLayout btn_menu4Layout = new javax.swing.GroupLayout(btn_menu4);
+        btn_menu4.setLayout(btn_menu4Layout);
+        btn_menu4Layout.setHorizontalGroup(
+            btn_menu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menu4Layout.createSequentialGroup()
+                .addComponent(indicador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(lebal4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 83, Short.MAX_VALUE))
+        );
+        btn_menu4Layout.setVerticalGroup(
+            btn_menu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(indicador4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btn_menu4Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(lebal4)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(btn_menu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
+
+        btn_menu5.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu5.setOpaque(false);
+        btn_menu5.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu5MousePressed(evt);
+            }
+        });
+
+        indicador5.setBackground(new java.awt.Color(255, 255, 255));
+        indicador5.setOpaque(false);
+        indicador5.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador5Layout = new javax.swing.GroupLayout(indicador5);
+        indicador5.setLayout(indicador5Layout);
+        indicador5Layout.setHorizontalGroup(
+            indicador5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        indicador5Layout.setVerticalGroup(
+            indicador5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        label5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        label5.setText("Compras");
+
+        javax.swing.GroupLayout btn_menu5Layout = new javax.swing.GroupLayout(btn_menu5);
+        btn_menu5.setLayout(btn_menu5Layout);
+        btn_menu5Layout.setHorizontalGroup(
+            btn_menu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menu5Layout.createSequentialGroup()
+                .addComponent(indicador5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 61, Short.MAX_VALUE))
+        );
+        btn_menu5Layout.setVerticalGroup(
+            btn_menu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(indicador5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btn_menu5Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(label5)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(btn_menu5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
+
+        btn_menu6.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu6.setOpaque(false);
+        btn_menu6.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu6MousePressed(evt);
+            }
+        });
+
+        indicador6.setBackground(new java.awt.Color(255, 255, 255));
+        indicador6.setOpaque(false);
+        indicador6.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador6Layout = new javax.swing.GroupLayout(indicador6);
+        indicador6.setLayout(indicador6Layout);
+        indicador6Layout.setHorizontalGroup(
+            indicador6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        indicador6Layout.setVerticalGroup(
+            indicador6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        label6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        label6.setText("Relatórios");
+
+        javax.swing.GroupLayout btn_menu6Layout = new javax.swing.GroupLayout(btn_menu6);
+        btn_menu6.setLayout(btn_menu6Layout);
+        btn_menu6Layout.setHorizontalGroup(
+            btn_menu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menu6Layout.createSequentialGroup()
+                .addComponent(indicador6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 64, Short.MAX_VALUE))
+        );
+        btn_menu6Layout.setVerticalGroup(
+            btn_menu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(indicador6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(btn_menu6Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(label6)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(btn_menu6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
+
+        btn_menu7.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menu7.setOpaque(false);
+        btn_menu7.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_menu7MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_menu7MouseReleased(evt);
+            }
+        });
+        btn_menu7.setLayout(null);
+
+        indicador7.setBackground(new java.awt.Color(255, 255, 255));
+        indicador7.setOpaque(false);
+        indicador7.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout indicador7Layout = new javax.swing.GroupLayout(indicador7);
+        indicador7.setLayout(indicador7Layout);
+        indicador7Layout.setHorizontalGroup(
+            indicador7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        indicador7Layout.setVerticalGroup(
+            indicador7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        btn_menu7.add(indicador7);
+        indicador7.setBounds(0, 0, 5, 50);
+
+        label7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        label7.setForeground(new java.awt.Color(255, 255, 255));
+        label7.setText("Encerrar Seção");
+        btn_menu7.add(label7);
+        label7.setBounds(60, 10, 100, 20);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/menuIcon-LogOff.png"))); // NOI18N
+        btn_menu7.add(jLabel2);
+        jLabel2.setBounds(20, 0, 37, 32);
+
+        jPanel4.add(btn_menu7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 200, 50));
+
+        jDesktopPane2.setLayer(jPanel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
+        jDesktopPane2.setLayout(jDesktopPane2Layout);
+        jDesktopPane2Layout.setHorizontalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 762, Short.MAX_VALUE))
+        );
+        jDesktopPane2Layout.setVerticalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jDesktopPane2, java.awt.BorderLayout.CENTER);
+
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/systemIcon.png"))); // NOI18N
         btnExit.setText("Sistema");
 
-        btnEncerrarSecao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/power_icon.png"))); // NOI18N
         btnEncerrarSecao.setText("Encerrar Seção");
         btnEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -127,7 +478,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         btnExit.add(btnEncerrarSecao);
 
-        btnTrocarUsuário.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/trocarUsuario_icon.png"))); // NOI18N
         btnTrocarUsuário.setText("Trocar Usuário");
         btnTrocarUsuário.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -143,7 +493,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(btnExit);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastrar_icon.png"))); // NOI18N
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastroIcon.png"))); // NOI18N
         jMenu2.setText("Cadastros");
 
         jMenuItem2.setText("Funcionario");
@@ -188,7 +538,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoque_icon.png"))); // NOI18N
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoqueIcon.png"))); // NOI18N
         jMenu6.setText("Estoque");
 
         jMenuItem8.setText("Consultar Estoque");
@@ -201,11 +551,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorio_icon.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorioIcon.png"))); // NOI18N
         jMenu1.setText("Relatórios");
         jMenuBar1.add(jMenu1);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/venda_icon.png"))); // NOI18N
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/vendasIcon.png"))); // NOI18N
         jMenu5.setText("Vendas");
 
         jMenuItem5.setText("Nova Venda");
@@ -218,6 +568,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/comprasIcon.png"))); // NOI18N
         jMenu7.setText("Compras");
 
         jMenuItem9.setText("Nova Compra");
@@ -236,96 +587,95 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void btnEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoMouseReleased
         // TODO add your handling code here:
-        
-            TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
+        String[] options = {"Encerrar Secao", "Cancelar"};
 
-            telaCadFunc.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        confirmarEncerrarSecao = JOptionPane.showOptionDialog(
+                this, "Tem certeza que deseja encerrar a secao?", "Confirmação", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[0]
+        );
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        
-            TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
-
-            telaCadForn.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnEncerrarSecaoMouseReleased
 
     private void btnEncerrarSecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoActionPerformed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_btnEncerrarSecaoActionPerformed
 
-    private void btnEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoMouseReleased
+    private void btnTrocarUsuárioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioMouseReleased
         // TODO add your handling code here:
-            String[] options = {"Encerrar Secao", "Cancelar"};
 
-            confirmarEncerrarSecao = JOptionPane.showOptionDialog(
-                this,"Tem certeza que deseja encerrar a secao?", "Confirmação", JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null,options,options[0] 
-            );
+        String[] options = {"Trocar", "Cancelar"}; // Textos personalizados dos botões
 
-            if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-    }//GEN-LAST:event_btnEncerrarSecaoMouseReleased
+        confirmacaoTrocaUsuario = JOptionPane.showOptionDialog(
+                this, "Tem certeza que deseja trocar de usuário?", "Confirmação", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[0]
+        );
+
+        if (confirmacaoTrocaUsuario == JOptionPane.YES_OPTION) {
+            dispose();
+            new TelaLogin().setVisible(true);
+        }
+    }//GEN-LAST:event_btnTrocarUsuárioMouseReleased
 
     private void btnTrocarUsuárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTrocarUsuárioActionPerformed
 
-    private void btnTrocarUsuárioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioMouseReleased
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        
-            String[] options = {"Trocar", "Cancelar"}; // Textos personalizados dos botões
-    
-            confirmacaoTrocaUsuario = JOptionPane.showOptionDialog(
-                this,"Tem certeza que deseja trocar de usuário?", "Confirmação",JOptionPane.YES_NO_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, null,options,options[0] 
-            );
-    
-            if (confirmacaoTrocaUsuario == JOptionPane.YES_OPTION) {
-                dispose(); 
-                new TelaLogin().setVisible(true); 
-            }
-    }//GEN-LAST:event_btnTrocarUsuárioMouseReleased
+
+        TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
+
+        telaCadFunc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseReleased
         // TODO add your handling code here:
         TelaCadCliente telaCadCli = new TelaCadCliente();
 
-            telaCadCli.setVisible(true);
+        telaCadCli.setVisible(true);
     }//GEN-LAST:event_jMenuItem3MouseReleased
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+
+        TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
+
+        telaCadForn.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-        
+
         TelaCadProduto telaCadProd = new TelaCadProduto();
-        
+
         telaCadProd.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
         TelaCadCategoria telaCadCat = new TelaCadCategoria();
-        
+
         telaCadCat.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+
+        TelaEstoque telaEstoque = new TelaEstoque();
+        telaEstoque.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         TelaVenda telaVenda = new TelaVenda();
-        
+
         telaVenda.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // TODO add your handling code here:
-        
-        TelaEstoque telaEstoque = new TelaEstoque();
-        telaEstoque.setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
@@ -333,46 +683,120 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaCompra.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    
-//    public static void main(String args[]) {
-//        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-//        FlatIntelliJLaf.setup();
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-////        try {
-////            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-////                if ("Nimbus".equals(info.getName())) {
-////                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-////                    break;
-////                }
-////            }
-////        } catch (ClassNotFoundException ex) {
-////            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-////        } catch (InstantiationException ex) {
-////            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-////        } catch (IllegalAccessException ex) {
-////            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-////        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-////            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-////        }
-////        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new TelaPrincipal().setVisible(true);
-//            }
-//        });
-//    }
+
+    private void btn_menu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu1MousePressed
+        // TODO add your handling code here:
+        setColor(btn_menu1, label1);
+        indicador1.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
+                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
+        
+        
+    }//GEN-LAST:event_btn_menu1MousePressed
+
+    private void btn_menu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu2MousePressed
+        // TODO add your handling code here:
+        setColor(btn_menu2, label2);
+        indicador2.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu1, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
+                new JPanel[]{indicador1, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label1, label3, lebal4, label5, label6});
+    }//GEN-LAST:event_btn_menu2MousePressed
+
+    private void btn_menu3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu3MousePressed
+        // TODO add your handling code here:
+        setColor(btn_menu3, label3);
+        indicador3.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu2, btn_menu1, btn_menu4, btn_menu5, btn_menu6},
+                new JPanel[]{indicador2, indicador1, indicador4, indicador5, indicador6}, new JLabel[]{label1, label2, lebal4, label5, label6});
+    }//GEN-LAST:event_btn_menu3MousePressed
+
+    private void btn_menu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu4MousePressed
+        // TODO add your handling code here:
+        setColor(btn_menu4, lebal4);
+        indicador4.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu1, btn_menu5, btn_menu6},
+                new JPanel[]{indicador2, indicador3, indicador1, indicador5, indicador6}, new JLabel[]{label1, label2, label3, label5, label6});
+    }//GEN-LAST:event_btn_menu4MousePressed
+
+    private void btn_menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu5MousePressed
+        // TODO add your handling code here:
+        setColor(btn_menu5, label5);
+        indicador5.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu1, btn_menu6},
+                new JPanel[]{indicador2, indicador3, indicador4, indicador1, indicador6}, new JLabel[]{label1, label2, label3, lebal4, label6});
+    }//GEN-LAST:event_btn_menu5MousePressed
+
+    private void btn_menu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu6MousePressed
+        // TODO add your handling code here:
+        setColor(btn_menu6, label6);
+        indicador6.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu1},
+                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
+    }//GEN-LAST:event_btn_menu6MousePressed
+
+    private void btn_menu7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu7MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_menu7MousePressed
+
+    private void btn_menu7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu7MouseReleased
+        // TODO add your handling code here:
+        
+        String[] options = {"Encerrar Secao", "Cancelar"};
+
+        confirmarEncerrarSecao = JOptionPane.showOptionDialog(
+                this, "Tem certeza que deseja encerrar a secao?", "Confirmação", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[0]
+        );
+
+        if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btn_menu7MouseReleased
+
+    private void setColor(JPanel botao, JLabel label) {
+        botao.setBackground(new Color(41, 57, 100));
+        label.setForeground(Color.white);
+    }
+
+    private void resetColor(JPanel[] botao, JPanel[] indicadores, JLabel[] label) {
+        for (int i = 0; i < botao.length; i++) {
+            botao[i].setBackground(new Color(14, 33, 69));
+            botao[i].setOpaque(true);
+            label[i].setForeground(new Color(187, 187, 187));
+        }
+        for (int i = 0; i < indicadores.length; i++) {
+            indicadores[i].setOpaque(false);
+        }
+
+    }
+
+    private void ativarMenu() {
+        setColor(btn_menu1, label1);
+        indicador1.setOpaque(true);
+        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
+                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnEncerrarSecao;
     private javax.swing.JMenu btnExit;
     private javax.swing.JMenuItem btnTrocarUsuário;
-    private javax.swing.JDesktopPane jDesk;
+    private javax.swing.JPanel btn_menu1;
+    private javax.swing.JPanel btn_menu2;
+    private javax.swing.JPanel btn_menu3;
+    private javax.swing.JPanel btn_menu4;
+    private javax.swing.JPanel btn_menu5;
+    private javax.swing.JPanel btn_menu6;
+    private javax.swing.JPanel btn_menu7;
+    private javax.swing.JPanel indicador1;
+    private javax.swing.JPanel indicador2;
+    private javax.swing.JPanel indicador3;
+    private javax.swing.JPanel indicador4;
+    private javax.swing.JPanel indicador5;
+    private javax.swing.JPanel indicador6;
+    private javax.swing.JPanel indicador7;
+    private javax.swing.JDesktopPane jDesktopPane2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -391,6 +815,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
+    private javax.swing.JLabel label5;
+    private javax.swing.JLabel label6;
+    private javax.swing.JLabel label7;
+    private javax.swing.JLabel lebal4;
     // End of variables declaration//GEN-END:variables
 }

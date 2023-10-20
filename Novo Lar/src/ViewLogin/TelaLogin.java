@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ViewPrincipal;
+package ViewLogin;
 
 import DAO.FuncionarioDAO;
+import ViewPrincipal.TelaPrincipal;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
