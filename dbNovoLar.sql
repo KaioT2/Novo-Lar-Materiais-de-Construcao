@@ -546,4 +546,4 @@ VALUES
     (47, 13, 1, 12.49, 12.49, 0.00), -- Compra 47, Produto 13
     (47, 14, 2, 3.25, 6.50, 0.00); -- Compra 47, Produto 14
  
- 
+ select count(*), sum(v.total) from vendas v where month(dataVenda) = month(now());

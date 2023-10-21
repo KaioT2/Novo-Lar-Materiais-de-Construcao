@@ -4,6 +4,7 @@
  */
 package ViewPrincipal;
 
+import DAO.VendaDAO;
 import ViewLogin.TelaLogin;
 import ViewCadastro.TelaCadCategoria;
 import ViewCadastro.TelaCadCliente;
@@ -27,6 +28,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private int confirmacaoTrocaUsuario;
     private int confirmarEncerrarSecao;
+    private boolean janelaAberta = true;
 
     /**
      * Creates new form TelaPrincipal
@@ -35,9 +37,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         //this.setExtendedState(MAXIMIZED_BOTH);  
 
-        setSize(new Dimension(1366, 768));
+        setSize(new Dimension(1280, 720));
         setLocationRelativeTo(null);
         ativarMenu();
+
+        new Thread(() -> {
+            int contador = 0;
+            while (isVisible()) {
+                // Atualiza o texto do JLabel a cada segundo
+                VendaDAO v = new VendaDAO();
+                
+                txtTotalVendasMes.setText("Valor total das vendas: R$" + String.valueOf(v.totalVendasMes()));
+                txtQuantidadeVendasMes.setText("Quantidades de vendas: " + String.valueOf(v.numVendasMes()));
+
+                // Incrementa o contador
+                contador++;
+
+                // Adicione um pequeno atraso para evitar alta carga na CPU
+                try {
+                    Thread.sleep(1000); // Aguarde 1 segundo antes de atualizar o texto novamente
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     /**
@@ -77,6 +100,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         indicador7 = new javax.swing.JPanel();
         label7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        panelRound1 = new Outros.PanelRound();
+        panelRound2 = new Outros.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
+        txtTotalVendasMes = new javax.swing.JLabel();
+        txtQuantidadeVendasMes = new javax.swing.JLabel();
+        panelRound4 = new Outros.PanelRound();
+        panelRound5 = new Outros.PanelRound();
+        jLabel3 = new javax.swing.JLabel();
+        panelRound6 = new Outros.PanelRound();
+        panelRound7 = new Outros.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnExit = new javax.swing.JMenu();
         btnEncerrarSecao = new javax.swing.JMenuItem();
@@ -107,7 +141,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setTitle("Novo Lar Materiais de Construção");
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(14, 33, 69));
-        setPreferredSize(new java.awt.Dimension(962, 768));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setSize(new java.awt.Dimension(1280, 720));
 
         jDesktopPane2.setBackground(new java.awt.Color(255, 255, 255));
         jDesktopPane2.setPreferredSize(new java.awt.Dimension(962, 768));
@@ -443,9 +479,167 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btn_menu7.add(jLabel2);
         jLabel2.setBounds(20, 0, 37, 32);
 
-        jPanel4.add(btn_menu7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 200, 50));
+        jPanel4.add(btn_menu7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, 50));
+
+        panelRound1.setBackground(new java.awt.Color(14, 33, 69));
+        panelRound1.setForeground(new java.awt.Color(255, 255, 255));
+        panelRound1.setRoundBottomLeft(30);
+        panelRound1.setRoundBottomRight(30);
+        panelRound1.setRoundTopLeft(30);
+        panelRound1.setRoundTopRight(30);
+
+        panelRound2.setBackground(new java.awt.Color(31, 53, 126));
+        panelRound2.setRoundTopLeft(30);
+        panelRound2.setRoundTopRight(30);
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Vendas do mês");
+
+        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
+        panelRound2.setLayout(panelRound2Layout);
+        panelRound2Layout.setHorizontalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addContainerGap(209, Short.MAX_VALUE))
+        );
+        panelRound2Layout.setVerticalGroup(
+            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+
+        txtTotalVendasMes.setBackground(new java.awt.Color(255, 255, 255));
+        txtTotalVendasMes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTotalVendasMes.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtQuantidadeVendasMes.setBackground(new java.awt.Color(255, 255, 255));
+        txtQuantidadeVendasMes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtQuantidadeVendasMes.setForeground(new java.awt.Color(255, 255, 255));
+        txtQuantidadeVendasMes.setText(" ");
+
+        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
+        panelRound1.setLayout(panelRound1Layout);
+        panelRound1Layout.setHorizontalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelRound2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        panelRound1Layout.setVerticalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+
+        panelRound4.setBackground(new java.awt.Color(14, 33, 69));
+        panelRound4.setRoundBottomLeft(30);
+        panelRound4.setRoundBottomRight(30);
+        panelRound4.setRoundTopLeft(30);
+        panelRound4.setRoundTopRight(30);
+
+        panelRound5.setBackground(new java.awt.Color(31, 53, 126));
+        panelRound5.setRoundTopLeft(30);
+        panelRound5.setRoundTopRight(30);
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Produtos com baixo estoque");
+
+        javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
+        panelRound5.setLayout(panelRound5Layout);
+        panelRound5Layout.setHorizontalGroup(
+            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        panelRound5Layout.setVerticalGroup(
+            panelRound5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
+        panelRound4.setLayout(panelRound4Layout);
+        panelRound4Layout.setHorizontalGroup(
+            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelRound5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelRound4Layout.setVerticalGroup(
+            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound4Layout.createSequentialGroup()
+                .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelRound6.setBackground(new java.awt.Color(14, 33, 69));
+        panelRound6.setRoundBottomLeft(30);
+        panelRound6.setRoundBottomRight(30);
+        panelRound6.setRoundTopLeft(30);
+        panelRound6.setRoundTopRight(30);
+
+        panelRound7.setBackground(new java.awt.Color(31, 53, 126));
+        panelRound7.setRoundTopLeft(30);
+        panelRound7.setRoundTopRight(30);
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Aniversariantes do mês");
+
+        javax.swing.GroupLayout panelRound7Layout = new javax.swing.GroupLayout(panelRound7);
+        panelRound7.setLayout(panelRound7Layout);
+        panelRound7Layout.setHorizontalGroup(
+            panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound7Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelRound7Layout.setVerticalGroup(
+            panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelRound6Layout = new javax.swing.GroupLayout(panelRound6);
+        panelRound6.setLayout(panelRound6Layout);
+        panelRound6Layout.setHorizontalGroup(
+            panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelRound7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelRound6Layout.setVerticalGroup(
+            panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound6Layout.createSequentialGroup()
+                .addComponent(panelRound7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(308, Short.MAX_VALUE))
+        );
 
         jDesktopPane2.setLayer(jPanel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelRound1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelRound4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(panelRound6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -453,11 +647,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 762, Short.MAX_VALUE))
+                .addGap(135, 135, 135)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                        .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelRound6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(135, 135, 135))
         );
         jDesktopPane2Layout.setVerticalGroup(
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(72, 72, 72)
+                .addComponent(panelRound6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jDesktopPane2, java.awt.BorderLayout.CENTER);
@@ -597,6 +806,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
+            janelaAberta = false;
             System.exit(0);
         }
     }//GEN-LAST:event_btnEncerrarSecaoMouseReleased
@@ -616,6 +826,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         if (confirmacaoTrocaUsuario == JOptionPane.YES_OPTION) {
+            janelaAberta = false;
             dispose();
             new TelaLogin().setVisible(true);
         }
@@ -690,8 +901,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         indicador1.setOpaque(true);
         resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
-        
-        
+
+
     }//GEN-LAST:event_btn_menu1MousePressed
 
     private void btn_menu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu2MousePressed
@@ -740,7 +951,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menu7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu7MouseReleased
         // TODO add your handling code here:
-        
+
         String[] options = {"Encerrar Secao", "Cancelar"};
 
         confirmarEncerrarSecao = JOptionPane.showOptionDialog(
@@ -749,6 +960,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
+            janelaAberta = false;
             System.exit(0);
         }
     }//GEN-LAST:event_btn_menu7MouseReleased
@@ -777,6 +989,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
     }
 
+    private void funcoesPrincipal() {
+
+        //while (janelaAberta) {
+        VendaDAO v = new VendaDAO();
+
+        txtQuantidadeVendasMes.setText(String.valueOf(v.numVendasMes()));
+        //}
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnEncerrarSecao;
     private javax.swing.JMenu btnExit;
@@ -796,7 +1017,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel indicador6;
     private javax.swing.JPanel indicador7;
     private javax.swing.JDesktopPane jDesktopPane2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -823,5 +1047,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JLabel lebal4;
+    private Outros.PanelRound panelRound1;
+    private Outros.PanelRound panelRound2;
+    private Outros.PanelRound panelRound4;
+    private Outros.PanelRound panelRound5;
+    private Outros.PanelRound panelRound6;
+    private Outros.PanelRound panelRound7;
+    private javax.swing.JLabel txtQuantidadeVendasMes;
+    private javax.swing.JLabel txtTotalVendasMes;
     // End of variables declaration//GEN-END:variables
 }

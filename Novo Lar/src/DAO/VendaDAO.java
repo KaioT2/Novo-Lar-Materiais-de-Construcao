@@ -73,4 +73,52 @@ public class VendaDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
+    
+    public int numVendasMes() {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int numLinhas = 0;
+        try {
+            stmt = con.prepareStatement("SELECT count(*) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());");
+            rs = stmt.executeQuery();
+
+            // Move o cursor para a primeira linha do resultado (se houver)
+            if (rs.next()) {
+                numLinhas = rs.getInt(1); // Obtém o valor da primeira coluna do resultado
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao contar as linhas: " + ex.getMessage());
+
+            return 0;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs); // Certifique-se de fechar o ResultSet também
+        }
+        return numLinhas;
+    }
+    
+    public double totalVendasMes() {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int numLinhas = 0;
+        try {
+            stmt = con.prepareStatement("SELECT sum(total) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());");
+            rs = stmt.executeQuery();
+
+            // Move o cursor para a primeira linha do resultado (se houver)
+            if (rs.next()) {
+                numLinhas = rs.getInt(1); // Obtém o valor da primeira coluna do resultado
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao contar as linhas: " + ex.getMessage());
+
+            return 0;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs); // Certifique-se de fechar o ResultSet também
+        }
+        return numLinhas;
+    }
 }
