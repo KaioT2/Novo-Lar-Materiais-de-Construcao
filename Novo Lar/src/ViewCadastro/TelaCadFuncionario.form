@@ -535,16 +535,25 @@
               <SubComponents>
                 <Component class="javax.swing.JRadioButton" name="pAlto">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="nivelPermissao"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Alto"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="pMedio">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="nivelPermissao"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Medio"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="pBaixo">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="nivelPermissao"/>
+                    </Property>
                     <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Baixo"/>
                   </Properties>
@@ -566,6 +575,9 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="sAtivo">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="nivelStatus"/>
+                    </Property>
                     <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Ativo"/>
                   </Properties>
@@ -577,6 +589,9 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="sInativo">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="nivelStatus"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Inativo"/>
                   </Properties>
                 </Component>

@@ -12,30 +12,27 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class FuncionarioDAO {
-    public boolean checkLogin(String cpf, String senha) {
+    public int checkLogin(String cpf, String senha) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        boolean check = false;
+        int permissao = -1;
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE cpf = ? AND senha = ?");
+            stmt = con.prepareStatement("SELECT permissao FROM funcionario WHERE cpf = ? AND senha = ?");
             stmt.setString(1, cpf);
             stmt.setString(2, senha);
             rs = stmt.executeQuery();
 
-                if (rs.next()) {
-                check = true;
-            
+            if (rs.next()) {
+                permissao = rs.getInt(1);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-
-        return check;
+        return permissao;
     }
     
     public void create(Funcionario f){
@@ -227,4 +224,27 @@ public class FuncionarioDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
 }
+    
+    public String nomeDeUsuario(String cpf, String senha) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String nome = "";
+
+        try {
+            stmt = con.prepareStatement("SELECT nome FROM funcionario WHERE cpf = ? AND senha = ?");
+            stmt.setString(1, cpf);
+            stmt.setString(2, senha);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nome = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return nome;
+    }
 }

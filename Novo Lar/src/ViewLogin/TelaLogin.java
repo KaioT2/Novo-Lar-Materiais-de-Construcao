@@ -20,14 +20,27 @@ public class TelaLogin extends javax.swing.JFrame {
     /**
      * Creates new form TelaLogin
      */
-    
-    int xMouse,
+    int xMouse, yMouse;
 
-    /**
-     * Creates new form TelaLogin
-     */
-    yMouse;
-    
+    private int permissaoUsuario;
+    private String nomeUsuario;
+
+    public int getPermissaoUsuario() {
+        return permissaoUsuario;
+    }
+
+    public void setPermissaoUsuario(int permissaoUsuario) {
+        this.permissaoUsuario = permissaoUsuario;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
     public TelaLogin() {
         initComponents();
     }
@@ -57,6 +70,7 @@ public class TelaLogin extends javax.swing.JFrame {
         txtBtnLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login - Novo Lar");
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -214,12 +228,14 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
         FuncionarioDAO dao = new FuncionarioDAO();
-        
-        if(dao.checkLogin(txtLogin.getText(),txtSenha.getPassword().toString())){
+
+        setPermissaoUsuario(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword())));
+        setNomeUsuario(dao.nomeDeUsuario(txtLogin.getText(), new String(txtSenha.getPassword())));
+
+        if (getPermissaoUsuario() != -1) {
             this.dispose();
-            new TelaPrincipal().setVisible(true);
-        }
-        else{
+            new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario()).setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(this, "Email e/ou senha incorreto(os)!");
             txtLogin.setText("");
             txtSenha.setText("");
@@ -230,12 +246,14 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             FuncionarioDAO dao = new FuncionarioDAO();
-        
-            if(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
+
+            setPermissaoUsuario(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword())));
+            setNomeUsuario(dao.nomeDeUsuario(txtLogin.getText(), new String(txtSenha.getPassword())));
+
+            if (getPermissaoUsuario() != -1) {
                 this.dispose();
-                new TelaPrincipal().setVisible(true);
-            }
-            else{
+                new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario()).setVisible(true);
+            } else {
                 JOptionPane.showMessageDialog(this, "Email e/ou senha incorreto(os)!");
                 txtLogin.setText("");
                 txtSenha.setText("");
@@ -264,7 +282,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
         // TODO add your handling code here:
         btnSair.setBackground(Color.red);
-        
+
     }//GEN-LAST:event_btnSairMouseEntered
 
     private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
@@ -274,9 +292,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
         // TODO add your handling code here:
-        
+
         btnLogin.setBackground(new Color(21, 51, 107));
-        txtBtnLogin.setForeground(new Color(204,204,204));
+        txtBtnLogin.setForeground(new Color(204, 204, 204));
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
@@ -287,11 +305,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtLoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLoginMousePressed
         // TODO add your handling code here:
-        if(txtLogin.getText().equals("Digite o usuário")){
+        if (txtLogin.getText().equals("Digite o usuário")) {
             txtLogin.setText("");
         }
         txtLogin.setForeground(Color.black);
-        if(String.valueOf(txtSenha.getPassword()).isEmpty()){
+        if (String.valueOf(txtSenha.getPassword()).isEmpty()) {
             txtSenha.setText("*************");
             txtSenha.setForeground(Color.gray);
         }
@@ -299,15 +317,15 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtSenhaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSenhaMousePressed
         // TODO add your handling code here:
-        if(txtSenha.getText().equals("Digite a senha")){
+        if (txtSenha.getText().equals("Digite a senha")) {
             txtSenha.setText("");
         }
         txtSenha.setForeground(Color.black);
-        if(txtLogin.getText().isEmpty()){
+        if (txtLogin.getText().isEmpty()) {
             txtLogin.setText("Digite o usuário");
             txtLogin.setForeground(Color.gray);
         }
-        
+
     }//GEN-LAST:event_txtSenhaMousePressed
 
     /**
@@ -316,7 +334,7 @@ public class TelaLogin extends javax.swing.JFrame {
     public static void main(String args[]) {
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
-        
+
         //</editor-fold>
 
         /* Create and display the form */

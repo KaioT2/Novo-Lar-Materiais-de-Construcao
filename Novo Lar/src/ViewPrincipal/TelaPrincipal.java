@@ -16,9 +16,11 @@ import ViewEstoque.TelaEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.time.LocalTime;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -30,37 +32,54 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private int confirmarEncerrarSecao;
     private boolean janelaAberta = true;
 
+    private int permissaoUsuario;
+    private String nomeUsuario;
+
+    private TelaLogin telaLogin;
+
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal() {
+    public TelaPrincipal(int permissaoUsuario, String nomeUsuario) {
         initComponents();
-        //this.setExtendedState(MAXIMIZED_BOTH);  
 
         setSize(new Dimension(1280, 720));
         setLocationRelativeTo(null);
         ativarMenu();
 
-        new Thread(() -> {
-            int contador = 0;
-            while (isVisible()) {
-                // Atualiza o texto do JLabel a cada segundo
-                VendaDAO v = new VendaDAO();
-                
-                txtTotalVendasMes.setText("Valor total das vendas: R$" + String.valueOf(v.totalVendasMes()));
-                txtQuantidadeVendasMes.setText("Quantidades de vendas: " + String.valueOf(v.numVendasMes()));
+        LocalTime horario = LocalTime.now();
 
-                // Incrementa o contador
-                contador++;
+        this.permissaoUsuario = permissaoUsuario;
+        if (permissaoUsuario != 1) {
+            btnMostrar.setEnabled(false);
+            btnMostrar.setSelected(true);
+        }
 
-                // Adicione um pequeno atraso para evitar alta carga na CPU
-                try {
-                    Thread.sleep(1000); // Aguarde 1 segundo antes de atualizar o texto novamente
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        txtNomeUsuario.setText(nomeUsuario + "!");
+        verificarPeriodo(horario);
+
+        Timer timer = new Timer(900, e -> {
+            VendaDAO v = new VendaDAO();
+            String totalVendas = "Valor total das vendas: R$" + String.valueOf(v.totalVendasMes());
+            String numVendas = "Quantidades de vendas: " + String.valueOf(v.numVendasMes());
+            if (!btnMostrar.isSelected()) {
+                txtTotalVendasMes.setText(totalVendas);
+                txtQuantidadeVendasMes.setText(numVendas);
             }
-        }).start();
+        });
+        timer.start();
+    }
+
+    public void verificarPeriodo(LocalTime horario) {
+        int hora = horario.getHour();
+
+        if (hora >= 6 && hora < 12) {
+            txtPeriodoDia.setText("Bom dia,");
+        } else if (hora >= 12 && hora < 18) {
+            txtPeriodoDia.setText("Boa tarde,");
+        } else {
+            txtPeriodoDia.setText("Boa noite,");
+        }
     }
 
     /**
@@ -78,56 +97,59 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jPanel4 = new javax.swing.JPanel();
-        btn_menu1 = new javax.swing.JPanel();
+        btn_menuHome = new javax.swing.JPanel();
         indicador1 = new javax.swing.JPanel();
         label1 = new javax.swing.JLabel();
-        btn_menu2 = new javax.swing.JPanel();
+        btn_menuCadastros = new javax.swing.JPanel();
         indicador2 = new javax.swing.JPanel();
         label2 = new javax.swing.JLabel();
-        btn_menu3 = new javax.swing.JPanel();
+        btn_menuEstoque = new javax.swing.JPanel();
         indicador3 = new javax.swing.JPanel();
         label3 = new javax.swing.JLabel();
-        btn_menu4 = new javax.swing.JPanel();
+        btn_menuVendas = new javax.swing.JPanel();
         indicador4 = new javax.swing.JPanel();
         lebal4 = new javax.swing.JLabel();
-        btn_menu5 = new javax.swing.JPanel();
+        btn_menuCompras = new javax.swing.JPanel();
         indicador5 = new javax.swing.JPanel();
         label5 = new javax.swing.JLabel();
-        btn_menu6 = new javax.swing.JPanel();
+        btn_menuRelatorios = new javax.swing.JPanel();
         indicador6 = new javax.swing.JPanel();
         label6 = new javax.swing.JLabel();
-        btn_menu7 = new javax.swing.JPanel();
+        btn_menuLogOff = new javax.swing.JPanel();
         indicador7 = new javax.swing.JPanel();
         label7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        panelRound1 = new Outros.PanelRound();
+        txtNomeUsuario = new javax.swing.JLabel();
+        txtPeriodoDia = new javax.swing.JLabel();
+        painelVendasMes = new Outros.PanelRound();
         panelRound2 = new Outros.PanelRound();
         jLabel1 = new javax.swing.JLabel();
         txtTotalVendasMes = new javax.swing.JLabel();
         txtQuantidadeVendasMes = new javax.swing.JLabel();
-        panelRound4 = new Outros.PanelRound();
+        btnMostrar = new javax.swing.JCheckBox();
+        painelProdBaixoEstoque = new Outros.PanelRound();
         panelRound5 = new Outros.PanelRound();
         jLabel3 = new javax.swing.JLabel();
-        panelRound6 = new Outros.PanelRound();
+        painelAniversariantes = new Outros.PanelRound();
         panelRound7 = new Outros.PanelRound();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        btnExit = new javax.swing.JMenu();
-        btnEncerrarSecao = new javax.swing.JMenuItem();
-        btnTrocarUsuário = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        menuSistema = new javax.swing.JMenu();
+        menuEncerrarSecao = new javax.swing.JMenuItem();
+        menuTrocarUsuario = new javax.swing.JMenuItem();
+        menuCadastros = new javax.swing.JMenu();
+        menuCadUsuario = new javax.swing.JMenuItem();
+        menuCadCliente = new javax.swing.JMenuItem();
+        menuCadFornecedor = new javax.swing.JMenuItem();
+        menuCadProduto = new javax.swing.JMenuItem();
+        menuCadCategoria = new javax.swing.JMenuItem();
+        menuEstoque = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        menuVendas = new javax.swing.JMenu();
+        menuNovaVenda = new javax.swing.JMenuItem();
+        menuCompras = new javax.swing.JMenu();
+        menuNovaCompra = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -137,12 +159,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Novo Lar Materiais de Construção");
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(14, 33, 69));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setUndecorated(true);
         setSize(new java.awt.Dimension(1280, 720));
 
         jDesktopPane2.setBackground(new java.awt.Color(255, 255, 255));
@@ -152,11 +174,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(245, 572));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_menu1.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu1.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuHome.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuHome.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu1MousePressed(evt);
+                btn_menuHomeMousePressed(evt);
             }
         });
 
@@ -177,33 +200,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label1.setText("Home");
 
-        javax.swing.GroupLayout btn_menu1Layout = new javax.swing.GroupLayout(btn_menu1);
-        btn_menu1.setLayout(btn_menu1Layout);
-        btn_menu1Layout.setHorizontalGroup(
-            btn_menu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_menu1Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_menuHomeLayout = new javax.swing.GroupLayout(btn_menuHome);
+        btn_menuHome.setLayout(btn_menuHomeLayout);
+        btn_menuHomeLayout.setHorizontalGroup(
+            btn_menuHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menuHomeLayout.createSequentialGroup()
                 .addComponent(indicador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(label1)
                 .addGap(0, 96, Short.MAX_VALUE))
         );
-        btn_menu1Layout.setVerticalGroup(
-            btn_menu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_menuHomeLayout.setVerticalGroup(
+            btn_menuHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(indicador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(btn_menu1Layout.createSequentialGroup()
+            .addGroup(btn_menuHomeLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(label1)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 50));
+        jPanel4.add(btn_menuHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 50));
 
-        btn_menu2.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu2.setOpaque(false);
-        btn_menu2.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuCadastros.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuCadastros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuCadastros.setOpaque(false);
+        btn_menuCadastros.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuCadastros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu2MousePressed(evt);
+                btn_menuCadastrosMousePressed(evt);
             }
         });
 
@@ -225,33 +249,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         label2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label2.setText("Cadastros");
 
-        javax.swing.GroupLayout btn_menu2Layout = new javax.swing.GroupLayout(btn_menu2);
-        btn_menu2.setLayout(btn_menu2Layout);
-        btn_menu2Layout.setHorizontalGroup(
-            btn_menu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_menu2Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_menuCadastrosLayout = new javax.swing.GroupLayout(btn_menuCadastros);
+        btn_menuCadastros.setLayout(btn_menuCadastrosLayout);
+        btn_menuCadastrosLayout.setHorizontalGroup(
+            btn_menuCadastrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menuCadastrosLayout.createSequentialGroup()
                 .addComponent(indicador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(label2)
                 .addGap(0, 72, Short.MAX_VALUE))
         );
-        btn_menu2Layout.setVerticalGroup(
-            btn_menu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_menuCadastrosLayout.setVerticalGroup(
+            btn_menuCadastrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(indicador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(btn_menu2Layout.createSequentialGroup()
+            .addGroup(btn_menuCadastrosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(label2)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
+        jPanel4.add(btn_menuCadastros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
 
-        btn_menu3.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu3.setOpaque(false);
-        btn_menu3.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuEstoque.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuEstoque.setOpaque(false);
+        btn_menuEstoque.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu3MousePressed(evt);
+                btn_menuEstoqueMousePressed(evt);
             }
         });
 
@@ -273,33 +298,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         label3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label3.setText("Estoque");
 
-        javax.swing.GroupLayout btn_menu3Layout = new javax.swing.GroupLayout(btn_menu3);
-        btn_menu3.setLayout(btn_menu3Layout);
-        btn_menu3Layout.setHorizontalGroup(
-            btn_menu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_menu3Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_menuEstoqueLayout = new javax.swing.GroupLayout(btn_menuEstoque);
+        btn_menuEstoque.setLayout(btn_menuEstoqueLayout);
+        btn_menuEstoqueLayout.setHorizontalGroup(
+            btn_menuEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menuEstoqueLayout.createSequentialGroup()
                 .addComponent(indicador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 83, Short.MAX_VALUE))
         );
-        btn_menu3Layout.setVerticalGroup(
-            btn_menu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_menuEstoqueLayout.setVerticalGroup(
+            btn_menuEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(indicador3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(btn_menu3Layout.createSequentialGroup()
+            .addGroup(btn_menuEstoqueLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(label3)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 50));
+        jPanel4.add(btn_menuEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 50));
 
-        btn_menu4.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu4.setOpaque(false);
-        btn_menu4.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuVendas.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuVendas.setOpaque(false);
+        btn_menuVendas.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuVendas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu4MousePressed(evt);
+                btn_menuVendasMousePressed(evt);
             }
         });
 
@@ -321,33 +347,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lebal4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lebal4.setText("Vendas");
 
-        javax.swing.GroupLayout btn_menu4Layout = new javax.swing.GroupLayout(btn_menu4);
-        btn_menu4.setLayout(btn_menu4Layout);
-        btn_menu4Layout.setHorizontalGroup(
-            btn_menu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_menu4Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_menuVendasLayout = new javax.swing.GroupLayout(btn_menuVendas);
+        btn_menuVendas.setLayout(btn_menuVendasLayout);
+        btn_menuVendasLayout.setHorizontalGroup(
+            btn_menuVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menuVendasLayout.createSequentialGroup()
                 .addComponent(indicador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(lebal4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 83, Short.MAX_VALUE))
         );
-        btn_menu4Layout.setVerticalGroup(
-            btn_menu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_menuVendasLayout.setVerticalGroup(
+            btn_menuVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(indicador4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(btn_menu4Layout.createSequentialGroup()
+            .addGroup(btn_menuVendasLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(lebal4)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
+        jPanel4.add(btn_menuVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
 
-        btn_menu5.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu5.setOpaque(false);
-        btn_menu5.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu5.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuCompras.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuCompras.setOpaque(false);
+        btn_menuCompras.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuCompras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu5MousePressed(evt);
+                btn_menuComprasMousePressed(evt);
             }
         });
 
@@ -369,33 +396,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         label5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label5.setText("Compras");
 
-        javax.swing.GroupLayout btn_menu5Layout = new javax.swing.GroupLayout(btn_menu5);
-        btn_menu5.setLayout(btn_menu5Layout);
-        btn_menu5Layout.setHorizontalGroup(
-            btn_menu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_menu5Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_menuComprasLayout = new javax.swing.GroupLayout(btn_menuCompras);
+        btn_menuCompras.setLayout(btn_menuComprasLayout);
+        btn_menuComprasLayout.setHorizontalGroup(
+            btn_menuComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menuComprasLayout.createSequentialGroup()
                 .addComponent(indicador5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 61, Short.MAX_VALUE))
         );
-        btn_menu5Layout.setVerticalGroup(
-            btn_menu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_menuComprasLayout.setVerticalGroup(
+            btn_menuComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(indicador5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(btn_menu5Layout.createSequentialGroup()
+            .addGroup(btn_menuComprasLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(label5)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menu5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
+        jPanel4.add(btn_menuCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
 
-        btn_menu6.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu6.setOpaque(false);
-        btn_menu6.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu6.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuRelatorios.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuRelatorios.setOpaque(false);
+        btn_menuRelatorios.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu6MousePressed(evt);
+                btn_menuRelatoriosMousePressed(evt);
             }
         });
 
@@ -417,39 +445,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
         label6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label6.setText("Relatórios");
 
-        javax.swing.GroupLayout btn_menu6Layout = new javax.swing.GroupLayout(btn_menu6);
-        btn_menu6.setLayout(btn_menu6Layout);
-        btn_menu6Layout.setHorizontalGroup(
-            btn_menu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_menu6Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_menuRelatoriosLayout = new javax.swing.GroupLayout(btn_menuRelatorios);
+        btn_menuRelatorios.setLayout(btn_menuRelatoriosLayout);
+        btn_menuRelatoriosLayout.setHorizontalGroup(
+            btn_menuRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_menuRelatoriosLayout.createSequentialGroup()
                 .addComponent(indicador6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 64, Short.MAX_VALUE))
         );
-        btn_menu6Layout.setVerticalGroup(
-            btn_menu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btn_menuRelatoriosLayout.setVerticalGroup(
+            btn_menuRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(indicador6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(btn_menu6Layout.createSequentialGroup()
+            .addGroup(btn_menuRelatoriosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(label6)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menu6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
+        jPanel4.add(btn_menuRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
 
-        btn_menu7.setBackground(new java.awt.Color(41, 57, 100));
-        btn_menu7.setOpaque(false);
-        btn_menu7.setPreferredSize(new java.awt.Dimension(250, 40));
-        btn_menu7.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_menuLogOff.setBackground(new java.awt.Color(41, 57, 100));
+        btn_menuLogOff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuLogOff.setOpaque(false);
+        btn_menuLogOff.setPreferredSize(new java.awt.Dimension(250, 40));
+        btn_menuLogOff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_menu7MousePressed(evt);
+                btn_menuLogOffMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btn_menu7MouseReleased(evt);
+                btn_menuLogOffMouseReleased(evt);
             }
         });
-        btn_menu7.setLayout(null);
+        btn_menuLogOff.setLayout(null);
 
         indicador7.setBackground(new java.awt.Color(255, 255, 255));
         indicador7.setOpaque(false);
@@ -466,27 +495,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        btn_menu7.add(indicador7);
+        btn_menuLogOff.add(indicador7);
         indicador7.setBounds(0, 0, 5, 50);
 
         label7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label7.setForeground(new java.awt.Color(255, 255, 255));
         label7.setText("Encerrar Seção");
-        btn_menu7.add(label7);
+        btn_menuLogOff.add(label7);
         label7.setBounds(60, 10, 100, 20);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/menuIcon-LogOff.png"))); // NOI18N
-        btn_menu7.add(jLabel2);
+        btn_menuLogOff.add(jLabel2);
         jLabel2.setBounds(20, 0, 37, 32);
 
-        jPanel4.add(btn_menu7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, 50));
+        jPanel4.add(btn_menuLogOff, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, 50));
 
-        panelRound1.setBackground(new java.awt.Color(14, 33, 69));
-        panelRound1.setForeground(new java.awt.Color(255, 255, 255));
-        panelRound1.setRoundBottomLeft(30);
-        panelRound1.setRoundBottomRight(30);
-        panelRound1.setRoundTopLeft(30);
-        panelRound1.setRoundTopRight(30);
+        txtNomeUsuario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtNomeUsuario.setText("nome");
+        jPanel4.add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+
+        txtPeriodoDia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtPeriodoDia.setForeground(new java.awt.Color(255, 255, 255));
+        txtPeriodoDia.setText("Período,");
+        jPanel4.add(txtPeriodoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        painelVendasMes.setBackground(new java.awt.Color(14, 33, 69));
+        painelVendasMes.setForeground(new java.awt.Color(255, 255, 255));
+        painelVendasMes.setRoundBottomLeft(30);
+        painelVendasMes.setRoundBottomRight(30);
+        painelVendasMes.setRoundTopLeft(30);
+        painelVendasMes.setRoundTopRight(30);
 
         panelRound2.setBackground(new java.awt.Color(31, 53, 126));
         panelRound2.setRoundTopLeft(30);
@@ -514,43 +553,62 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        txtTotalVendasMes.setBackground(new java.awt.Color(255, 255, 255));
-        txtTotalVendasMes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTotalVendasMes.setBackground(new java.awt.Color(14, 33, 69));
+        txtTotalVendasMes.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txtTotalVendasMes.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalVendasMes.setOpaque(true);
 
-        txtQuantidadeVendasMes.setBackground(new java.awt.Color(255, 255, 255));
-        txtQuantidadeVendasMes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtQuantidadeVendasMes.setBackground(new java.awt.Color(14, 33, 69));
+        txtQuantidadeVendasMes.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txtQuantidadeVendasMes.setForeground(new java.awt.Color(255, 255, 255));
-        txtQuantidadeVendasMes.setText(" ");
+        txtQuantidadeVendasMes.setOpaque(true);
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnMostrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrar.setText("Exibir / Ocultar");
+        btnMostrar.setBorder(null);
+        btnMostrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMostrarMouseClicked(evt);
+            }
+        });
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelVendasMesLayout = new javax.swing.GroupLayout(painelVendasMes);
+        painelVendasMes.setLayout(painelVendasMesLayout);
+        painelVendasMesLayout.setHorizontalGroup(
+            painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelRound2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendasMesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMostrar)
+                    .addGroup(painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound1Layout.createSequentialGroup()
+        painelVendasMesLayout.setVerticalGroup(
+            painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelVendasMesLayout.createSequentialGroup()
                 .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMostrar)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        panelRound4.setBackground(new java.awt.Color(14, 33, 69));
-        panelRound4.setRoundBottomLeft(30);
-        panelRound4.setRoundBottomRight(30);
-        panelRound4.setRoundTopLeft(30);
-        panelRound4.setRoundTopRight(30);
+        painelProdBaixoEstoque.setBackground(new java.awt.Color(14, 33, 69));
+        painelProdBaixoEstoque.setRoundBottomLeft(30);
+        painelProdBaixoEstoque.setRoundBottomRight(30);
+        painelProdBaixoEstoque.setRoundTopLeft(30);
+        painelProdBaixoEstoque.setRoundTopRight(30);
 
         panelRound5.setBackground(new java.awt.Color(31, 53, 126));
         panelRound5.setRoundTopLeft(30);
@@ -578,24 +636,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
-        panelRound4.setLayout(panelRound4Layout);
-        panelRound4Layout.setHorizontalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelProdBaixoEstoqueLayout = new javax.swing.GroupLayout(painelProdBaixoEstoque);
+        painelProdBaixoEstoque.setLayout(painelProdBaixoEstoqueLayout);
+        painelProdBaixoEstoqueLayout.setHorizontalGroup(
+            painelProdBaixoEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelRound5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        panelRound4Layout.setVerticalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound4Layout.createSequentialGroup()
+        painelProdBaixoEstoqueLayout.setVerticalGroup(
+            painelProdBaixoEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProdBaixoEstoqueLayout.createSequentialGroup()
                 .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelRound6.setBackground(new java.awt.Color(14, 33, 69));
-        panelRound6.setRoundBottomLeft(30);
-        panelRound6.setRoundBottomRight(30);
-        panelRound6.setRoundTopLeft(30);
-        panelRound6.setRoundTopRight(30);
+        painelAniversariantes.setBackground(new java.awt.Color(14, 33, 69));
+        painelAniversariantes.setRoundBottomLeft(30);
+        painelAniversariantes.setRoundBottomRight(30);
+        painelAniversariantes.setRoundTopLeft(30);
+        painelAniversariantes.setRoundTopRight(30);
 
         panelRound7.setBackground(new java.awt.Color(31, 53, 126));
         panelRound7.setRoundTopLeft(30);
@@ -623,23 +681,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelRound6Layout = new javax.swing.GroupLayout(panelRound6);
-        panelRound6.setLayout(panelRound6Layout);
-        panelRound6Layout.setHorizontalGroup(
-            panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelAniversariantesLayout = new javax.swing.GroupLayout(painelAniversariantes);
+        painelAniversariantes.setLayout(painelAniversariantesLayout);
+        painelAniversariantesLayout.setHorizontalGroup(
+            painelAniversariantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelRound7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        panelRound6Layout.setVerticalGroup(
-            panelRound6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound6Layout.createSequentialGroup()
+        painelAniversariantesLayout.setVerticalGroup(
+            painelAniversariantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelAniversariantesLayout.createSequentialGroup()
                 .addComponent(panelRound7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(308, Short.MAX_VALUE))
         );
 
         jDesktopPane2.setLayer(jPanel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelRound1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelRound4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(panelRound6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(painelVendasMes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(painelProdBaixoEstoque, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(painelAniversariantes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -650,10 +708,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(135, 135, 135)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(painelVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                        .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelRound6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(painelProdBaixoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(painelAniversariantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(135, 135, 135))
         );
         jDesktopPane2Layout.setVerticalGroup(
@@ -662,93 +720,96 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelRound4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelProdBaixoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelVendasMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(72, 72, 72)
-                .addComponent(panelRound6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelAniversariantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jDesktopPane2, java.awt.BorderLayout.CENTER);
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/systemIcon.png"))); // NOI18N
-        btnExit.setText("Sistema");
+        menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/systemIcon.png"))); // NOI18N
+        menuSistema.setText("Sistema");
+        menuSistema.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnEncerrarSecao.setText("Encerrar Seção");
-        btnEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuEncerrarSecao.setText("Encerrar Seção");
+        menuEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnEncerrarSecaoMouseReleased(evt);
+                menuEncerrarSecaoMouseReleased(evt);
             }
         });
-        btnEncerrarSecao.addActionListener(new java.awt.event.ActionListener() {
+        menuEncerrarSecao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEncerrarSecaoActionPerformed(evt);
+                menuEncerrarSecaoActionPerformed(evt);
             }
         });
-        btnExit.add(btnEncerrarSecao);
+        menuSistema.add(menuEncerrarSecao);
 
-        btnTrocarUsuário.setText("Trocar Usuário");
-        btnTrocarUsuário.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuTrocarUsuario.setText("Trocar Usuário");
+        menuTrocarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnTrocarUsuárioMouseReleased(evt);
+                menuTrocarUsuarioMouseReleased(evt);
             }
         });
-        btnTrocarUsuário.addActionListener(new java.awt.event.ActionListener() {
+        menuTrocarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTrocarUsuárioActionPerformed(evt);
+                menuTrocarUsuarioActionPerformed(evt);
             }
         });
-        btnExit.add(btnTrocarUsuário);
+        menuSistema.add(menuTrocarUsuario);
 
-        jMenuBar1.add(btnExit);
+        jMenuBar1.add(menuSistema);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastroIcon.png"))); // NOI18N
-        jMenu2.setText("Cadastros");
+        menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastroIcon.png"))); // NOI18N
+        menuCadastros.setText("Cadastros");
+        menuCadastros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuItem2.setText("Funcionario");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuCadUsuario.setText("Funcionario");
+        menuCadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuCadUsuarioActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        menuCadastros.add(menuCadUsuario);
 
-        jMenuItem3.setText("Cliente");
-        jMenuItem3.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuCadCliente.setText("Cliente");
+        menuCadCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jMenuItem3MouseReleased(evt);
+                menuCadClienteMouseReleased(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        menuCadastros.add(menuCadCliente);
 
-        jMenuItem4.setText("Fornecedor");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuCadFornecedor.setText("Fornecedor");
+        menuCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuCadFornecedorActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        menuCadastros.add(menuCadFornecedor);
 
-        jMenuItem6.setText("Produto");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        menuCadProduto.setText("Produto");
+        menuCadProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                menuCadProdutoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        menuCadastros.add(menuCadProduto);
 
-        jMenuItem7.setText("Categoria");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        menuCadCategoria.setText("Categoria");
+        menuCadCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                menuCadCategoriaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem7);
+        menuCadastros.add(menuCadCategoria);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuCadastros);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoqueIcon.png"))); // NOI18N
-        jMenu6.setText("Estoque");
+        menuEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoqueIcon.png"))); // NOI18N
+        menuEstoque.setText("Estoque");
+        menuEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jMenuItem8.setText("Consultar Estoque");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -756,39 +817,42 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jMenuItem8ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem8);
+        menuEstoque.add(jMenuItem8);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(menuEstoque);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorioIcon.png"))); // NOI18N
-        jMenu1.setText("Relatórios");
-        jMenuBar1.add(jMenu1);
+        menuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorioIcon.png"))); // NOI18N
+        menuRelatorios.setText("Relatórios");
+        menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.add(menuRelatorios);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/vendasIcon.png"))); // NOI18N
-        jMenu5.setText("Vendas");
+        menuVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/vendasIcon.png"))); // NOI18N
+        menuVendas.setText("Vendas");
+        menuVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuItem5.setText("Nova Venda");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        menuNovaVenda.setText("Nova Venda");
+        menuNovaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                menuNovaVendaActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem5);
+        menuVendas.add(menuNovaVenda);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(menuVendas);
 
-        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/comprasIcon.png"))); // NOI18N
-        jMenu7.setText("Compras");
+        menuCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/comprasIcon.png"))); // NOI18N
+        menuCompras.setText("Compras");
+        menuCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuItem9.setText("Nova Compra");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        menuNovaCompra.setText("Nova Compra");
+        menuNovaCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                menuNovaCompraActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem9);
+        menuCompras.add(menuNovaCompra);
 
-        jMenuBar1.add(jMenu7);
+        jMenuBar1.add(menuCompras);
 
         setJMenuBar(jMenuBar1);
 
@@ -796,7 +860,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoMouseReleased
+    private void menuEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEncerrarSecaoMouseReleased
         // TODO add your handling code here:
         String[] options = {"Encerrar Secao", "Cancelar"};
 
@@ -809,13 +873,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             janelaAberta = false;
             System.exit(0);
         }
-    }//GEN-LAST:event_btnEncerrarSecaoMouseReleased
+    }//GEN-LAST:event_menuEncerrarSecaoMouseReleased
 
-    private void btnEncerrarSecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncerrarSecaoActionPerformed
+    private void menuEncerrarSecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEncerrarSecaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEncerrarSecaoActionPerformed
+    }//GEN-LAST:event_menuEncerrarSecaoActionPerformed
 
-    private void btnTrocarUsuárioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioMouseReleased
+    private void menuTrocarUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTrocarUsuarioMouseReleased
         // TODO add your handling code here:
 
         String[] options = {"Trocar", "Cancelar"}; // Textos personalizados dos botões
@@ -830,49 +894,59 @@ public class TelaPrincipal extends javax.swing.JFrame {
             dispose();
             new TelaLogin().setVisible(true);
         }
-    }//GEN-LAST:event_btnTrocarUsuárioMouseReleased
+    }//GEN-LAST:event_menuTrocarUsuarioMouseReleased
 
-    private void btnTrocarUsuárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrocarUsuárioActionPerformed
+    private void menuTrocarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTrocarUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTrocarUsuárioActionPerformed
+    }//GEN-LAST:event_menuTrocarUsuarioActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-
-        TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
-
-        telaCadFunc.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseReleased
-        // TODO add your handling code here:
-        TelaCadCliente telaCadCli = new TelaCadCliente();
-
-        telaCadCli.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3MouseReleased
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadUsuarioActionPerformed
         // TODO add your handling code here:
 
-        TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
+        if (permissaoUsuario == 1) {
 
-        telaCadForn.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+            TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
+            telaCadFunc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
+        }
+    }//GEN-LAST:event_menuCadUsuarioActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void menuCadClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadClienteMouseReleased
+        // TODO add your handling code here:
+        if (permissaoUsuario == 1) {
+
+            TelaCadCliente telaCadCli = new TelaCadCliente();
+            telaCadCli.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
+        }
+    }//GEN-LAST:event_menuCadClienteMouseReleased
+
+    private void menuCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadFornecedorActionPerformed
+        // TODO add your handling code here:
+        if (permissaoUsuario == 1) {
+            TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
+            telaCadForn.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
+        }
+    }//GEN-LAST:event_menuCadFornecedorActionPerformed
+
+    private void menuCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadProdutoActionPerformed
         // TODO add your handling code here:
 
         TelaCadProduto telaCadProd = new TelaCadProduto();
 
         telaCadProd.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_menuCadProdutoActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void menuCadCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadCategoriaActionPerformed
         // TODO add your handling code here:
         TelaCadCategoria telaCadCat = new TelaCadCategoria();
 
         telaCadCat.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_menuCadCategoriaActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
@@ -881,75 +955,80 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaEstoque.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void menuNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNovaVendaActionPerformed
         // TODO add your handling code here:
         TelaVenda telaVenda = new TelaVenda();
-
         telaVenda.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_menuNovaVendaActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void menuNovaCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNovaCompraActionPerformed
         // TODO add your handling code here:
-        TelaCompra telaCompra = new TelaCompra();
-        telaCompra.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+        if (permissaoUsuario == 1) {
+            TelaCompra telaCompra = new TelaCompra();
+            telaCompra.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
+        }
+
+    }//GEN-LAST:event_menuNovaCompraActionPerformed
 
 
-    private void btn_menu1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu1MousePressed
+    private void btn_menuHomeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuHomeMousePressed
         // TODO add your handling code here:
-        setColor(btn_menu1, label1);
+        setColor(btn_menuHome, label1);
         indicador1.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
 
 
-    }//GEN-LAST:event_btn_menu1MousePressed
+    }//GEN-LAST:event_btn_menuHomeMousePressed
 
-    private void btn_menu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu2MousePressed
+    private void btn_menuCadastrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuCadastrosMousePressed
         // TODO add your handling code here:
-        setColor(btn_menu2, label2);
+        setColor(btn_menuCadastros, label2);
         indicador2.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu1, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
+        resetColor(new JPanel[]{btn_menuHome, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador1, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label1, label3, lebal4, label5, label6});
-    }//GEN-LAST:event_btn_menu2MousePressed
+    }//GEN-LAST:event_btn_menuCadastrosMousePressed
 
-    private void btn_menu3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu3MousePressed
+    private void btn_menuEstoqueMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuEstoqueMousePressed
         // TODO add your handling code here:
-        setColor(btn_menu3, label3);
+        setColor(btn_menuEstoque, label3);
         indicador3.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu2, btn_menu1, btn_menu4, btn_menu5, btn_menu6},
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuHome, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador1, indicador4, indicador5, indicador6}, new JLabel[]{label1, label2, lebal4, label5, label6});
-    }//GEN-LAST:event_btn_menu3MousePressed
+    }//GEN-LAST:event_btn_menuEstoqueMousePressed
 
-    private void btn_menu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu4MousePressed
+    private void btn_menuVendasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuVendasMousePressed
         // TODO add your handling code here:
-        setColor(btn_menu4, lebal4);
+        setColor(btn_menuVendas, lebal4);
         indicador4.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu1, btn_menu5, btn_menu6},
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuHome, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador1, indicador5, indicador6}, new JLabel[]{label1, label2, label3, label5, label6});
-    }//GEN-LAST:event_btn_menu4MousePressed
+    }//GEN-LAST:event_btn_menuVendasMousePressed
 
-    private void btn_menu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu5MousePressed
+    private void btn_menuComprasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuComprasMousePressed
         // TODO add your handling code here:
-        setColor(btn_menu5, label5);
+        setColor(btn_menuCompras, label5);
         indicador5.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu1, btn_menu6},
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuHome, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador1, indicador6}, new JLabel[]{label1, label2, label3, lebal4, label6});
-    }//GEN-LAST:event_btn_menu5MousePressed
+    }//GEN-LAST:event_btn_menuComprasMousePressed
 
-    private void btn_menu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu6MousePressed
+    private void btn_menuRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuRelatoriosMousePressed
         // TODO add your handling code here:
-        setColor(btn_menu6, label6);
+        setColor(btn_menuRelatorios, label6);
         indicador6.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu1},
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
-    }//GEN-LAST:event_btn_menu6MousePressed
+    }//GEN-LAST:event_btn_menuRelatoriosMousePressed
 
-    private void btn_menu7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu7MousePressed
+    private void btn_menuLogOffMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuLogOffMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_menu7MousePressed
+    }//GEN-LAST:event_btn_menuLogOffMousePressed
 
-    private void btn_menu7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menu7MouseReleased
+    private void btn_menuLogOffMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuLogOffMouseReleased
         // TODO add your handling code here:
 
         String[] options = {"Encerrar Secao", "Cancelar"};
@@ -963,7 +1042,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             janelaAberta = false;
             System.exit(0);
         }
-    }//GEN-LAST:event_btn_menu7MouseReleased
+    }//GEN-LAST:event_btn_menuLogOffMouseReleased
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnMostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarMouseClicked
+        // TODO add your handling code here:
+        if (btnMostrar.isSelected()) {
+            txtTotalVendasMes.setText("#########");
+            txtQuantidadeVendasMes.setText("#########");
+        }
+    }//GEN-LAST:event_btnMostrarMouseClicked
 
     private void setColor(JPanel botao, JLabel label) {
         botao.setBackground(new Color(41, 57, 100));
@@ -983,32 +1074,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     private void ativarMenu() {
-        setColor(btn_menu1, label1);
+        setColor(btn_menuHome, label1);
         indicador1.setOpaque(true);
-        resetColor(new JPanel[]{btn_menu2, btn_menu3, btn_menu4, btn_menu5, btn_menu6},
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
     }
 
-    private void funcoesPrincipal() {
-
-        //while (janelaAberta) {
-        VendaDAO v = new VendaDAO();
-
-        txtQuantidadeVendasMes.setText(String.valueOf(v.numVendasMes()));
-        //}
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem btnEncerrarSecao;
-    private javax.swing.JMenu btnExit;
-    private javax.swing.JMenuItem btnTrocarUsuário;
-    private javax.swing.JPanel btn_menu1;
-    private javax.swing.JPanel btn_menu2;
-    private javax.swing.JPanel btn_menu3;
-    private javax.swing.JPanel btn_menu4;
-    private javax.swing.JPanel btn_menu5;
-    private javax.swing.JPanel btn_menu6;
-    private javax.swing.JPanel btn_menu7;
+    private javax.swing.JCheckBox btnMostrar;
+    private javax.swing.JPanel btn_menuCadastros;
+    private javax.swing.JPanel btn_menuCompras;
+    private javax.swing.JPanel btn_menuEstoque;
+    private javax.swing.JPanel btn_menuHome;
+    private javax.swing.JPanel btn_menuLogOff;
+    private javax.swing.JPanel btn_menuRelatorios;
+    private javax.swing.JPanel btn_menuVendas;
     private javax.swing.JPanel indicador1;
     private javax.swing.JPanel indicador2;
     private javax.swing.JPanel indicador3;
@@ -1021,24 +1101,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
@@ -1047,12 +1115,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JLabel lebal4;
-    private Outros.PanelRound panelRound1;
+    private javax.swing.JMenuItem menuCadCategoria;
+    private javax.swing.JMenuItem menuCadCliente;
+    private javax.swing.JMenuItem menuCadFornecedor;
+    private javax.swing.JMenuItem menuCadProduto;
+    private javax.swing.JMenuItem menuCadUsuario;
+    private javax.swing.JMenu menuCadastros;
+    private javax.swing.JMenu menuCompras;
+    private javax.swing.JMenuItem menuEncerrarSecao;
+    private javax.swing.JMenu menuEstoque;
+    private javax.swing.JMenuItem menuNovaCompra;
+    private javax.swing.JMenuItem menuNovaVenda;
+    private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenu menuSistema;
+    private javax.swing.JMenuItem menuTrocarUsuario;
+    private javax.swing.JMenu menuVendas;
+    private Outros.PanelRound painelAniversariantes;
+    private Outros.PanelRound painelProdBaixoEstoque;
+    private Outros.PanelRound painelVendasMes;
     private Outros.PanelRound panelRound2;
-    private Outros.PanelRound panelRound4;
     private Outros.PanelRound panelRound5;
-    private Outros.PanelRound panelRound6;
     private Outros.PanelRound panelRound7;
+    private javax.swing.JLabel txtNomeUsuario;
+    private javax.swing.JLabel txtPeriodoDia;
     private javax.swing.JLabel txtQuantidadeVendasMes;
     private javax.swing.JLabel txtTotalVendasMes;
     // End of variables declaration//GEN-END:variables

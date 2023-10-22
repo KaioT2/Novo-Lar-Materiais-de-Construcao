@@ -418,10 +418,13 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
 
         jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações Administrativas"));
 
+        nivelPermissao.add(pAlto);
         pAlto.setText("Alto");
 
+        nivelPermissao.add(pMedio);
         pMedio.setText("Medio");
 
+        nivelPermissao.add(pBaixo);
         pBaixo.setSelected(true);
         pBaixo.setText("Baixo");
 
@@ -439,6 +442,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             }
         });
 
+        nivelStatus.add(sAtivo);
         sAtivo.setSelected(true);
         sAtivo.setText("Ativo");
 
@@ -448,6 +452,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             }
         });
 
+        nivelStatus.add(sInativo);
         sInativo.setText("Inativo");
 
         jLabel5.setText("Cargo");
