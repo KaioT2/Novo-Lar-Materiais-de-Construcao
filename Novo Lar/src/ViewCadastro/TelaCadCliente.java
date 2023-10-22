@@ -112,44 +112,6 @@ public class TelaCadCliente extends javax.swing.JFrame {
         }
     }
 
-//    private void erroJText() {
-//
-//        txtEstado.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                atualizarLabel();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                atualizarLabel();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                atualizarLabel();
-//            }
-//
-//            // Método para atualizar o JLabel com o texto do JTextField
-//            private void atualizarLabel() {
-//                String tamEstado = txtEstado.getText();
-//
-//                if (tamEstado.length() > 2) {
-//                    txtErroEstado.setText("Digite apenas a abreviação! Ex: MG");
-//                    txtErroEstado.setForeground(Color.RED);
-//                    txtErroEstado.setVisible(true);
-//
-//                } else if (tamEstado.length() < 1) {
-//                    txtErroEstado.setText("Campo obrigatório");
-//                    txtErroEstado.setForeground(Color.RED);
-//                    txtErroEstado.setVisible(true);
-//                } else {
-//
-//                }
-//            }
-//        });
-//    }
-
     private boolean validarCPF(String cpf) {
         // Remove caracteres não numéricos do CPF
         cpf = cpf.replaceAll("[^0-9]", "");
@@ -658,54 +620,62 @@ public class TelaCadCliente extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
-        String cpf = "";
-        String cnpj = "";
+        if (!(txtNome.getText().equals("") || txtTelefone.getText().equals("") || txtEndereco.getText().equals("") || txtBairro.getText().equals("")
+                || txtCidade.getText().equals("") || txtCep.getText().equals("") || txtCpfCnpj.getText().equals("") || txtDataNasc.getText().equals("")
+                || txtEmail.getText().equals(""))) {
+            
+            String cpf = "";
+            String cnpj = "";
 
-        if (pFisica.isSelected()) {
-            cpf = txtCpfCnpj.getText();
+            if (pFisica.isSelected()) {
+                cpf = txtCpfCnpj.getText();
 
-            if (!validarCPF(cpf)) {
-                JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (!validarCPF(cpf)) {
+                    JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } else if (pJuridica.isSelected()) {
+                cnpj = txtCpfCnpj.getText();
+
+                if (!validarCNPJ(cnpj)) {
+                    JOptionPane.showMessageDialog(this, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            Cliente c = new Cliente();
+            ClienteDAO dao = new ClienteDAO();
+
+            c.setNome(txtNome.getText());
+            c.setEndereco(txtEndereco.getText());
+            c.setBairro(txtBairro.getText());
+            c.setCidade(txtCidade.getText());
+            c.setEstado(comboEstado.getSelectedItem().toString());
+            c.setCep(txtCep.getText());
+
+            if (pFisica.isSelected()) {
+                c.setCpf(txtCpfCnpj.getText());
+            } else if (pJuridica.isSelected()) {
+                c.setCnpj(txtCpfCnpj.getText());
+            }
+
+            c.setSexo(comboSexo.getSelectedItem().toString());
+
+            if (validarData(txtDataNasc.getText())) {
+                c.setDataNasc(dateConverter(txtDataNasc.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de data inválida! Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-        } else if (pJuridica.isSelected()) {
-            cnpj = txtCpfCnpj.getText();
 
-            if (!validarCNPJ(cnpj)) {
-                JOptionPane.showMessageDialog(this, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            c.setTelefone(txtTelefone.getText());
+            c.setEmail(txtEmail.getText());
+
+            dao.create(c);
         }
-
-        Cliente c = new Cliente();
-        ClienteDAO dao = new ClienteDAO();
-
-        c.setNome(txtNome.getText());
-        c.setEndereco(txtEndereco.getText());
-        c.setBairro(txtBairro.getText());
-        c.setCidade(txtCidade.getText());
-        c.setEstado(comboEstado.getSelectedItem().toString());
-        c.setCep(txtCep.getText());
-
-        if (pFisica.isSelected()) {
-            c.setCpf(txtCpfCnpj.getText());
-        } else if (pJuridica.isSelected()) {
-            c.setCnpj(txtCpfCnpj.getText());
+        else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
-
-        c.setSexo(comboSexo.getSelectedItem().toString());
-
-        if (validarData(txtDataNasc.getText())) {
-            c.setDataNasc(dateConverter(txtDataNasc.getText()));
-        } else {
-            JOptionPane.showMessageDialog(this, "Formato de data inválida! Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        c.setTelefone(txtTelefone.getText());
-        c.setEmail(txtEmail.getText());
-
-        dao.create(c);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void txtNometxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNometxtNomeActionPerformed

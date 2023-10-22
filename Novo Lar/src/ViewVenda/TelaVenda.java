@@ -38,6 +38,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     public TelaVenda() {
         initComponents();
+        
         tabelaVenda.setModel(model);
         model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn());
 
@@ -479,6 +480,7 @@ public class TelaVenda extends javax.swing.JFrame {
             btnNovoItem.setEnabled(false);
             btnSalvar.setEnabled(false);
         }
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaVendaActionPerformed

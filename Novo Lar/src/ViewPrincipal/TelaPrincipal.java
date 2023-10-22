@@ -40,13 +40,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    
     public TelaPrincipal(int permissaoUsuario, String nomeUsuario) {
         initComponents();
 
         setSize(new Dimension(1280, 720));
         setLocationRelativeTo(null);
         ativarMenu();
-
+        atualizarTotalVendas();
         LocalTime horario = LocalTime.now();
 
         this.permissaoUsuario = permissaoUsuario;
@@ -81,7 +82,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             txtPeriodoDia.setText("Boa noite,");
         }
     }
-
+    
+    public void atualizarTotalVendas(){
+        VendaDAO v = new VendaDAO();
+            String totalVendas = "Valor total das vendas: R$" + String.valueOf(v.totalVendasMes());
+            String numVendas = "Quantidades de vendas: " + String.valueOf(v.numVendasMes());
+            if (!btnMostrar.isSelected()) {
+                txtTotalVendasMes.setText(totalVendas);
+                txtQuantidadeVendasMes.setText(numVendas);
+            }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,6 +158,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuRelatorios = new javax.swing.JMenu();
         menuVendas = new javax.swing.JMenu();
         menuNovaVenda = new javax.swing.JMenuItem();
+        menuHistoricoVendas = new javax.swing.JMenuItem();
         menuCompras = new javax.swing.JMenu();
         menuNovaCompra = new javax.swing.JMenuItem();
 
@@ -164,7 +175,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(14, 33, 69));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setUndecorated(true);
         setSize(new java.awt.Dimension(1280, 720));
 
         jDesktopPane2.setBackground(new java.awt.Color(255, 255, 255));
@@ -564,11 +574,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         txtQuantidadeVendasMes.setOpaque(true);
 
         btnMostrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnMostrar.setText("Exibir / Ocultar");
+        btnMostrar.setText("Ocultar dados");
         btnMostrar.setBorder(null);
         btnMostrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMostrarMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMostrarMouseReleased(evt);
             }
         });
         btnMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -838,6 +851,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuVendas.add(menuNovaVenda);
 
+        menuHistoricoVendas.setText("Histórico de Vendas");
+        menuVendas.add(menuHistoricoVendas);
+
         jMenuBar1.add(menuVendas);
 
         menuCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/comprasIcon.png"))); // NOI18N
@@ -980,8 +996,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         indicador1.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
-
-
     }//GEN-LAST:event_btn_menuHomeMousePressed
 
     private void btn_menuCadastrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuCadastrosMousePressed
@@ -1049,12 +1063,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnMostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarMouseClicked
+
+    }//GEN-LAST:event_btnMostrarMouseClicked
+
+    private void btnMostrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarMouseReleased
         // TODO add your handling code here:
         if (btnMostrar.isSelected()) {
             txtTotalVendasMes.setText("#########");
             txtQuantidadeVendasMes.setText("#########");
         }
-    }//GEN-LAST:event_btnMostrarMouseClicked
+        else{
+            atualizarTotalVendas();
+        }
+    }//GEN-LAST:event_btnMostrarMouseReleased
 
     private void setColor(JPanel botao, JLabel label) {
         botao.setBackground(new Color(41, 57, 100));
@@ -1124,6 +1145,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCompras;
     private javax.swing.JMenuItem menuEncerrarSecao;
     private javax.swing.JMenu menuEstoque;
+    private javax.swing.JMenuItem menuHistoricoVendas;
     private javax.swing.JMenuItem menuNovaCompra;
     private javax.swing.JMenuItem menuNovaVenda;
     private javax.swing.JMenu menuRelatorios;

@@ -6,7 +6,6 @@ package ViewListagem;
 
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -208,12 +207,12 @@ public class TelaListarFuncionario extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(tabelaFunc.getSelectedRow() != -1){
-            Funcionario c = new Funcionario();
+            Funcionario f = new Funcionario();
             FuncionarioDAO dao = new FuncionarioDAO();
 
-            c.setIdFuncionario((int)tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(),0));
+            f.setIdFuncionario((int)tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(),0));
 
-            dao.delete(c);
+            dao.delete(f);
             atualizarTabela();
         }
         else{

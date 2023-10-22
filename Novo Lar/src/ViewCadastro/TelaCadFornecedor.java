@@ -471,27 +471,32 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
-        String cnpj = txtCnpj.getText();
+        if (!(txtNome.getText().equals("") || txtTelefone.getText().equals("") || txtEndereco.getText().equals("") || txtEmail.getText().equals("")
+                || txtCnpj.getText().equals("") || txtCidade.getText().equals("") || txtCep.getText().equals("") || txtBairro.getText().equals(""))) {
+            String cnpj = txtCnpj.getText();
 
-        if (!validarCNPJ(cnpj)) {
-            JOptionPane.showMessageDialog(this, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (!validarCNPJ(cnpj)) {
+                JOptionPane.showMessageDialog(this, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Fornecedor f = new Fornecedor();
+            FornecedorDAO dao = new FornecedorDAO();
+
+            f.setNome(txtNome.getText());
+            f.setEndereco(txtEndereco.getText());
+            f.setBairro(txtBairro.getText());
+            f.setCidade(txtCidade.getText());
+            f.setEstado(comboEstado.getSelectedItem().toString());
+            f.setCep(txtCep.getText());
+            f.setTelefone(txtTelefone.getText());
+            f.setEmail(txtEmail.getText());
+            f.setCnpj(txtCnpj.getText());
+
+            dao.create(f);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
-
-        Fornecedor f = new Fornecedor();
-        FornecedorDAO dao = new FornecedorDAO();
-
-        f.setNome(txtNome.getText());
-        f.setEndereco(txtEndereco.getText());
-        f.setBairro(txtBairro.getText());
-        f.setCidade(txtCidade.getText());
-        f.setEstado(comboEstado.getSelectedItem().toString());
-        f.setCep(txtCep.getText());
-        f.setTelefone(txtTelefone.getText());
-        f.setEmail(txtEmail.getText());
-        f.setCnpj(txtCnpj.getText());
-
-        dao.create(f);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

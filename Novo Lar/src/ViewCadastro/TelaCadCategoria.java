@@ -7,6 +7,7 @@ package ViewCadastro;
 import Categoria.Categoria;
 import DAO.CategoriaDAO;
 import ViewListagem.TelaListarCategoria;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -101,11 +102,16 @@ public class TelaCadCategoria extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
         
-        Categoria c = new Categoria();
-        CategoriaDAO dao = new CategoriaDAO();
-        
-        c.setDescricao(txtDescricao.getText());
-        dao.create(c);
+        if(!(txtDescricao.getText().equals(""))){
+            Categoria c = new Categoria();
+            CategoriaDAO dao = new CategoriaDAO();
+
+            c.setDescricao(txtDescricao.getText());
+            dao.create(c);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        }
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

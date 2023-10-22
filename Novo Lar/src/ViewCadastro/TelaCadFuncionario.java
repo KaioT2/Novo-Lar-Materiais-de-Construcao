@@ -6,7 +6,6 @@ package ViewCadastro;
 
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
-import java.awt.ScrollPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -705,59 +704,67 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
-        String cpf = txtCpf.getText();
+        if (!(txtNome.getText().equals("") || txtEndereco.getText().equals("") || txtBairro.getText().equals("") || txtCidade.getText().equals("")
+                || txtCep.getText().equals("") || txtTelefone.getText().equals("") || txtEmail.getText().equals("") || txtCpf.getText().equals("")
+                || txtSenha.getText().equals("") || txtCargo.getText().equals("") || txtCargaHoraria.getText().equals("") || 
+                txtSalario.getText().equals(""))) {
+            
+            String cpf = txtCpf.getText();
 
-        if (!validarCPF(cpf)) {
-            JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            if (!validarCPF(cpf)) {
+                JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        Funcionario f = new Funcionario();
-        FuncionarioDAO dao = new FuncionarioDAO();
+            Funcionario f = new Funcionario();
+            FuncionarioDAO dao = new FuncionarioDAO();
 
-        f.setNome(txtNome.getText());
-        f.setEndereco(txtEndereco.getText());
-        f.setBairro(txtBairro.getText());
-        f.setCidade(txtCidade.getText());
-        f.setEstado(comboEstado.getSelectedItem().toString());
-        f.setCEP(txtCep.getText());
-        f.setTelefone(txtTelefone.getText());
-        f.setEmail(txtEmail.getText());
-        f.setCpf(txtCpf.getText());
-        f.setSenha(txtSenha.getText());
-        f.setCargo(txtCargo.getText());
-        f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
-        f.setSalario(Double.parseDouble(txtSalario.getText()));
+            f.setNome(txtNome.getText());
+            f.setEndereco(txtEndereco.getText());
+            f.setBairro(txtBairro.getText());
+            f.setCidade(txtCidade.getText());
+            f.setEstado(comboEstado.getSelectedItem().toString());
+            f.setCEP(txtCep.getText());
+            f.setTelefone(txtTelefone.getText());
+            f.setEmail(txtEmail.getText());
+            f.setCpf(txtCpf.getText());
+            f.setSenha(txtSenha.getText());
+            f.setCargo(txtCargo.getText());
+            f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
+            f.setSalario(Double.parseDouble(txtSalario.getText()));
 
-        if (validarData(txtDataNasc.getText())) {
-            f.setDataNasc(dateConverter(txtDataNasc.getText()));
+            if (validarData(txtDataNasc.getText())) {
+                f.setDataNasc(dateConverter(txtDataNasc.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de data inválida! 1Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (validarData(txtDataContrata.getText())) {
+                f.setDataContratacao(dateConverter(txtDataContrata.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de data inválida! 2Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (pAlto.isSelected()) {
+                f.setPermissao(1);
+            } else if (pMedio.isSelected()) {
+                f.setPermissao(2);
+            } else if (pBaixo.isSelected()) {
+                f.setPermissao(3);
+            }
+
+            if (sAtivo.isSelected()) {
+                f.setStatus(sAtivo.getText());
+            } else if (sInativo.isSelected()) {
+                f.setStatus(sInativo.getText());
+            }
+
+            dao.create(f);
         } else {
-            JOptionPane.showMessageDialog(this, "Formato de data inválida! 1Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
-
-        if (validarData(txtDataContrata.getText())) {
-            f.setDataContratacao(dateConverter(txtDataContrata.getText()));
-        } else {
-            JOptionPane.showMessageDialog(this, "Formato de data inválida! 2Digite no formato DD/MM/AAA", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (pAlto.isSelected()) {
-            f.setPermissao(1);
-        } else if (pMedio.isSelected()) {
-            f.setPermissao(2);
-        } else if (pBaixo.isSelected()) {
-            f.setPermissao(3);
-        }
-
-        if (sAtivo.isSelected()) {
-            f.setStatus(sAtivo.getText());
-        } else if (sInativo.isSelected()) {
-            f.setStatus(sInativo.getText());
-        }
-
-        dao.create(f);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
