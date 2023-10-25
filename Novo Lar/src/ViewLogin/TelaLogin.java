@@ -5,6 +5,7 @@
 package ViewLogin;
 
 import DAO.FuncionarioDAO;
+import ViewPrincipal.Home;
 import ViewPrincipal.TelaPrincipal;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.Color;
@@ -57,9 +58,9 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnSair = new javax.swing.JPanel();
         txtSair = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        bannerLogin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        tituloLogin = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtLogin = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -110,8 +111,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 0, 40, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/city.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, 500));
+        bannerLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/city.png"))); // NOI18N
+        jPanel1.add(bannerLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, 500));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,10 +129,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 30));
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("LOGIN NOVO LAR");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        tituloLogin.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        tituloLogin.setForeground(new java.awt.Color(0, 0, 0));
+        tituloLogin.setText("LOGIN NOVO LAR");
+        jPanel1.add(tituloLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -234,7 +235,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         if (getPermissaoUsuario() != -1) {
             this.dispose();
-            new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario()).setVisible(true);
+            new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario(), new Home(getPermissaoUsuario())).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Email e/ou senha incorreto(os)!");
             txtLogin.setText("");
@@ -252,7 +253,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
             if (getPermissaoUsuario() != -1) {
                 this.dispose();
-                new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario()).setVisible(true);
+                new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario(), new Home(getPermissaoUsuario())).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Email e/ou senha incorreto(os)!");
                 txtLogin.setText("");
@@ -346,16 +347,16 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bannerLogin;
     private Outros.PanelRound btnLogin;
     private javax.swing.JPanel btnSair;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel tituloLogin;
     private javax.swing.JLabel txtBtnLogin;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JLabel txtSair;
