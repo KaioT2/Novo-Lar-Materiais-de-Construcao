@@ -149,7 +149,6 @@ public class VendaTableModel extends AbstractTableModel {
             descontoTotalPercentual = (descontoTotal / valorTotal) * 100;
         }
 
-        // Agora você tem o descontoTotalPercentual atualizado com base nos itens de venda
         //System.out.println("Desconto total em porcentagem: " + descontoTotalPercentual + "%");
         fireTableCellUpdated(linha, 6);
         return descontoTotalPercentual;

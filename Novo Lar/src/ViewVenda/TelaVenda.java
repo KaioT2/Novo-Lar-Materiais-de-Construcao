@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package ViewVenda;
 
@@ -12,42 +12,36 @@ import Itens_da_Venda.ItensDaVenda;
 import Produto.Produto;
 import Produto.VendaTableModel;
 import Venda.Venda;
+import ViewPrincipal.Home;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author Kaio Dias
  */
-public class TelaVenda extends javax.swing.JFrame {
-
+public class TelaVenda extends javax.swing.JInternalFrame {
+    
     VendaTableModel model = new VendaTableModel();
-    /**
-     * Creates new form TelaVenda
-     */
-
+    
     private boolean janelaAberta = true;
     
     private Calendar dataAtual = Calendar.getInstance();
     private Calendar dataVencimento = Calendar.getInstance();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat da = new SimpleDateFormat("yyyy/MM/dd");
-
-    public TelaVenda() {
+    
+    public TelaVenda(int permissaoUsuario) {
         initComponents();
+        
+        ((BasicInternalFrameUI)this.getUI()).setNorthPane(null);
         
         tabelaVenda.setModel(model);
         model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn());
-
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                formWindowClosing(windowEvent);
-            }
-        });
 
         Thread loopThread = new Thread(() -> {
             while (janelaAberta) {
@@ -82,7 +76,7 @@ public class TelaVenda extends javax.swing.JFrame {
         VendaDAO v = new VendaDAO();
         txtIdVenda.setText(String.valueOf(v.numVendas()+1));
     }
-
+    
     public void inserirProduto(Produto produto, ItensDaVenda item) {
         model.addRow(produto, item);
 
@@ -103,7 +97,6 @@ public class TelaVenda extends javax.swing.JFrame {
         janelaAberta = false; // Define a variável para false
         dispose(); // Fecha a janela
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,48 +107,61 @@ public class TelaVenda extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtIdVenda = new javax.swing.JTextField();
-        txtData = new javax.swing.JTextField();
+        txtDesconto = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnNovaVenda = new javax.swing.JButton();
         txtCliente = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         txtIdFuncionário = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         txtVencimento = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaVenda = new javax.swing.JTable();
-        btnNovoItem = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        txtTotal = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtFuncionario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        btnNovoItem = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        txtDesconto = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        btnNovaVenda = new javax.swing.JButton();
+        txtIdVenda = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        txtData = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Vendas - Novo Lar Materiais de Construção");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(null);
+        setForeground(java.awt.Color.white);
+        setFrameIcon(null);
+        setMinimumSize(new java.awt.Dimension(1080, 720));
+        setPreferredSize(new java.awt.Dimension(1080, 720));
 
-        txtIdVenda.setEditable(false);
-        txtIdVenda.setEnabled(false);
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtData.setEnabled(false);
-        txtData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataActionPerformed(evt);
-            }
-        });
+        txtDesconto.setEditable(false);
+        txtDesconto.setEnabled(false);
+
+        jLabel1.setText("ID Venda");
+
+        jLabel9.setText("Total de descontos");
 
         txtIdCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtIdClienteKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setText("Cliente");
+
+        btnNovaVenda.setText("Nova Venda");
+        btnNovaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovaVendaActionPerformed(evt);
             }
         });
 
@@ -170,6 +176,12 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Funcionário");
+
+        jLabel10.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel10.setText("* Tecle \"espaço\" para selecionar um cliente ou funcionário");
+
         txtIdFuncionário.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdFuncionárioActionPerformed(evt);
@@ -181,7 +193,11 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Data:");
+
         txtVencimento.setEnabled(false);
+
+        jLabel5.setText("Vencimento:");
 
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -201,33 +217,6 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Itens da Venda", jScrollPane1);
 
-        btnNovoItem.setText("Novo Item");
-        btnNovoItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoItemActionPerformed(evt);
-            }
-        });
-
-        btnExcluir.setText("Excluir Item");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
-        txtTotal.setEditable(false);
-        txtTotal.setEnabled(false);
-
-        jLabel1.setText("ID Venda");
-
-        jLabel2.setText("Cliente");
-
-        jLabel3.setText("Funcionário");
-
-        jLabel4.setText("Data:");
-
-        jLabel5.setText("Vencimento:");
-
         txtFuncionario.setActionCommand("null");
         txtFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -239,6 +228,13 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jLabel7.setText("ID");
 
+        btnNovoItem.setText("Novo Item");
+        btnNovoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoItemActionPerformed(evt);
+            }
+        });
+
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,28 +242,30 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Total da Venda");
-
-        txtDesconto.setEditable(false);
-        txtDesconto.setEnabled(false);
-
-        jLabel9.setText("Total de descontos");
-
-        btnNovaVenda.setText("Nova Venda");
-        btnNovaVenda.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setText("Excluir Item");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovaVendaActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
+
+        jLabel8.setText("Total da Venda");
+
+        txtIdVenda.setEditable(false);
+        txtIdVenda.setEnabled(false);
+
+        txtTotal.setEditable(false);
+        txtTotal.setEnabled(false);
+
+        txtData.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -291,15 +289,16 @@ public class TelaVenda extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                                    .addComponent(txtFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtData)
-                            .addComponent(txtVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnNovoItem)
                         .addGap(18, 18, 18)
@@ -315,24 +314,23 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(33, 33, 33))
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTabbedPane1))
+                .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
-                    .addComponent(txtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                        .addComponent(txtVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,14 +341,17 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel3)
                                 .addComponent(txtIdFuncionário, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6))))
+                                .addComponent(jLabel6)))
+                        .addComponent(jLabel5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
@@ -362,143 +363,41 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovaVenda))
-                .addGap(14, 14, 14))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {
-        fecharJanela(); // Chama o método para fechar a janela
-    }
-
-    private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
+    private void txtIdClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdClienteKeyPressed
         // TODO add your handling code here:
 
-        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
-        telaProdutos.setVisible(true);
-    }//GEN-LAST:event_btnNovoItemActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
-
-        if (tabelaVenda.getSelectedRow() != -1) {
-            model.removeRow(tabelaVenda.getSelectedRow());
-        }
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataActionPerformed
-
-    private void txtFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFuncionarioKeyPressed
-        
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            TelaFuncionariosVenda telaFuncionario = new TelaFuncionariosVenda();
-            
-            telaFuncionario.atualizarTabela();
-            telaFuncionario.setTelaVenda(this);
-            telaFuncionario.setVisible(true);
-        }        
-        
-    }//GEN-LAST:event_txtFuncionarioKeyPressed
+            TelaClientesvenda telaClientes = new TelaClientesvenda();
 
-    private void tabelaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaVendaKeyPressed
-        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
-        telaProdutos.setVisible(true);
-    }//GEN-LAST:event_tabelaVendaKeyPressed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
-        VendaDAO vendaDao = new VendaDAO();
-        Venda v = new Venda();
-        Cliente cli = new Cliente();
-        Funcionario func = new Funcionario();
-        ItensDaVenda iv = new ItensDaVenda();
-        ItensDaVendaDAO itemDao = new ItensDaVendaDAO();
-        Produto p = new Produto();
-        
-        if((txtCliente.getText().isEmpty() || txtIdCliente.getText().isEmpty()) || (txtFuncionario.getText().isEmpty() 
-                || txtIdFuncionário.getText().isEmpty()) || tabelaVenda.getRowCount() <=0){
-             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+            telaClientes.setTelaVenda(this);
+            telaClientes.setVisible(true);
         }
-        else{
-            v.setIdVenda(Integer.parseInt(txtIdVenda.getText()));
-            v.setDataVenda(da.format(dataAtual.getTime()).toString());
-            v.setTotal(Double.parseDouble(txtTotal.getText()));
-
-           
-            cli.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
-            v.setCliente(cli);
-            
-            
-            func.setIdFuncionario(Integer.parseInt(txtIdFuncionário.getText()));
-            v.setFuncionario(func);
-            
-            v.setStatusVenda("Concluida");
-            v.setDesconto(Double.parseDouble(txtDesconto.getText()));
- 
-            
-            vendaDao.create(v);
-            
-            
-            
-            //idVenda, data, idProduto, quantidade, precoUn, desconto, total
-            for (int i = 0; i < model.getRowCount(); i++) {
-                iv.setVenda(v);
-                iv.setData(da.format(dataAtual.getTime()).toString());
-                
-                
-                p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
-                iv.setProduto(p);
-                
-                iv.setQuantidade(Double.parseDouble(model.getValueAt(i, 5).toString()));
-                
-                p.setPrecoUn(Double.parseDouble(model.getValueAt(i, 4).toString()));
-                iv.setProduto(p);
-                
-                iv.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
-                iv.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
-                
-                itemDao.create(iv);
-                itemDao.atualizarEstoque(iv);
-            }
-            
-            btnExcluir.setEnabled(false);
-            btnNovoItem.setEnabled(false);
-            btnSalvar.setEnabled(false);
-        }
-        
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_txtIdClienteKeyPressed
 
     private void btnNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaVendaActionPerformed
         // TODO add your handling code here:
         VendaDAO vendaDao = new VendaDAO();
-        
+
         txtIdVenda.setText(String.valueOf(vendaDao.numVendas()+1));
 
         btnSalvar.setEnabled(true);
-       
+
         txtCliente.setText("");
         txtFuncionario.setText("");
         txtIdCliente.setText("");
         txtIdFuncionário.setText("");
-        
-            btnExcluir.setEnabled(true);
-            btnNovoItem.setEnabled(true);
-            btnSalvar.setEnabled(true);
+
+        btnExcluir.setEnabled(true);
+        btnNovoItem.setEnabled(true);
+        btnSalvar.setEnabled(true);
 
         model.removeAllRows();
     }//GEN-LAST:event_btnNovaVendaActionPerformed
@@ -509,8 +408,8 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void txtClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyPressed
         // TODO add your handling code here:
-        
-         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaClientesvenda telaClientes = new TelaClientesvenda();
 
             telaClientes.setTelaVenda(this);
@@ -518,36 +417,112 @@ public class TelaVenda extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtClienteKeyPressed
 
-    private void txtIdClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdClienteKeyPressed
-        // TODO add your handling code here:
-        
-         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            TelaClientesvenda telaClientes = new TelaClientesvenda();
-
-            telaClientes.setTelaVenda(this);
-            telaClientes.setVisible(true);
-        }
-    }//GEN-LAST:event_txtIdClienteKeyPressed
-
     private void txtIdFuncionárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdFuncionárioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdFuncionárioActionPerformed
 
     private void txtIdFuncionárioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdFuncionárioKeyPressed
         // TODO add your handling code here:
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaFuncionariosVenda telaFuncionario = new TelaFuncionariosVenda();
-            
+
             telaFuncionario.atualizarTabela();
             telaFuncionario.setTelaVenda(this);
             telaFuncionario.setVisible(true);
-        } 
+        }
     }//GEN-LAST:event_txtIdFuncionárioKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void tabelaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaVendaKeyPressed
+        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
+        telaProdutos.setVisible(true);
+    }//GEN-LAST:event_tabelaVendaKeyPressed
+
+    private void txtFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFuncionarioKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TelaFuncionariosVenda telaFuncionario = new TelaFuncionariosVenda();
+
+            telaFuncionario.atualizarTabela();
+            telaFuncionario.setTelaVenda(this);
+            telaFuncionario.setVisible(true);
+        }
+
+    }//GEN-LAST:event_txtFuncionarioKeyPressed
+
+    private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
+        // TODO add your handling code here:
+
+        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
+        telaProdutos.setVisible(true);
+    }//GEN-LAST:event_btnNovoItemActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        VendaDAO vendaDao = new VendaDAO();
+        Venda v = new Venda();
+        Cliente cli = new Cliente();
+        Funcionario func = new Funcionario();
+        ItensDaVenda iv = new ItensDaVenda();
+        ItensDaVendaDAO itemDao = new ItensDaVendaDAO();
+        Produto p = new Produto();
+        //Home home = new Home();
+
+        if((txtCliente.getText().isEmpty() || txtIdCliente.getText().isEmpty()) || (txtFuncionario.getText().isEmpty()
+            || txtIdFuncionário.getText().isEmpty()) || tabelaVenda.getRowCount() <=0){
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            v.setIdVenda(Integer.parseInt(txtIdVenda.getText()));
+            v.setDataVenda(da.format(dataAtual.getTime()).toString());
+            v.setTotal(Double.parseDouble(txtTotal.getText()));
+
+            cli.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
+            v.setCliente(cli);
+
+            func.setIdFuncionario(Integer.parseInt(txtIdFuncionário.getText()));
+            v.setFuncionario(func);
+
+            v.setStatusVenda("Concluida");
+            v.setDesconto(Double.parseDouble(txtDesconto.getText()));
+
+            vendaDao.create(v);
+
+            //idVenda, data, idProduto, quantidade, precoUn, desconto, total
+            for (int i = 0; i < model.getRowCount(); i++) {
+                iv.setVenda(v);
+                iv.setData(da.format(dataAtual.getTime()).toString());
+
+                p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
+                iv.setProduto(p);
+
+                iv.setQuantidade(Double.parseDouble(model.getValueAt(i, 5).toString()));
+
+                p.setPrecoUn(Double.parseDouble(model.getValueAt(i, 4).toString()));
+                iv.setProduto(p);
+
+                iv.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
+                iv.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
+
+                itemDao.create(iv);
+                itemDao.atualizarEstoque(iv);
+            }
+
+            btnExcluir.setEnabled(false);
+            btnNovoItem.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+
+        if (tabelaVenda.getSelectedRow() != -1) {
+            model.removeRow(tabelaVenda.getSelectedRow());
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
@@ -555,6 +530,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JButton btnNovoItem;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

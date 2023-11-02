@@ -281,57 +281,55 @@ VALUES
     (39, 'Tubos de PVC 3"', 'TPVC039', 8, 6.99, 4.99, 1200),
     (40, 'Porta de Vidro Temperado', 'PVT040', 9, 199.99, 159.99, 60);
 
-    
 -- Inserir clientes FÍSICA
 INSERT INTO cliente (nome, endereco, bairro, cidade, estado, CEP, cnpj, cpf, sexo, dataNasc, telefone, email)
 VALUES
-	-- Consumidor para clientes não cadastrados ('Conumidor Final', '', '', ' ', '', '', NULL, '', '', '', '', ''),
-    ('João da Silva', 'Rua das Flores, 123', 'Centro', 'Cidade A', 'SP', '12345-678', NULL, '123.456.789-00', 'Masculino', '1990-05-15', '(11) 1234-5678', 'joao@example.com'),
-    ('Maria Souza', 'Av. Principal, 456', 'Bairro X', 'Cidade B', 'RJ', '98765-432', NULL, '987.654.321-00', 'Feminino', '1988-08-25', '(21) 9876-5432', 'maria@example.com'),
-    ('José Oliveira', 'Rua das Palmeiras, 789', 'Centro', 'Cidade C', 'MG', '54321-987', NULL, '456.789.123-00', 'Masculino', '1995-02-10', '(31) 4567-8901', 'jose@example.com'),
-    ('Ana Rodrigues', 'Av. Principal, 101', 'Bairro Y', 'Cidade D', 'SP', '23456-789', NULL, '234.567.890-00', 'Feminino', '1980-11-30', '(11) 2345-6789', 'ana@example.com'),
-    ('Carlos Santos', 'Rua das Pedras, 222', 'Centro', 'Cidade E', 'RJ', '87654-321', NULL, '345.678.901-00', 'Masculino', '1982-07-05', '(21) 8765-4321', 'carlos@example.com'),
-    ('Patrícia Pereira', 'Av. das Árvores, 333', 'Bairro Z', 'Cidade F', 'MG', '76543-210', NULL, '567.890.123-00', 'Feminino', '1991-03-20', '(31) 5678-9012', 'patricia@example.com'),
-    ('Fernando Lima', 'Rua dos Muros, 444', 'Centro', 'Cidade G', 'SP', '34567-890', NULL, '678.901.234-00', 'Masculino', '1987-12-10', '(11) 6789-0123', 'fernando@example.com'),
-    ('Lúcia Alves', 'Av. das Flores, 555', 'Bairro W', 'Cidade H', 'RJ', '65432-109', NULL, '789.012.345-00', 'Feminino', '1993-09-18', '(21) 7890-1234', 'lucia@example.com'),
-    ('Gustavo Pereira', 'Rua das Pedras, 666', 'Centro', 'Cidade I', 'MG', '98765-432', NULL, '890.123.456-00', 'Masculino', '1984-04-08', '(31) 8901-2345', 'gustavo@example.com'),
-    ('Sandra Silva', 'Av. Principal, 777', 'Bairro V', 'Cidade J', 'SP', '12345-678', NULL, '901.234.567-00', 'Feminino', '1997-06-25', '(11) 9012-3456', 'sandra@example.com'),
-    ('Pedro Oliveira', 'Rua das Palmeiras, 888', 'Centro', 'Cidade K', 'RJ', '23456-789', NULL, '123.456.789-01', 'Masculino', '1992-01-15', '(21) 1234-5678', 'pedro@example.com'),
-    ('Rita Rodrigues', 'Av. Principal, 999', 'Bairro U', 'Cidade L', 'MG', '87654-321', NULL, '987.654.321-01', 'Feminino', '1986-04-20', '(31) 9876-5432', 'rita@example.com'),
-    ('João da Silva', 'Rua A', 'Centro', 'São Paulo', 'SP', '01000-000', NULL, '123.456.789-09', 'Masculino', '1985-05-15', '(11) 1234-5678', 'joao.silva@email.com'),
-    ('Maria Santos', 'Av. B', 'Vila Nova', 'Rio de Janeiro', 'RJ', '20000-000', NULL, '987.654.321-01', 'Feminino', '1990-07-20', '(21) 9876-5432', 'maria.santos@email.com'),
-    ('José Pereira', 'Rua C', 'Jardim', 'Belo Horizonte', 'MG', '30000-000', NULL, '555.555.555-55', 'Masculino', '1980-03-10', '(31) 5555-5555', 'jose.pereira@email.com'),
-    ('Ana Costa', 'Av. D', 'Barra', 'Salvador', 'BA', '40000-000', NULL, '777.777.777-77', 'Feminino', '1988-12-05', '(71) 7777-7777', 'ana.costa@email.com'),
-    ('Carlos Santos', 'Rua E', 'Centro', 'Recife', 'PE', '50000-000', NULL, '444.444.444-44', 'Masculino', '1995-02-28', '(81) 4444-4444', 'carlos.santos@email.com'),
-    ('Sônia Oliveira', 'Av. F', 'Vila Nova', 'Porto Alegre', 'RS', '90000-000', NULL, '666.666.666-66', 'Feminino', '1983-09-18', '(51) 6666-6666', 'sonia.oliveira@email.com'),
-    ('Eduardo Silva', 'Rua G', 'Jardim', 'Brasília', 'DF', '70000-000', NULL, '888.888.888-88', 'Masculino', '1976-11-30', '(61) 8888-8888', 'eduardo.silva@email.com'),
-    ('Patrícia Alves', 'Av. H', 'Barra', 'Curitiba', 'PR', '80000-000', NULL, '999.999.999-99', 'Feminino', '1992-08-12', '(41) 9999-9999', 'patricia.alves@email.com'),
-    ('Luiz Pereira', 'Rua I', 'Centro', 'Fortaleza', 'CE', '60000-000', NULL, '222.222.222-22', 'Masculino', '1987-04-25', '(85) 2222-2222', 'luiz.pereira@email.com'),
-    ('Fernanda Lima', 'Av. J', 'Vila Nova', 'Manaus', 'AM', '69000-000', NULL, '111.111.111-11', 'Feminino', '1998-06-08', '(92) 1111-1111', 'fernanda.lima@email.com');
+    ('João da Silva', 'Rua das Flores, 123', 'Centro', 'Cidade A', 'SP', '12345-678', NULL, '123.456.789-00', 'Masculino', '1990/05/15', '(11) 1234-5678', 'joao@example.com'),
+    ('Maria Souza', 'Av. Principal, 456', 'Bairro X', 'Cidade B', 'RJ', '98765-432', NULL, '987.654.321-00', 'Feminino', '1988/08/25', '(21) 9876-5432', 'maria@example.com'),
+    ('José Oliveira', 'Rua das Palmeiras, 789', 'Centro', 'Cidade C', 'MG', '54321-987', NULL, '456.789.123-00', 'Masculino', '1995/02/10', '(31) 4567-8901', 'jose@example.com'),
+    ('Ana Rodrigues', 'Av. Principal, 101', 'Bairro Y', 'Cidade D', 'SP', '23456-789', NULL, '234.567.890-00', 'Feminino', '1980/11/30', '(11) 2345-6789', 'ana@example.com'),
+    ('Carlos Santos', 'Rua das Pedras, 222', 'Centro', 'Cidade E', 'RJ', '87654-321', NULL, '345.678.901-00', 'Masculino', '1982/07/05', '(21) 8765-4321', 'carlos@example.com'),
+    ('Patrícia Pereira', 'Av. das Árvores, 333', 'Bairro Z', 'Cidade F', 'MG', '76543-210', NULL, '567.890.123-00', 'Feminino', '1991/03/20', '(31) 5678-9012', 'patricia@example.com'),
+    ('Fernando Lima', 'Rua dos Muros, 444', 'Centro', 'Cidade G', 'SP', '34567-890', NULL, '678.901.234-00', 'Masculino', '1987/12/10', '(11) 6789-0123', 'fernando@example.com'),
+    ('Lúcia Alves', 'Av. das Flores, 555', 'Bairro W', 'Cidade H', 'RJ', '65432-109', NULL, '789.012.345-00', 'Feminino', '1993/09/18', '(21) 7890-1234', 'lucia@example.com'),
+    ('Gustavo Pereira', 'Rua das Pedras, 666', 'Centro', 'Cidade I', 'MG', '98765-432', NULL, '890.123.456-00', 'Masculino', '1984/04/08', '(31) 8901-2345', 'gustavo@example.com'),
+    ('Sandra Silva', 'Av. Principal, 777', 'Bairro V', 'Cidade J', 'SP', '12345-678', NULL, '901.234.567-00', 'Feminino', '1997/06/25', '(11) 9012-3456', 'sandra@example.com'),
+    ('Pedro Oliveira', 'Rua das Palmeiras, 888', 'Centro', 'Cidade K', 'RJ', '23456-789', NULL, '123.456.789-01', 'Masculino', '1992/01/15', '(21) 1234-5678', 'pedro@example.com'),
+    ('Rita Rodrigues', 'Av. Principal, 999', 'Bairro U', 'Cidade L', 'MG', '87654-321', NULL, '987.654.321-01', 'Feminino', '1986/04/20', '(31) 9876-5432', 'rita@example.com'),
+    ('João da Silva', 'Rua A', 'Centro', 'São Paulo', 'SP', '01000-000', NULL, '123.456.789-09', 'Masculino', '1985/05/15', '(11) 1234-5678', 'joao.silva@email.com'),
+    ('Maria Santos', 'Av. B', 'Vila Nova', 'Rio de Janeiro', 'RJ', '20000-000', NULL, '987.654.321-01', 'Feminino', '1990/07/20', '(21) 9876-5432', 'maria.santos@email.com'),
+    ('José Pereira', 'Rua C', 'Jardim', 'Belo Horizonte', 'MG', '30000-000', NULL, '555.555.555-55', 'Masculino', '1980/03/10', '(31) 5555-5555', 'jose.pereira@email.com'),
+    ('Ana Costa', 'Av. D', 'Barra', 'Salvador', 'BA', '40000-000', NULL, '777.777.777-77', 'Feminino', '1988/12/05', '(71) 7777-7777', 'ana.costa@email.com'),
+    ('Carlos Santos', 'Rua E', 'Centro', 'Recife', 'PE', '50000-000', NULL, '444.444.444-44', 'Masculino', '1995/02/28', '(81) 4444-4444', 'carlos.santos@email.com'),
+    ('Sônia Oliveira', 'Av. F', 'Vila Nova', 'Porto Alegre', 'RS', '90000-000', NULL, '666.666.666-66', 'Feminino', '1983/09/18', '(51) 6666-6666', 'sonia.oliveira@email.com'),
+    ('Eduardo Silva', 'Rua G', 'Jardim', 'Brasília', 'DF', '70000-000', NULL, '888.888.888-88', 'Masculino', '1976/11/30', '(61) 8888-8888', 'eduardo.silva@email.com'),
+    ('Patrícia Alves', 'Av. H', 'Barra', 'Curitiba', 'PR', '80000-000', NULL, '999.999.999-99', 'Feminino', '1992/08/12', '(41) 9999-9999', 'patricia.alves@email.com'),
+    ('Luiz Pereira', 'Rua I', 'Centro', 'Fortaleza', 'CE', '60000-000', NULL, '222.222.222-22', 'Masculino', '1987/04/25', '(85) 2222-2222', 'luiz.pereira@email.com'),
+    ('Fernanda Lima', 'Av. J', 'Vila Nova', 'Manaus', 'AM', '69000-000', NULL, '111.111.111-11', 'Feminino', '1998/06/08', '(92) 1111-1111', 'fernanda.lima@email.com');
 
 -- Inserir clientes JURÍDICA
 INSERT INTO cliente (nome, endereco, bairro, cidade, estado, CEP, cnpj, cpf, sexo, dataNasc, telefone, email)
 VALUES
-    ('Empresa A Construções', 'Av. das Obras, 123', 'Centro', 'Cidade M', 'SP', '54321-876', '12.345.678/0001-01', NULL, 'Jurídico', '1990-01-15', '(11) 2345-6789', 'empresaA@example.com'),
-    ('Construções B Ltda', 'Rua das Edificações, 456', 'Bairro P', 'Cidade N', 'RJ', '98765-432', '98.765.432/0001-02', NULL, 'Jurídico', '1995-03-20', '(21) 9876-5432', 'construcoesB@example.com'),
-    ('Material de Construção XYZ', 'Av. da Indústria, 789', 'Centro', 'Cidade O', 'MG', '23456-789', '23.456.789/0001-03', NULL, 'Jurídico', '1992-05-10', '(31) 4567-8901', 'xyz@example.com'),
-    ('Construtora ABC', 'Rua dos Engenheiros, 101', 'Bairro Q', 'Cidade R', 'SP', '76543-210', '76.543.210/0001-04', NULL, 'Jurídico', '1988-09-18', '(11) 5678-9012', 'construtoraABC@example.com'),
-    ('Construções e Reformas 123', 'Av. das Torres, 222', 'Centro', 'Cidade S', 'RJ', '34567-890', '34.567.890/0001-05', NULL, 'Jurídico', '1997-02-25', '(21) 6789-0123', 'construcoes123@example.com'),
-    ('Loja de Materiais de Construção W', 'Rua da Obra, 333', 'Bairro R', 'Cidade T', 'MG', '12345-678', '12.345.678/0001-06', NULL, 'Jurídico', '1991-06-08', '(31) 8901-2345', 'lojaW@example.com'),
-    ('Material e Ferramentas LTDA', 'Av. da Construção, 444', 'Centro', 'Cidade U', 'SP', '65432-109', '65.432.109/0001-07', NULL, 'Jurídico', '1993-11-12', '(11) 9012-3456', 'materiaisLTDA@example.com'),
-    ('Construções Avançadas S.A.', 'Rua das Obras Grandes, 555', 'Bairro V', 'Cidade V', 'RJ', '23456-789', '23.456.789/0001-08', NULL, 'Jurídico', '1985-08-30', '(21) 1234-5678', 'construcoesAvancadas@example.com'),
-    ('Loja de Material para Construção M', 'Av. das Grandes Obras, 666', 'Centro', 'Cidade W', 'MG', '98765-432', '98.765.432/0001-09', NULL, 'Jurídico', '1999-04-15', '(31) 2345-6789', 'lojaM@example.com'),
-    ('Construção e Reforma Constru', 'Rua dos Engenheiros, 777', 'Bairro X', 'Cidade Y', 'SP', '54321-876', '54.321.876/0001-10', NULL, 'Jurídico', '1996-07-01', '(11) 5678-9012', 'construConstru@example.com'),
-    ('Empresa ABC Ltda', 'Rua X', 'Centro Empresarial', 'São Paulo', 'SP', '01000-000', '12.345.678/0001-01', NULL, 'Jurídico', '1990-10-10', '(11) 5555-5555', 'contato@empresaabc.com'),
-    ('Comércio XYZ Eireli', 'Av. Y', 'Centro Comercial', 'Rio de Janeiro', 'RJ', '20000-000', '98.765.432/0001-02', NULL, 'Jurídico', '1995-06-15', '(21) 4444-4444', 'contato@comercioxyz.com'),
-    ('Indústria 123 S.A.', 'Rua Z', 'Parque Industrial', 'Belo Horizonte', 'MG', '30000-000', '99.999.999/0001-03', NULL, 'Jurídico', '1987-03-20', '(31) 3333-3333', 'contato@industria123.com'),
-    ('Serviços ABCD Ltda', 'Av. W', 'Centro de Serviços', 'Salvador', 'BA', '40000-000', '11.111.111/0001-04', NULL, 'Jurídico', '2000-12-01', '(71) 6666-6666', 'contato@servicosabcd.com'),
-    ('Distribuidora XYZ S.A.', 'Rua V', 'Logística', 'Recife', 'PE', '50000-000', '22.222.222/0001-05', NULL, 'Jurídico', '1998-08-08', '(81) 7777-7777', 'contato@distribuidoraxyz.com'),
+    ('Empresa A Construções', 'Av. das Obras, 123', 'Centro', 'Cidade M', 'SP', '54321-876', '12.345.678/0001-01', NULL, 'Jurídico', '1990/01/15', '(11) 2345-6789', 'empresaA@example.com'),
+    ('Construções B Ltda', 'Rua das Edificações, 456', 'Bairro P', 'Cidade N', 'RJ', '98765-432', '98.765.432/0001-02', NULL, 'Jurídico', '1995/03/20', '(21) 9876-5432', 'construcoesB@example.com'),
+    ('Material de Construção XYZ', 'Av. da Indústria, 789', 'Centro', 'Cidade O', 'MG', '23456-789', '23.456.789/0001-03', NULL, 'Jurídico', '1992/05/10', '(31) 4567-8901', 'xyz@example.com'),
+    ('Construtora ABC', 'Rua dos Engenheiros, 101', 'Bairro Q', 'Cidade R', 'SP', '76543-210', '76.543.210/0001-04', NULL, 'Jurídico', '1988/09/18', '(11) 5678-9012', 'construtoraABC@example.com'),
+    ('Construções e Reformas 123', 'Av. das Torres, 222', 'Centro', 'Cidade S', 'RJ', '34567-890', '34.567.890/0001-05', NULL, 'Jurídico', '1997/02/25', '(21) 6789-0123', 'construcoes123@example.com'),
+    ('Loja de Materiais de Construção W', 'Rua da Obra, 333', 'Bairro R', 'Cidade T', 'MG', '12345-678', '12.345.678/0001-06', NULL, 'Jurídico', '1991/06/08', '(31) 8901-2345', 'lojaW@example.com'),
+    ('Material e Ferramentas LTDA', 'Av. da Construção, 444', 'Centro', 'Cidade U', 'SP', '65432-109', '65.432.109/0001-07', NULL, 'Jurídico', '1993/11/12', '(11) 9012-3456', 'materiaisLTDA@example.com'),
+    ('Construções Avançadas S.A.', 'Rua das Obras Grandes, 555', 'Bairro V', 'Cidade V', 'RJ', '23456-789', '23.456.789/0001-08', NULL, 'Jurídico', '1985/08/30', '(21) 1234-5678', 'construcoesAvancadas@example.com'),
+    ('Loja de Material para Construção M', 'Av. das Grandes Obras, 666', 'Centro', 'Cidade W', 'MG', '98765-432', '98.765.432/0001-09', NULL, 'Jurídico', '1999/04/15', '(31) 2345-6789', 'lojaM@example.com'),
+    ('Construção e Reforma Constru', 'Rua dos Engenheiros, 777', 'Bairro X', 'Cidade Y', 'SP', '54321-876', '54.321.876/0001-10', NULL, 'Jurídico', '1996/07/01', '(11) 5678-9012', 'construConstru@example.com'),
+    ('Empresa ABC Ltda', 'Rua X', 'Centro Empresarial', 'São Paulo', 'SP', '01000-000', '12.345.678/0001-01', NULL, 'Jurídico', '1990/10/10', '(11) 5555-5555', 'contato@empresaabc.com'),
+    ('Comércio XYZ Eireli', 'Av. Y', 'Centro Comercial', 'Rio de Janeiro', 'RJ', '20000-000', '98.765.432/0001-02', NULL, 'Jurídico', '1995/06/15', '(21) 4444-4444', 'contato@comercioxyz.com'),
+    ('Indústria 123 S.A.', 'Rua Z', 'Parque Industrial', 'Belo Horizonte', 'MG', '30000-000', '99.999.999/0001-03', NULL, 'Jurídico', '1987/03/20', '(31) 3333-3333', 'contato@industria123.com'),
+    ('Serviços ABCD Ltda', 'Av. W', 'Centro de Serviços', 'Salvador', 'BA', '40000-000', '11.111.111/0001-04', NULL, 'Jurídico', '2000/12/01', '(71) 6666-6666', 'contato@servicosabcd.com'),
+    ('Distribuidora XYZ S.A.', 'Rua V', 'Logística', 'Recife', 'PE', '50000-000', '22.222.222/0001-05', NULL, 'Jurídico', '1998/08/08', '(81) 7777-7777', 'contato@distribuidoraxyz.com'),
     ('Construtora 1234 Ltda', 'Av. U', 'Construção Civil', 'Porto Alegre', 'RS', '90000-000', '33.333.333/0001-06', NULL, 'Jurídico', '1993-05-25', '(51) 8888-8888', 'contato@construtora1234.com'),
     ('Transportadora ABCDE Ltda', 'Rua T', 'Logística', 'Brasília', 'DF', '70000-000', '44.444.444/0001-07', NULL, 'Jurídico', '1985-12-12', '(61) 9999-9999', 'contato@transportadoraabcde.com'),
-    ('Consultoria XYZ123 S.A.', 'Av. S', 'Consultoria Empresarial', 'Curitiba', 'PR', '80000-000', '55.555.555/0001-08', NULL, 'Jurídico', '1996-09-30', '(41) 1111-1111', 'contato@consultoriaxyz123.com'),
-    ('Comércio de Alimentos ABCDE Eireli', 'Rua R', 'Comércio Alimentício', 'Fortaleza', 'CE', '60000-000', '66.666.666/0001-09', NULL, 'Jurídico', '2002-02-22', '(85) 3333-3333', 'contato@comerciodealimentos.com'),
-    ('Indústria Metalúrgica XYZ1234 S.A.', 'Av. Q', 'Indústria Metalúrgica', 'Manaus', 'AM', '69000-000', '77.777.777/0001-10', NULL, 'Jurídico', '1991-07-07', '(92) 7777-7777', 'contato@industriametalurgica.com');
+    ('Consultoria XYZ123 S.A.', 'Av. S', 'Consultoria Empresarial', 'Curitiba', 'PR', '80000-000', '55.555.555/0001-08', NULL, 'Jurídico', '1996/09/30', '(41) 1111-1111', 'contato@consultoriaxyz123.com'),
+    ('Comércio de Alimentos ABCDE Eireli', 'Rua R', 'Comércio Alimentício', 'Fortaleza', 'CE', '60000-000', '66.666.666/0001-09', NULL, 'Jurídico', '2002/02/22', '(85) 3333-3333', 'contato@comerciodealimentos.com'),
+    ('Indústria Metalúrgica XYZ1234 S.A.', 'Av. Q', 'Indústria Metalúrgica', 'Manaus', 'AM', '69000-000', '77.777.777/0001-10', NULL, 'Jurídico', '1991/07/07', '(92) 7777-7777', 'contato@industriametalurgica.com');
 
 INSERT INTO venda (total, idCliente, idFuncionario, status_venda, desconto, dataVenda)
 VALUES
@@ -546,4 +544,13 @@ VALUES
     (47, 13, 1, 12.49, 12.49, 0.00), -- Compra 47, Produto 13
     (47, 14, 2, 3.25, 6.50, 0.00); -- Compra 47, Produto 14
  
- select count(*), sum(v.total) from vendas v where month(dataVenda) = month(now());
+-- SELECT count(*) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());
+-- SELECT sum(total) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());
+
+-- SELECT * FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f ON v.idFuncionario = f.idFuncionario WHERE parametros;
+
+SELECT idProduto, nome, estoque from produto where estoque <=10;
+
+select nome, dataNasc from cliente WHERE MONTH(dataNasc) = MONTH(CURRENT_DATE) order by dataNasc;
+
+select * from produto;

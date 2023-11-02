@@ -4,9 +4,19 @@
  */
 package ViewPrincipal;
 
+import Cliente.Cliente;
+import DAO.ClienteDAO;
+import DAO.ProdutoDAO;
 import DAO.VendaDAO;
+import java.awt.Color;
+import java.awt.Font;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -15,28 +25,30 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class Home extends javax.swing.JInternalFrame {
 
     private int permissaoUsuario;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    public Home() {
+    }
 
     public Home(int permissaoUsuario) {
         initComponents();
         atualizarTotalVendas();
-        
-        ((BasicInternalFrameUI)this.getUI()).setNorthPane(null);
-        
+        atualizarBaixoEstoque();
+        configurarTabelaAniversariantes();
+        atualizarTabelaAniversariantes();
+
+        ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
         this.permissaoUsuario = permissaoUsuario;
-        
+
         if (permissaoUsuario != 1) {
             btnMostrar.setEnabled(false);
             btnMostrar.setSelected(true);
         }
 
         Timer timer = new Timer(900, e -> {
-            VendaDAO v = new VendaDAO();
-            String totalVendas = "Valor total das vendas: R$" + String.valueOf(v.totalVendasMes());
-            String numVendas = "Quantidades de vendas: " + String.valueOf(v.numVendasMes());
-            if (!btnMostrar.isSelected()) {
-                txtTotalVendasMes.setText(totalVendas);
-                txtQuantidadeVendasMes.setText(numVendas);
-            }
+            atualizarTotalVendas();
+            atualizarBaixoEstoque();
         });
         timer.start();
     }
@@ -48,6 +60,46 @@ public class Home extends javax.swing.JInternalFrame {
         if (!btnMostrar.isSelected()) {
             txtTotalVendasMes.setText(totalVendas);
             txtQuantidadeVendasMes.setText(numVendas);
+        }
+    }
+
+    public void atualizarBaixoEstoque() {
+        ProdutoDAO p = new ProdutoDAO();
+        if (p.contagemBaixoEstoque() > 5) {
+            txtQtdBaixoEstoque.setText("Há " + p.contagemBaixoEstoque() + " produto(s) com baixo estoque");
+            txtAvisoEstoque.setText("*Considere realizar uma compra!*");
+        } else {
+            txtQtdBaixoEstoque.setText("Há " + p.contagemBaixoEstoque() + " produto(s) com baixo estoque!");
+        }
+    }
+
+    public void configurarTabelaAniversariantes() {
+        JTableHeader header = tabelaAniversariantes.getTableHeader();
+        header.setBackground(new Color(14, 33, 69));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 12));
+    }
+
+    public void atualizarTabelaAniversariantes() {
+        DefaultTableModel modelo = (DefaultTableModel) tabelaAniversariantes.getModel();
+        modelo.setNumRows(0);
+        ClienteDAO cdao = new ClienteDAO();
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (Cliente c : cdao.aniversariantesDoMes()) {
+            try {
+                Date dataNasc = inputFormat.parse(c.getDataNasc());
+                String dataFormatada = outputFormat.format(dataNasc);
+
+                modelo.addRow(new Object[]{
+                    c.getNome(),
+                    dataFormatada
+                });
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -70,9 +122,14 @@ public class Home extends javax.swing.JInternalFrame {
         painelProdBaixoEstoque = new Outros.PanelRound();
         panelRound5 = new Outros.PanelRound();
         jLabel3 = new javax.swing.JLabel();
+        txtQtdBaixoEstoque = new javax.swing.JLabel();
+        btnVerificarBaixoEstoque = new javax.swing.JButton();
+        txtAvisoEstoque = new javax.swing.JLabel();
         painelAniversariantes = new Outros.PanelRound();
         panelRound7 = new Outros.PanelRound();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaAniversariantes = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -82,6 +139,7 @@ public class Home extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(1080, 720));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
         painelVendasMes.setBackground(new java.awt.Color(14, 33, 69));
         painelVendasMes.setForeground(new java.awt.Color(255, 255, 255));
@@ -151,21 +209,25 @@ public class Home extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendasMesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMostrar)
-                    .addGroup(painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendasMesLayout.createSequentialGroup()
+                        .addComponent(btnMostrar)
+                        .addGap(215, 215, 215))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendasMesLayout.createSequentialGroup()
+                        .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendasMesLayout.createSequentialGroup()
+                        .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         painelVendasMesLayout.setVerticalGroup(
             painelVendasMesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelVendasMesLayout.createSequentialGroup()
                 .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(txtTotalVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtQuantidadeVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnMostrar)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
@@ -202,17 +264,53 @@ public class Home extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        txtQtdBaixoEstoque.setBackground(new java.awt.Color(14, 33, 69));
+        txtQtdBaixoEstoque.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txtQtdBaixoEstoque.setForeground(new java.awt.Color(255, 255, 255));
+        txtQtdBaixoEstoque.setOpaque(true);
+
+        btnVerificarBaixoEstoque.setBackground(new java.awt.Color(0, 46, 120));
+        btnVerificarBaixoEstoque.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVerificarBaixoEstoque.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerificarBaixoEstoque.setText("Verificar");
+        btnVerificarBaixoEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerificarBaixoEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnVerificarBaixoEstoqueMouseReleased(evt);
+            }
+        });
+
+        txtAvisoEstoque.setBackground(new java.awt.Color(14, 33, 69));
+        txtAvisoEstoque.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtAvisoEstoque.setForeground(new java.awt.Color(204, 204, 204));
+        txtAvisoEstoque.setOpaque(true);
+
         javax.swing.GroupLayout painelProdBaixoEstoqueLayout = new javax.swing.GroupLayout(painelProdBaixoEstoque);
         painelProdBaixoEstoque.setLayout(painelProdBaixoEstoqueLayout);
         painelProdBaixoEstoqueLayout.setHorizontalGroup(
             painelProdBaixoEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelRound5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(painelProdBaixoEstoqueLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(painelProdBaixoEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelProdBaixoEstoqueLayout.createSequentialGroup()
+                        .addComponent(btnVerificarBaixoEstoque)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtQtdBaixoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtAvisoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         painelProdBaixoEstoqueLayout.setVerticalGroup(
             painelProdBaixoEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProdBaixoEstoqueLayout.createSequentialGroup()
                 .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txtQtdBaixoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAvisoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVerificarBaixoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         painelAniversariantes.setBackground(new java.awt.Color(14, 33, 69));
@@ -237,7 +335,7 @@ public class Home extends javax.swing.JInternalFrame {
             .addGroup(panelRound7Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(479, Short.MAX_VALUE))
         );
         panelRound7Layout.setVerticalGroup(
             panelRound7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,47 +345,75 @@ public class Home extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tabelaAniversariantes.setBackground(new java.awt.Color(14, 33, 69));
+        tabelaAniversariantes.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaAniversariantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "Nome", "Aniversário"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaAniversariantes.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tabelaAniversariantes.setSelectionForeground(new java.awt.Color(15, 42, 61));
+        jScrollPane1.setViewportView(tabelaAniversariantes);
+
         javax.swing.GroupLayout painelAniversariantesLayout = new javax.swing.GroupLayout(painelAniversariantes);
         painelAniversariantes.setLayout(painelAniversariantesLayout);
         painelAniversariantesLayout.setHorizontalGroup(
             painelAniversariantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelRound7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(painelAniversariantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelAniversariantesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         painelAniversariantesLayout.setVerticalGroup(
             painelAniversariantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAniversariantesLayout.createSequentialGroup()
                 .addComponent(panelRound7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(308, Short.MAX_VALUE))
+            .addGroup(painelAniversariantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAniversariantesLayout.createSequentialGroup()
+                    .addContainerGap(33, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 998, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(149, 149, 149)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(painelVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                            .addComponent(painelProdBaixoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(painelAniversariantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(150, 150, 150)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(149, 149, 149)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(painelVendasMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(painelProdBaixoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(painelAniversariantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(150, 150, 150))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 658, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(66, 66, 66)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(painelProdBaixoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(painelVendasMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(72, 72, 72)
-                    .addComponent(painelAniversariantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(painelProdBaixoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelVendasMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(72, 72, 72)
+                .addComponent(painelAniversariantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -313,19 +439,32 @@ public class Home extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMostrarActionPerformed
 
+    private void btnVerificarBaixoEstoqueMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerificarBaixoEstoqueMouseReleased
+        // TODO add your handling code here:
+
+        ProdutosBaixoEstoque telaBaixoEstoque = new ProdutosBaixoEstoque();
+
+        telaBaixoEstoque.setVisible(true);
+    }//GEN-LAST:event_btnVerificarBaixoEstoqueMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox btnMostrar;
+    private javax.swing.JButton btnVerificarBaixoEstoque;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private Outros.PanelRound painelAniversariantes;
     private Outros.PanelRound painelProdBaixoEstoque;
     private Outros.PanelRound painelVendasMes;
     private Outros.PanelRound panelRound2;
     private Outros.PanelRound panelRound5;
     private Outros.PanelRound panelRound7;
+    private javax.swing.JTable tabelaAniversariantes;
+    private javax.swing.JLabel txtAvisoEstoque;
+    private javax.swing.JLabel txtQtdBaixoEstoque;
     private javax.swing.JLabel txtQuantidadeVendasMes;
     private javax.swing.JLabel txtTotalVendasMes;
     // End of variables declaration//GEN-END:variables

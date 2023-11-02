@@ -22,8 +22,7 @@ import javax.swing.JOptionPane;
  * @author Kaio Dias
  */
 public class ProdutoDAO {
-    
-    
+
     public void create(Produto p) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -43,7 +42,6 @@ public class ProdutoDAO {
                 stmt.setDouble(5, p.getPrecoUn());
                 stmt.setDouble(6, p.getPrecoCusto());
                 stmt.setInt(7, p.getEstoque());
-                
 
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -56,7 +54,7 @@ public class ProdutoDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
+
     public ArrayList<Produto> read() {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -75,16 +73,16 @@ public class ProdutoDAO {
                 Categoria categoria = new Categoria();
 
                 produto.setIdProduto(rs.getInt("pid"));
-                
+
                 fornecedor.setIdFornecedor(rs.getInt("pforn"));
                 produto.setFornecedor(fornecedor);
-                
+
                 produto.setNome(rs.getString("pnome"));
                 produto.setCodigo(rs.getString("codigo"));
-                
+
                 categoria.setIdCategoria(rs.getInt("pcat"));
                 produto.setCategoria(categoria);
-                
+
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
                 produto.setEstoque(rs.getInt("estoque"));
@@ -120,16 +118,16 @@ public class ProdutoDAO {
                 Categoria categoria = new Categoria();
 
                 produto.setIdProduto(rs.getInt("idProduto"));
-                
+
                 fornecedor.setIdFornecedor(rs.getInt("idFornecedor"));
                 produto.setFornecedor(fornecedor);
-                
+
                 produto.setNome(rs.getString("nome"));
                 produto.setCodigo(rs.getString("codigo"));
-                
+
                 categoria.setIdCategoria(rs.getInt("idCategoria"));
                 produto.setCategoria(categoria);
-                
+
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPrecoUn(rs.getDouble("precoUn"));
                 produto.setEstoque(rs.getInt("estoque"));
@@ -153,17 +151,17 @@ public class ProdutoDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE produto SET idFornecedor = ?, nome = ?, codigo = ?, idCategoria = ?, precoUn = ?, precoCusto = ?, estoque = ? WHERE idProduto = ?");
-                stmt.setInt(1, p.getFornecedor().getIdFornecedor());
-                stmt.setString(2, p.getNome());
-                stmt.setString(3, p.getCodigo());
-                stmt.setInt(4, p.getCategoria().getIdCategoria());
-                stmt.setDouble(5, p.getPrecoUn());
-                stmt.setDouble(6, p.getPrecoCusto());
-                stmt.setInt(7, p.getEstoque());
-                stmt.setInt(8, p.getIdProduto());
-                
+            stmt.setInt(1, p.getFornecedor().getIdFornecedor());
+            stmt.setString(2, p.getNome());
+            stmt.setString(3, p.getCodigo());
+            stmt.setInt(4, p.getCategoria().getIdCategoria());
+            stmt.setDouble(5, p.getPrecoUn());
+            stmt.setDouble(6, p.getPrecoCusto());
+            stmt.setInt(7, p.getEstoque());
+            stmt.setInt(8, p.getIdProduto());
+
             stmt.executeUpdate();
-            
+
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
@@ -189,4 +187,64 @@ public class ProdutoDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
+
+    public ArrayList<Produto> produtoBaixoEstoque() {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int numProd = 0;
+        ArrayList<Produto> produtos = new ArrayList();
+
+        try {
+            stmt = con.prepareStatement("SELECT idProduto, codigo, nome, estoque from produto where estoque <=10");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Produto produto = new Produto();
+
+                produto.setIdProduto(rs.getInt("idProduto"));
+
+                produto.setNome(rs.getString("nome"));
+                produto.setCodigo(rs.getString("codigo"));
+
+                produto.setEstoque(rs.getInt("estoque"));
+
+                produtos.add(produto);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+        return produtos;
+    }
+
+    public int contagemBaixoEstoque() {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int numProd = 0;
+        ArrayList<Produto> produtos = new ArrayList();
+
+        try {
+            stmt = con.prepareStatement("SELECT count(*) from produto where estoque <= 10");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                numProd = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+        return numProd;
+    }
+
 }

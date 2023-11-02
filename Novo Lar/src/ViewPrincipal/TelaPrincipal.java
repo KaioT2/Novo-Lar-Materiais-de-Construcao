@@ -28,16 +28,13 @@ import javax.swing.JPanel;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     private boolean janelaAberta = true;
-    
     private int confirmacaoTrocaUsuario;
     private int confirmarEncerrarSecao;
     private int permissaoUsuario;
-    
     private String nomeUsuario;
-
     private TelaLogin telaLogin;
-    
     private JInternalFrame home;
+    private TelaVenda telaVenda;
 
     /**
      * Creates new form TelaPrincipal
@@ -85,12 +82,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        Main = new javax.swing.JPanel();
+        MenuLateral = new javax.swing.JPanel();
         btn_menuHome = new javax.swing.JPanel();
         indicador1 = new javax.swing.JPanel();
         label1 = new javax.swing.JLabel();
@@ -135,27 +128,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCompras = new javax.swing.JMenu();
         menuNovaCompra = new javax.swing.JMenuItem();
 
-        jMenu3.setText("File");
-        jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
-
-        jMenuItem1.setText("jMenuItem1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Novo Lar Materiais de Construção");
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(14, 33, 69));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        Main.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel4.setBackground(new java.awt.Color(14, 33, 69));
-        jPanel4.setPreferredSize(new java.awt.Dimension(245, 572));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        MenuLateral.setBackground(new java.awt.Color(14, 33, 69));
+        MenuLateral.setPreferredSize(new java.awt.Dimension(245, 572));
+        MenuLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_menuHome.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -202,7 +187,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menuHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 50));
+        MenuLateral.add(btn_menuHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 50));
 
         btn_menuCadastros.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuCadastros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -251,7 +236,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menuCadastros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
+        MenuLateral.add(btn_menuCadastros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
 
         btn_menuEstoque.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -300,7 +285,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menuEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 50));
+        MenuLateral.add(btn_menuEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 50));
 
         btn_menuVendas.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -328,7 +313,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         lebal4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lebal4.setText("Vendas");
+        lebal4.setText("Nova Venda");
 
         javax.swing.GroupLayout btn_menuVendasLayout = new javax.swing.GroupLayout(btn_menuVendas);
         btn_menuVendas.setLayout(btn_menuVendasLayout);
@@ -337,8 +322,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btn_menuVendasLayout.createSequentialGroup()
                 .addComponent(indicador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
-                .addComponent(lebal4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 83, Short.MAX_VALUE))
+                .addComponent(lebal4)
+                .addGap(0, 57, Short.MAX_VALUE))
         );
         btn_menuVendasLayout.setVerticalGroup(
             btn_menuVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +334,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menuVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
+        MenuLateral.add(btn_menuVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
 
         btn_menuCompras.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -398,7 +383,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menuCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
+        MenuLateral.add(btn_menuCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
 
         btn_menuRelatorios.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -447,7 +432,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.add(btn_menuRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
+        MenuLateral.add(btn_menuRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
 
         btn_menuLogOff.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuLogOff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -491,17 +476,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btn_menuLogOff.add(jLabel2);
         jLabel2.setBounds(20, 0, 37, 32);
 
-        jPanel4.add(btn_menuLogOff, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, 50));
+        MenuLateral.add(btn_menuLogOff, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 200, 50));
 
         txtNomeUsuario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtNomeUsuario.setText("nome");
-        jPanel4.add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+        MenuLateral.add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
 
         txtPeriodoDia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPeriodoDia.setForeground(new java.awt.Color(255, 255, 255));
         txtPeriodoDia.setText("Período,");
-        jPanel4.add(txtPeriodoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        MenuLateral.add(txtPeriodoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -517,22 +502,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 720, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
+        Main.setLayout(MainLayout);
+        MainLayout.setHorizontalGroup(
+            MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainLayout.createSequentialGroup()
+                .addComponent(MenuLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        MainLayout.setVerticalGroup(
+            MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(MenuLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(Main, java.awt.BorderLayout.CENTER);
 
         menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/systemIcon.png"))); // NOI18N
         menuSistema.setText("Sistema");
@@ -763,7 +748,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNovaVendaActionPerformed
         // TODO add your handling code here:
-        TelaVenda telaVenda = new TelaVenda();
+
+        telaVenda = new TelaVenda(permissaoUsuario);
+        
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(telaVenda);
         telaVenda.setVisible(true);
     }//GEN-LAST:event_menuNovaVendaActionPerformed
 
@@ -813,6 +802,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         indicador4.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuHome, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador1, indicador5, indicador6}, new JLabel[]{label1, label2, label3, label5, label6});
+        
+        telaVenda = new TelaVenda(permissaoUsuario);
+        
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(telaVenda);
+        telaVenda.setVisible(true);
     }//GEN-LAST:event_btn_menuVendasMousePressed
 
     private void btn_menuComprasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuComprasMousePressed
@@ -876,6 +871,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Main;
+    private javax.swing.JPanel MenuLateral;
     private javax.swing.JPanel btn_menuCadastros;
     private javax.swing.JPanel btn_menuCompras;
     private javax.swing.JPanel btn_menuEstoque;
@@ -892,14 +889,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel indicador7;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
