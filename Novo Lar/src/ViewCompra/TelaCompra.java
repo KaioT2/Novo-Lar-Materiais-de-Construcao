@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package ViewCompra;
 
@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
  *
  * @author Kaio Dias
  */
-public class TelaCompra extends javax.swing.JFrame {
-
+public class TelaCompra extends javax.swing.JInternalFrame {
+    
     CompraTableModel model = new CompraTableModel();
     /**
      * Creates new form TelaVenda
@@ -35,18 +35,18 @@ public class TelaCompra extends javax.swing.JFrame {
     private Calendar dataVencimento = Calendar.getInstance();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat da = new SimpleDateFormat("yyyy/MM/dd");
-
+    
     public TelaCompra() {
         initComponents();
         tabelaCompra.setModel(model);
         model.isCellEditable(tabelaCompra.getSelectedRow(), tabelaCompra.getSelectedColumn());
 
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                formWindowClosing(windowEvent);
-            }
-        });
+//        this.addWindowListener(new java.awt.event.WindowAdapter() {
+//            @Override
+//            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+//                formWindowClosing(windowEvent);
+//            }
+//        });
 
         Thread loopThread = new Thread(() -> {
             while (janelaAberta) {
@@ -82,6 +82,7 @@ public class TelaCompra extends javax.swing.JFrame {
         txtIdCompra.setText(String.valueOf(c.numCompra()+1));
     }
 
+    
     public void inserirProduto(Produto produto, ItensDaCompra item) {
         model.addRow(produto, item);
         model.calcularEAtualizarSubtotal(model.getRowCount() - 1);
@@ -101,7 +102,6 @@ public class TelaCompra extends javax.swing.JFrame {
         janelaAberta = false; // Define a variável para false
         dispose(); // Fecha a janela
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,37 +112,74 @@ public class TelaCompra extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        btnNovoItem = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         txtIdCompra = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        txtDesconto = new javax.swing.JTextField();
         txtData = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         txtIdFornecedor = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnNovaCompra = new javax.swing.JButton();
         txtFornecedor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         txtIdFuncionário = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         txtVencimento = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCompra = new javax.swing.JTable();
-        btnNovoItem = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        txtTotal = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtFuncionario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        btnSalvar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        txtDesconto = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        btnNovaCompra = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Compras - Novo Lar Materiais de Construção");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(null);
+        setForeground(java.awt.Color.white);
+        setFrameIcon(null);
+        setMinimumSize(new java.awt.Dimension(1080, 720));
+        setPreferredSize(new java.awt.Dimension(1080, 720));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setText("ID");
+
+        btnNovoItem.setText("Novo Item");
+        btnNovoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoItemActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir Item");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Total da Compra");
 
         txtIdCompra.setEditable(false);
         txtIdCompra.setEnabled(false);
+
+        txtTotal.setEditable(false);
+        txtTotal.setEnabled(false);
+
+        txtDesconto.setEditable(false);
+        txtDesconto.setEnabled(false);
 
         txtData.setEnabled(false);
         txtData.addActionListener(new java.awt.event.ActionListener() {
@@ -151,9 +188,22 @@ public class TelaCompra extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("ID Compra");
+
+        jLabel9.setText("Total de descontos");
+
         txtIdFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtIdFornecedorKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setText("Fornecedor");
+
+        btnNovaCompra.setText("Nova Compra");
+        btnNovaCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovaCompraActionPerformed(evt);
             }
         });
 
@@ -168,6 +218,8 @@ public class TelaCompra extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Funcionário");
+
         txtIdFuncionário.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdFuncionárioActionPerformed(evt);
@@ -179,7 +231,11 @@ public class TelaCompra extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Data:");
+
         txtVencimento.setEnabled(false);
+
+        jLabel5.setText("Vencimento:");
 
         tabelaCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -199,33 +255,6 @@ public class TelaCompra extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Itens da Compra", jScrollPane1);
 
-        btnNovoItem.setText("Novo Item");
-        btnNovoItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoItemActionPerformed(evt);
-            }
-        });
-
-        btnExcluir.setText("Excluir Item");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
-        txtTotal.setEditable(false);
-        txtTotal.setEnabled(false);
-
-        jLabel1.setText("ID Compra");
-
-        jLabel2.setText("Fornecedor");
-
-        jLabel3.setText("Funcionário");
-
-        jLabel4.setText("Data:");
-
-        jLabel5.setText("Vencimento:");
-
         txtFuncionario.setActionCommand("null");
         txtFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -235,35 +264,12 @@ public class TelaCompra extends javax.swing.JFrame {
 
         jLabel6.setText("ID");
 
-        jLabel7.setText("ID");
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Total da Compra");
-
-        txtDesconto.setEditable(false);
-        txtDesconto.setEnabled(false);
-
-        jLabel9.setText("Total de descontos");
-
-        btnNovaCompra.setText("Nova Compra");
-        btnNovaCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovaCompraActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -290,7 +296,7 @@ public class TelaCompra extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
@@ -309,7 +315,7 @@ public class TelaCompra extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +354,7 @@ public class TelaCompra extends javax.swing.JFrame {
                         .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
@@ -360,27 +366,13 @@ public class TelaCompra extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovaCompra))
-                .addGap(14, 14, 14))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {
-        fecharJanela(); // Chama o método para fechar a janela
-    }
 
     private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
         // TODO add your handling code here:
@@ -388,6 +380,66 @@ public class TelaCompra extends javax.swing.JFrame {
         TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); // Passe a instância de TelaVenda
         telaProdutos.setVisible(true);
     }//GEN-LAST:event_btnNovoItemActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        CompraDAO compraDao = new CompraDAO();
+        Compra c = new Compra();
+
+        Funcionario func = new Funcionario();
+
+        Fornecedor forn = new Fornecedor();
+
+        ItensDaCompra ic = new ItensDaCompra();
+        ItensDaCompraDAO itemDao = new ItensDaCompraDAO();
+
+        Produto p = new Produto();
+
+        if((txtFornecedor.getText().isEmpty() || txtIdFornecedor.getText().isEmpty()) || (txtFuncionario.getText().isEmpty()
+            || txtIdFuncionário.getText().isEmpty()) || tabelaCompra.getRowCount() <=0){
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            c.setIdCompra(Integer.parseInt(txtIdCompra.getText()));
+            c.setDataCompra(da.format(dataAtual.getTime()).toString());
+            c.setTotal(Double.parseDouble(txtTotal.getText()));
+
+            forn.setIdFornecedor(Integer.parseInt(txtIdFornecedor.getText()));
+            c.setFornecedor(forn);
+
+            func.setIdFuncionario(Integer.parseInt(txtIdFuncionário.getText()));
+            c.setFuncionario(func);
+
+            c.setDesconto(Double.parseDouble(txtDesconto.getText()));
+
+            compraDao.create(c);
+
+            //idVenda, data, idProduto, quantidade, precoUn, desconto, total
+            for (int i = 0; i < model.getRowCount(); i++) {
+                ic.setCompra(c);
+                //ic.setData(da.format(dataAtual.getTime()).toString());
+
+                p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
+                ic.setProduto(p);
+
+                ic.setQuantidade(Double.parseDouble(model.getValueAt(i, 5).toString()));
+
+                p.setPrecoCusto(Double.parseDouble(model.getValueAt(i, 4).toString()));
+                ic.setProduto(p);
+
+                ic.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
+                ic.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
+
+                itemDao.create(ic);
+                itemDao.atualizarEstoque(ic);
+            }
+
+            btnExcluir.setEnabled(false);
+            btnNovoItem.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
@@ -401,107 +453,33 @@ public class TelaCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataActionPerformed
 
-    private void txtFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFuncionarioKeyPressed
-        
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            TelaFuncionariosCompra telaFuncionario = new TelaFuncionariosCompra();
-            
-            telaFuncionario.atualizarTabela();
-            telaFuncionario.setTelaCompra(this);
-            telaFuncionario.setVisible(true);
-        }        
-        
-    }//GEN-LAST:event_txtFuncionarioKeyPressed
-
-    private void tabelaCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCompraKeyPressed
-        TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); // Passe a instância de TelaVenda
-        telaProdutos.setVisible(true);
-    }//GEN-LAST:event_tabelaCompraKeyPressed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void txtIdFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdFornecedorKeyPressed
         // TODO add your handling code here:
-        CompraDAO compraDao = new CompraDAO();
-        Compra c = new Compra();
-        
-        Funcionario func = new Funcionario();
-        
-        Fornecedor forn = new Fornecedor();
-        
-        ItensDaCompra ic = new ItensDaCompra();
-        ItensDaCompraDAO itemDao = new ItensDaCompraDAO();
-        
-        Produto p = new Produto();
-        
-        if((txtFornecedor.getText().isEmpty() || txtIdFornecedor.getText().isEmpty()) || (txtFuncionario.getText().isEmpty() 
-                || txtIdFuncionário.getText().isEmpty()) || tabelaCompra.getRowCount() <=0){
-             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-        }
-        else{
-            c.setIdCompra(Integer.parseInt(txtIdCompra.getText()));
-            c.setDataCompra(da.format(dataAtual.getTime()).toString());
-            c.setTotal(Double.parseDouble(txtTotal.getText()));
 
-           
-            
-            forn.setIdFornecedor(Integer.parseInt(txtIdFornecedor.getText()));
-            c.setFornecedor(forn);
-            
-            
-            func.setIdFuncionario(Integer.parseInt(txtIdFuncionário.getText()));
-            c.setFuncionario(func);
-            
-            
-            c.setDesconto(Double.parseDouble(txtDesconto.getText()));
- 
-            
-            compraDao.create(c);
-            
-            
-            
-            //idVenda, data, idProduto, quantidade, precoUn, desconto, total
-            for (int i = 0; i < model.getRowCount(); i++) {
-                ic.setCompra(c);
-                //ic.setData(da.format(dataAtual.getTime()).toString());
-                
-                
-                p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
-                ic.setProduto(p);
-                
-                ic.setQuantidade(Double.parseDouble(model.getValueAt(i, 5).toString()));
-                
-                p.setPrecoCusto(Double.parseDouble(model.getValueAt(i, 4).toString()));
-                ic.setProduto(p);
-                
-                ic.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
-                ic.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
-                
-                itemDao.create(ic);
-                itemDao.atualizarEstoque(ic);
-            }
-            
-            btnExcluir.setEnabled(false);
-            btnNovoItem.setEnabled(false);
-            btnSalvar.setEnabled(false);
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TelaFornecedoresCompra telaFornecedor = new TelaFornecedoresCompra();
+
+            telaFornecedor.setTelaCompra(this);
+            telaFornecedor.setVisible(true);
         }
-        
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_txtIdFornecedorKeyPressed
 
     private void btnNovaCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaCompraActionPerformed
         // TODO add your handling code here:
         CompraDAO compraDao = new CompraDAO();
-        
+
         txtIdCompra.setText(String.valueOf(compraDao.numCompra()+1));
 
         btnSalvar.setEnabled(true);
-       
+
         txtFornecedor.setText("");
         txtFuncionario.setText("");
         txtIdFornecedor.setText("");
         txtIdFuncionário.setText("");
-        
-            btnExcluir.setEnabled(true);
-            btnNovoItem.setEnabled(true);
-            btnSalvar.setEnabled(true);
+
+        btnExcluir.setEnabled(true);
+        btnNovoItem.setEnabled(true);
+        btnSalvar.setEnabled(true);
 
         model.removeAllRows();
     }//GEN-LAST:event_btnNovaCompraActionPerformed
@@ -512,8 +490,8 @@ public class TelaCompra extends javax.swing.JFrame {
 
     private void txtFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFornecedorKeyPressed
         // TODO add your handling code here:
-        
-         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaFornecedoresCompra telaFornecedor = new TelaFornecedoresCompra();
 
             telaFornecedor.setTelaCompra(this);
@@ -521,36 +499,39 @@ public class TelaCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFornecedorKeyPressed
 
-    private void txtIdFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdFornecedorKeyPressed
-        // TODO add your handling code here:
-        
-         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            TelaFornecedoresCompra telaFornecedor = new TelaFornecedoresCompra();
-
-            telaFornecedor.setTelaCompra(this);
-            telaFornecedor.setVisible(true);
-        }
-    }//GEN-LAST:event_txtIdFornecedorKeyPressed
-
     private void txtIdFuncionárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdFuncionárioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdFuncionárioActionPerformed
 
     private void txtIdFuncionárioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdFuncionárioKeyPressed
         // TODO add your handling code here:
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaFuncionariosCompra telaFuncionario = new TelaFuncionariosCompra();
-            
+
             telaFuncionario.atualizarTabela();
             telaFuncionario.setTelaCompra(this);
             telaFuncionario.setVisible(true);
-        }    
+        }
     }//GEN-LAST:event_txtIdFuncionárioKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void tabelaCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCompraKeyPressed
+        TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); // Passe a instância de TelaVenda
+        telaProdutos.setVisible(true);
+    }//GEN-LAST:event_tabelaCompraKeyPressed
+
+    private void txtFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFuncionarioKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TelaFuncionariosCompra telaFuncionario = new TelaFuncionariosCompra();
+
+            telaFuncionario.atualizarTabela();
+            telaFuncionario.setTelaCompra(this);
+            telaFuncionario.setVisible(true);
+        }
+
+    }//GEN-LAST:event_txtFuncionarioKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;

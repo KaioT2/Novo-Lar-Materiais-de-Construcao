@@ -138,7 +138,7 @@ values
 -- Inserção de funcionários
 INSERT INTO funcionario (senha, nome, endereco, bairro, cidade, CEP, estado, cpf, cargo, cargaHoraria, salario, telefone, email, dataNasc, dataContrata, status, permissao)
 VALUES
-	('senha1', 'João Silva', 'Rua das Flores, 123', 'Centro', 'Cidade A', '12345-678', 'SP', '123.456.789-00', 'Vendedor', 40.00, 2500.00, '(11) 1234-5678', 'joao@example.com', '1990-05-15', '2022-03-10', 'Ativo', 1),
+	('senha1', 'João Silva', 'Rua das Flores, 123', 'Centro', 'Cidade A', '12345-678', 'SP', '469.908.520-20', 'Vendedor', 40.00, 2500.00, '(11) 1234-5678', 'joao@example.com', '1990-05-15', '2022-03-10', 'Ativo', 2),
 	('senha2', 'Maria Santos', 'Avenida Principal, 456', 'Bairro B', 'Cidade A', '54321-876', 'SP', '987.654.321-00', 'Gerente', 45.00, 3500.00, '(11) 9876-5432', 'maria@example.com', '1985-08-20', '2021-01-05', 'Ativo', 1),
 	('senha3', 'Pedro Oliveira', 'Rua dos Ladrilhos, 789', 'Centro', 'Cidade B', '98765-432', 'RJ', '234.567.890-11', 'Vendedor', 38.00, 2300.00, '(21) 5555-5555', 'pedro@example.com', '1992-11-25', '2022-04-20', 'Ativo', 1),
 	('senha4', 'Ana Rodrigues', 'Travessa das Pedras, 56', 'Bairro C', 'Cidade B', '65432-109', 'RJ', '345.678.901-22', 'Vendedor', 40.00, 2400.00, '(21) 7777-7777', 'ana@example.com', '1993-03-03', '2022-02-15', 'Ativo', 1),

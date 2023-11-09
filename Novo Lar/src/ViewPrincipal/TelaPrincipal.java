@@ -11,6 +11,8 @@ import ViewCadastro.TelaCadFornecedor;
 import ViewCadastro.TelaCadFuncionario;
 import ViewCadastro.TelaCadProduto;
 import ViewCompra.TelaCompra;
+import ViewCompra.TelaCompra;
+import ViewEstoque.TelaDeEstoque;
 import ViewEstoque.TelaEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;
@@ -362,7 +364,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         label5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        label5.setText("Compras");
+        label5.setText("Nova Compra");
 
         javax.swing.GroupLayout btn_menuComprasLayout = new javax.swing.GroupLayout(btn_menuCompras);
         btn_menuCompras.setLayout(btn_menuComprasLayout);
@@ -371,8 +373,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(btn_menuComprasLayout.createSequentialGroup()
                 .addComponent(indicador5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
-                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addComponent(label5)
+                .addGap(0, 46, Short.MAX_VALUE))
         );
         btn_menuComprasLayout.setVerticalGroup(
             btn_menuComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +389,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btn_menuRelatorios.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_menuRelatorios.setOpaque(false);
         btn_menuRelatorios.setPreferredSize(new java.awt.Dimension(250, 40));
         btn_menuRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -481,12 +482,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         txtNomeUsuario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtNomeUsuario.setText("nome");
-        MenuLateral.add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+        MenuLateral.add(txtNomeUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
 
         txtPeriodoDia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPeriodoDia.setForeground(new java.awt.Color(255, 255, 255));
         txtPeriodoDia.setText("Período,");
-        MenuLateral.add(txtPeriodoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        MenuLateral.add(txtPeriodoDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -614,6 +615,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorioIcon.png"))); // NOI18N
         menuRelatorios.setText("Relatórios");
         menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuRelatorios.setEnabled(false);
         jMenuBar1.add(menuRelatorios);
 
         menuVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/vendasIcon.png"))); // NOI18N
@@ -629,6 +631,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuVendas.add(menuNovaVenda);
 
         menuHistoricoVendas.setText("Histórico de Vendas");
+        menuHistoricoVendas.setEnabled(false);
         menuVendas.add(menuHistoricoVendas);
 
         jMenuBar1.add(menuVendas);
@@ -741,9 +744,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-
-        TelaEstoque telaEstoque = new TelaEstoque();
-        telaEstoque.setVisible(true);
+        TelaDeEstoque telaDeEstoque = new TelaDeEstoque();
+        telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+        
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(telaDeEstoque);
+        telaDeEstoque.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void menuNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNovaVendaActionPerformed
@@ -761,6 +767,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         if (permissaoUsuario == 1) {
             TelaCompra telaCompra = new TelaCompra();
+            telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+
+            jDesktopPane1.removeAll();
+            jDesktopPane1.add(telaCompra);
             telaCompra.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
@@ -794,6 +804,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         indicador3.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuHome, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador1, indicador4, indicador5, indicador6}, new JLabel[]{label1, label2, lebal4, label5, label6});
+        
+        TelaDeEstoque telaDeEstoque = new TelaDeEstoque();
+        telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+        
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(telaDeEstoque);
+        telaDeEstoque.setVisible(true);
+        
+        
     }//GEN-LAST:event_btn_menuEstoqueMousePressed
 
     private void btn_menuVendasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuVendasMousePressed
@@ -812,18 +831,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuComprasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuComprasMousePressed
         // TODO add your handling code here:
-        setColor(btn_menuCompras, label5);
-        indicador5.setOpaque(true);
-        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuHome, btn_menuRelatorios},
-                new JPanel[]{indicador2, indicador3, indicador4, indicador1, indicador6}, new JLabel[]{label1, label2, label3, lebal4, label6});
+        
+        if (permissaoUsuario == 1) {
+            setColor(btn_menuCompras, label5);
+            indicador5.setOpaque(true);
+            resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuHome, btn_menuRelatorios},
+                    new JPanel[]{indicador2, indicador3, indicador4, indicador1, indicador6}, new JLabel[]{label1, label2, label3, lebal4, label6});
+
+            TelaCompra telaCompra = new TelaCompra();
+            telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+
+            jDesktopPane1.removeAll();
+            jDesktopPane1.add(telaCompra);
+            telaCompra.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
+        }
     }//GEN-LAST:event_btn_menuComprasMousePressed
 
     private void btn_menuRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuRelatoriosMousePressed
         // TODO add your handling code here:
-        setColor(btn_menuRelatorios, label6);
-        indicador6.setOpaque(true);
-        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
-                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
+        
+        //DESCOMENTAR QUANDO O SISTEMA DE RELATÓRIOS ESTIVER PRONTO
+        
+        JOptionPane.showMessageDialog(null, "Relatórios m breve!");
+        
+//        setColor(btn_menuRelatorios, label6);
+//        indicador6.setOpaque(true);
+//        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
+//                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
     }//GEN-LAST:event_btn_menuRelatoriosMousePressed
 
     private void btn_menuLogOffMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuLogOffMousePressed
