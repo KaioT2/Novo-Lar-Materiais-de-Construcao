@@ -855,7 +855,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         //DESCOMENTAR QUANDO O SISTEMA DE RELATÓRIOS ESTIVER PRONTO
         
-        JOptionPane.showMessageDialog(null, "Relatórios m breve!");
+        JOptionPane.showMessageDialog(null, "Relatórios em breve!");
         
 //        setColor(btn_menuRelatorios, label6);
 //        indicador6.setOpaque(true);
