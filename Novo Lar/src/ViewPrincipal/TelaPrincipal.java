@@ -199,7 +199,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btn_menuCadastros.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuCadastros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_menuCadastros.setOpaque(false);
         btn_menuCadastros.setPreferredSize(new java.awt.Dimension(250, 40));
         btn_menuCadastros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -813,11 +812,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btn_menuCadastrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuCadastrosMousePressed
         // TODO add your handling code here:
         
+        JOptionPane.showMessageDialog(null, "Use a barra superior, por enquanto esse recurso está indisponível!");
+        
         //Efeito de "hover" do botão ; Seta a tela desejada
-        setColor(btn_menuCadastros, label2);
-        indicador2.setOpaque(true);
-        resetColor(new JPanel[]{btn_menuHome, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
-                new JPanel[]{indicador1, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label1, label3, lebal4, label5, label6});
+//        setColor(btn_menuCadastros, label2);
+//        indicador2.setOpaque(true);
+//        resetColor(new JPanel[]{btn_menuHome, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
+//                new JPanel[]{indicador1, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label1, label3, lebal4, label5, label6});
     }//GEN-LAST:event_btn_menuCadastrosMousePressed
 
     private void btn_menuEstoqueMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuEstoqueMousePressed
