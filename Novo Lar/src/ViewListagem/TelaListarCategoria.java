@@ -6,7 +6,6 @@ package ViewListagem;
 
 import Categoria.Categoria;
 import DAO.CategoriaDAO;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

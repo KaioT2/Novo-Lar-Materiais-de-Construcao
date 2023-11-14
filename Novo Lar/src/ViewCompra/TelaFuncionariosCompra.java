@@ -4,7 +4,6 @@
  */
 package ViewCompra;
 
-import ViewVenda.*;
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
 import ViewCompra.TelaCompra;

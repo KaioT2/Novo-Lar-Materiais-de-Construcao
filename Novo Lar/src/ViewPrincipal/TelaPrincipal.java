@@ -11,7 +11,6 @@ import ViewCadastro.TelaCadFornecedor;
 import ViewCadastro.TelaCadFuncionario;
 import ViewCadastro.TelaCadProduto;
 import ViewCompra.TelaCompra;
-import ViewCompra.TelaCompra;
 import ViewEstoque.TelaDeEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;

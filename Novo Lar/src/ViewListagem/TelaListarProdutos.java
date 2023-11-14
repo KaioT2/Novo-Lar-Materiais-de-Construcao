@@ -8,7 +8,6 @@ import Categoria.Categoria;
 import Produto.Produto;
 import DAO.ProdutoDAO;
 import Fornecedor.Fornecedor;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

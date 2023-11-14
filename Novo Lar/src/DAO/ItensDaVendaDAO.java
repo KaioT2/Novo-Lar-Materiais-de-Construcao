@@ -6,8 +6,6 @@ package DAO;
 
 import Connection.ConnectionFactory;
 import Itens_da_Venda.ItensDaVenda;
-import Produto.Produto;
-import Venda.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

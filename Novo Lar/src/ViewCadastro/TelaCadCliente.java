@@ -6,14 +6,11 @@ package ViewCadastro;
 
 import DAO.ClienteDAO;
 import Cliente.Cliente;
-import java.awt.Color;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import ViewListagem.TelaListarClientes;
 
 /**

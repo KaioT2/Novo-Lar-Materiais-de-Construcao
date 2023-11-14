@@ -4,11 +4,8 @@
  */
 package ViewEstoque;
 
-import Categoria.Categoria;
 import DAO.ProdutoDAO;
-import Fornecedor.Fornecedor;
 import Produto.Produto;
-import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
