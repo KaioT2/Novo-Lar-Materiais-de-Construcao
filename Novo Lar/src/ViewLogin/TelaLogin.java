@@ -26,6 +26,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private int permissaoUsuario;
     private String nomeUsuario;
 
+    //Método que armazena a permissão do usuário
     public int getPermissaoUsuario() {
         return permissaoUsuario;
     }
@@ -34,6 +35,7 @@ public class TelaLogin extends javax.swing.JFrame {
         this.permissaoUsuario = permissaoUsuario;
     }
 
+    //Método que armazena o nome do usuário
     public String getNomeUsuario() {
         return nomeUsuario;
     }
@@ -230,9 +232,11 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         FuncionarioDAO dao = new FuncionarioDAO();
 
+        //Pega o nome e nível de permissão do usuário que fez o login e envia para a tela principal
         setPermissaoUsuario(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword())));
         setNomeUsuario(dao.nomeDeUsuario(txtLogin.getText(), new String(txtSenha.getPassword())));
 
+        //Se o usuário existe e se o login está correto
         if (getPermissaoUsuario() != -1) {
             this.dispose();
             new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario(), new Home(getPermissaoUsuario())).setVisible(true);
@@ -248,9 +252,11 @@ public class TelaLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             FuncionarioDAO dao = new FuncionarioDAO();
 
+            //Pega o nome e nível de permissão do usuário que fez o login e envia para a tela principal
             setPermissaoUsuario(dao.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword())));
             setNomeUsuario(dao.nomeDeUsuario(txtLogin.getText(), new String(txtSenha.getPassword())));
 
+            //Se o usuário existe e se o login está correto
             if (getPermissaoUsuario() != -1) {
                 this.dispose();
                 new TelaPrincipal(getPermissaoUsuario(), getNomeUsuario(), new Home(getPermissaoUsuario())).setVisible(true);
@@ -264,17 +270,23 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseClicked
         // TODO add your handling code here:
+        
+        //Encerra o programa se o "X" for apertado
         System.exit(0);
     }//GEN-LAST:event_btnSairMouseClicked
 
     private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
         // TODO add your handling code here:
+        
+        //Captura a posição do mouse na tela
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_jPanel3MousePressed
 
     private void jPanel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseDragged
         // TODO add your handling code here:
+        
+        //Seta a posição da tela ao arrastar o header da tela 
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
@@ -282,30 +294,38 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
         // TODO add your handling code here:
+        
+        //Efeito "hover" do botão "X"
         btnSair.setBackground(Color.red);
-
     }//GEN-LAST:event_btnSairMouseEntered
 
     private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
         // TODO add your handling code here:
+        
+        //Efeito "hover" do botão "X"
         btnSair.setBackground(new Color(136, 212, 234));
     }//GEN-LAST:event_btnSairMouseExited
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
         // TODO add your handling code here:
 
+        //Efeito "hover" do botão de login
         btnLogin.setBackground(new Color(21, 51, 107));
         txtBtnLogin.setForeground(new Color(204, 204, 204));
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
         // TODO add your handling code here:
+        
+        //Efeito "hover" do botão de login
         btnLogin.setBackground(new Color(14, 33, 69));
         txtBtnLogin.setForeground(Color.white);
     }//GEN-LAST:event_btnLoginMouseExited
 
     private void txtLoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLoginMousePressed
         // TODO add your handling code here:
+        
+        //Modifica o texto dos labels para melhorar experiência do usuário
         if (txtLogin.getText().equals("Digite o usuário")) {
             txtLogin.setText("");
         }
@@ -318,6 +338,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void txtSenhaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSenhaMousePressed
         // TODO add your handling code here:
+        
+        //Modifica o texto dos labels para melhorar experiência do usuário
         if (txtSenha.getText().equals("Digite a senha")) {
             txtSenha.setText("");
         }
@@ -333,6 +355,8 @@ public class TelaLogin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+        //Seta o estilo de tela do programa de acordo com a biblioteca FlatLaf e com as configurações nos arquivos do pacote "style"
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
 

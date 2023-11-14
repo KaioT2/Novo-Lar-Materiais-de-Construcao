@@ -28,7 +28,7 @@ public class ItensDaCompraDAO {
             rs = stmt.executeQuery();
 
             if (rs.next() && rs.getInt(1) == 0) {
-                // Se venda não existe...
+                // Se compra não existe...
                 stmt = con.prepareStatement("INSERT INTO itens_da_compra (idcompra, idproduto, quantidade, precoCusto, desconto, total) VALUES(?,?,?,?,?,?)");
                 stmt.setInt(1, ic.getCompra().getIdCompra());
                 stmt.setInt(2, ic.getProduto().getIdProduto());
@@ -48,7 +48,7 @@ public class ItensDaCompraDAO {
         }
     }
     
-    public void atualizarEstoque(ItensDaCompra ic){
+    public void atualizarEstoque(ItensDaCompra ic){ //Método que atualiza o estoque do produto conforme a quantidade comprada
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 

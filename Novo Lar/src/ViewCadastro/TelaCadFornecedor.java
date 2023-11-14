@@ -23,8 +23,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
      */
     public TelaCadFornecedor() {
         initComponents();
-        preencherCombo();
-        //erroJText();
+        preencherCombo(); //Preenche o compo de estado assim que a tela é exibida
     }
     
     private void preencherCombo(){
@@ -66,44 +65,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         }
     }
 
-//    private void erroJText() {
-//
-//        txtEstado.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                atualizarLabel();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                atualizarLabel();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                atualizarLabel();
-//            }
-//
-//            // Método para atualizar o JLabel com o texto do JTextField
-//            private void atualizarLabel() {
-//                String tamEstado = txtEstado.getText();
-//
-//                if (tamEstado.length() > 2) {
-//                    txtErroEstado.setText("Digite apenas a abreviação! Ex: MG");
-//                    txtErroEstado.setForeground(Color.RED);
-//                    txtErroEstado.setVisible(true);
-//
-//                } else if (tamEstado.length() < 1) {
-//                    txtErroEstado.setText("Campo obrigatório");
-//                    txtErroEstado.setForeground(Color.RED);
-//                    txtErroEstado.setVisible(true);
-//                } else {
-//
-//                }
-//            }
-//        });
-//    }
-
+    //Valida CNPJ
     private boolean validarCNPJ(String cnpj) {
         // Remove caracteres não numéricos do CNPJ
         cnpj = cnpj.replaceAll("[^0-9]", "");
@@ -471,15 +433,18 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
+        //Somente insere se todos os campos estiverem preenchidos
         if (!(txtNome.getText().equals("") || txtTelefone.getText().equals("") || txtEndereco.getText().equals("") || txtEmail.getText().equals("")
                 || txtCnpj.getText().equals("") || txtCidade.getText().equals("") || txtCep.getText().equals("") || txtBairro.getText().equals(""))) {
             String cnpj = txtCnpj.getText();
 
+            //valida o cnpj
             if (!validarCNPJ(cnpj)) {
                 JOptionPane.showMessageDialog(this, "CNPJ inválido", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            //Cria um objeto de fornecedor e seta os dados e envia para o DAO que insere os dados no BD
             Fornecedor f = new Fornecedor();
             FornecedorDAO dao = new FornecedorDAO();
 

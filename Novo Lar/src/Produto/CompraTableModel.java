@@ -12,8 +12,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class CompraTableModel extends AbstractTableModel {
 
-    private List<Produto> dados = new ArrayList<>();
-    private List<ItensDaCompra> dadosCompra = new ArrayList<>();
+    private List<Produto> produtos = new ArrayList<>();
+    private List<ItensDaCompra> itensDeCompra = new ArrayList<>();
     private String[] colunas = {"Item", "id", "Código", "Nome", "Preco Custo", "Quantidade", "Desconto", "Subtotal"};
 
     @Override
@@ -23,7 +23,7 @@ public class CompraTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return dados.size();
+        return produtos.size();
     }
 
     @Override
@@ -39,19 +39,19 @@ public class CompraTableModel extends AbstractTableModel {
             case 0:
                 return linha + 1;
             case 1:
-                return dados.get(linha).getIdProduto();
+                return produtos.get(linha).getIdProduto();
             case 2:
-                return dados.get(linha).getCodigo();
+                return produtos.get(linha).getCodigo();
             case 3:
-                return dados.get(linha).getNome();
+                return produtos.get(linha).getNome();
             case 4:
-                return dados.get(linha).getPrecoCusto();
+                return produtos.get(linha).getPrecoCusto();
             case 5:
-                return dadosCompra.get(linha).getQuantidade();
+                return itensDeCompra.get(linha).getQuantidade();
             case 6:
-                return dadosCompra.get(linha).getDesconto();
+                return itensDeCompra.get(linha).getDesconto();
             case 7:
-                double subtotal = dadosCompra.get(linha).getSubtotal();
+                double subtotal = itensDeCompra.get(linha).getSubtotal();
                 return decimalFormat.format(subtotal);
         }
         return null;
@@ -61,30 +61,30 @@ public class CompraTableModel extends AbstractTableModel {
     public void setValueAt(Object valor, int linha, int coluna) {
         switch (coluna) {
             case 0:
-                dados.get(linha);
+                produtos.get(linha);
                 break;
             case 1:
-                dados.get(linha).setIdProduto(Integer.parseInt(valor.toString()));
+                produtos.get(linha).setIdProduto(Integer.parseInt(valor.toString()));
                 break;
             case 2:
-                dados.get(linha).setCodigo(valor.toString());
+                produtos.get(linha).setCodigo(valor.toString());
                 break;
             case 3:
-                dados.get(linha).setNome(valor.toString());
+                produtos.get(linha).setNome(valor.toString());
                 break;
             case 4:
-                dados.get(linha).setPrecoCusto(Double.parseDouble(valor.toString()));
+                produtos.get(linha).setPrecoCusto(Double.parseDouble(valor.toString()));
                 break;
             case 5:
-                dadosCompra.get(linha).setQuantidade(Double.parseDouble(valor.toString()));
+                itensDeCompra.get(linha).setQuantidade(Double.parseDouble(valor.toString()));
                 calcularEAtualizarSubtotal(linha);
                 break;
             case 6:
-                dadosCompra.get(linha).setDesconto(Double.parseDouble(valor.toString()));
+                itensDeCompra.get(linha).setDesconto(Double.parseDouble(valor.toString()));
                 calcularEAtualizarSubtotal(linha);
                 break;
             case 7:
-                dadosCompra.get(linha).setSubtotal(Double.parseDouble(valor.toString()));
+                itensDeCompra.get(linha).setSubtotal(Double.parseDouble(valor.toString()));
                 break;
         }
 
@@ -97,27 +97,27 @@ public class CompraTableModel extends AbstractTableModel {
     }
 
     public void addRow(Produto p, ItensDaCompra i) {
-        this.dados.add(p);
-        this.dadosCompra.add(i);
+        this.produtos.add(p);
+        this.itensDeCompra.add(i);
 
         this.fireTableDataChanged();
     }
 
     public void removeRow(int linha) {
-        this.dados.remove(linha);
-        this.dadosCompra.remove(linha);
+        this.produtos.remove(linha);
+        this.itensDeCompra.remove(linha);
         this.fireTableRowsDeleted(linha, linha);
     }
     
     public void removeAllRows() {
-        dados.clear(); 
-        dadosCompra.clear(); 
+        produtos.clear(); 
+        itensDeCompra.clear(); 
         fireTableDataChanged(); 
     }
 
     public double calcularEAtualizarSubtotal(int linha) {
-        Produto produto = dados.get(linha);
-        ItensDaCompra item = dadosCompra.get(linha);
+        Produto produto = produtos.get(linha);
+        ItensDaCompra item = itensDeCompra.get(linha);
 
         double preco = produto.getPrecoCusto();
         double quantidade = item.getQuantidade();
@@ -134,7 +134,7 @@ public class CompraTableModel extends AbstractTableModel {
         double descontoTotal = 0;
         double valorTotal = 0;
 
-        for (ItensDaCompra compra : dadosCompra) {
+        for (ItensDaCompra compra : itensDeCompra) {
             valorTotal += compra.getSubtotal();
             if (compra.getDesconto() > 0) {
                 descontoTotal += (compra.getDesconto() / 100) * compra.getSubtotal();
@@ -156,7 +156,7 @@ public class CompraTableModel extends AbstractTableModel {
     public double calcularTotalSubtotal() {
         double total = 0.0;
 
-        for (ItensDaCompra item : dadosCompra) {
+        for (ItensDaCompra item : itensDeCompra) {
             total += item.getSubtotal();
         }
 

@@ -19,9 +19,12 @@ public class ProdutosBaixoEstoque extends javax.swing.JFrame {
      */
     public ProdutosBaixoEstoque() {
         initComponents();
+        
+        //Atualisa a tabela de produtos com baixco estoque assim que a tela é mostrada
         atualizarTabela();
     }
     
+    //Pega do DAO os produtos com estoque <=10 e seta na tabela
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaProdBaixoEstque.getModel();
         modelo.setNumRows(0);

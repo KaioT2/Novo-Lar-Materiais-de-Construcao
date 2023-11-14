@@ -13,6 +13,7 @@ import Itens_da_Compra.ItensDaCompra;
 import Produto.CompraTableModel;
 import Produto.Produto;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,40 +25,33 @@ import javax.swing.JOptionPane;
  */
 public class TelaCompra extends javax.swing.JInternalFrame {
     
-    CompraTableModel model = new CompraTableModel();
+    CompraTableModel model = new CompraTableModel(); //Instancia o model criado especificamente para compras
     /**
      * Creates new form TelaVenda
      */
 
     private boolean janelaAberta = true;
     
-    private Calendar dataAtual = Calendar.getInstance();
-    private Calendar dataVencimento = Calendar.getInstance();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private Calendar dataAtual = Calendar.getInstance(); //Pega a data atual do sistema
+    private Calendar dataVencimento = Calendar.getInstance(); //Pega a data atual do sistema para futuramente ser a data de vencimento
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
     private SimpleDateFormat da = new SimpleDateFormat("yyyy/MM/dd");
     
     public TelaCompra() {
         initComponents();
-        tabelaCompra.setModel(model);
-        model.isCellEditable(tabelaCompra.getSelectedRow(), tabelaCompra.getSelectedColumn());
+        tabelaCompra.setModel(model); //Seta o model de compra
+        model.isCellEditable(tabelaCompra.getSelectedRow(), tabelaCompra.getSelectedColumn());//Torna a linha clicada editavel
 
-//        this.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-//                formWindowClosing(windowEvent);
-//            }
-//        });
-
-        Thread loopThread = new Thread(() -> {
+        Thread loopThread = new Thread(() -> { //Loop que executa enquanto a janela estiver aberta
             while (janelaAberta) {
-                double total = model.calcularTotalSubtotal();
+                double total = model.calcularTotalSubtotal(); //Atualiza o campo do valor total da compra
 
-                DecimalFormat df = new DecimalFormat("#0.00");
+                DecimalFormat df = new DecimalFormat("#0.00"); //Formata os valores para 2 casas decimais
                 String totalFormatado = df.format(total);
                
                 txtTotal.setText(totalFormatado);
                 
-                if(model.getRowCount()!=0){
+                if(model.getRowCount()!=0){ //Se há produtos calcula o desconto 
                     double desconto = model.calcularEAtualizarSubtotal(model.getRowCount()-1);
                     String descontoFormatado = df.format(desconto);
                     txtDesconto.setText(descontoFormatado);
@@ -71,36 +65,38 @@ public class TelaCompra extends javax.swing.JInternalFrame {
             }
         });
         
-        loopThread.start();
+        loopThread.start(); //Inicia o loop
 
-        txtData.setText(sdf.format(dataAtual.getTime()));
+        txtData.setText(sdf.format(dataAtual.getTime())); //Pega a data atual
 
-        dataVencimento.add(Calendar.DAY_OF_MONTH, 30);
+        dataVencimento.add(Calendar.DAY_OF_MONTH, 30); //Seta a data de vencimento
         txtVencimento.setText(sdf.format(dataVencimento.getTime()));
         
         CompraDAO c = new CompraDAO();
-        txtIdCompra.setText(String.valueOf(c.numCompra()+1));
+        txtIdCompra.setText(String.valueOf(c.numCompra()+1)); //Pega a quantidade de compras pelo DAO e add 1
     }
 
-    
+    //Adiciona um produto a lista de compras e atualiza o subtotal do produto
     public void inserirProduto(Produto produto, ItensDaCompra item) {
         model.addRow(produto, item);
         model.calcularEAtualizarSubtotal(model.getRowCount() - 1);
     }
     
+    //Adiciona o fucionário responsável pela compra
     public void inserirFuncionario(Funcionario f){
         txtFuncionario.setText(f.getNome());
         txtIdFuncionário.setText(String.valueOf(f.getIdFuncionario()));
     }
     
+    //Adiciona o fornecedor dos produtos que estão sendo comprados
     public void inserirFornecedor(Fornecedor f){
         txtFornecedor.setText(f.getNome());
         txtIdFornecedor.setText(String.valueOf(f.getIdFornecedor()));
     }
 
-    private void fecharJanela() {
-        janelaAberta = false; // Define a variável para false
-        dispose(); // Fecha a janela
+    //Confere se a janela está aberta para executar o loop
+    public void windowClosing(WindowEvent e) {
+        janelaAberta = false;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -377,7 +373,8 @@ public class TelaCompra extends javax.swing.JInternalFrame {
     private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
         // TODO add your handling code here:
 
-        TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); // Passe a instância de TelaVenda
+        //Abre a lista de produtos disponíveis para a venda
+        TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); 
         telaProdutos.setVisible(true);
     }//GEN-LAST:event_btnNovoItemActionPerformed
 
@@ -395,11 +392,13 @@ public class TelaCompra extends javax.swing.JInternalFrame {
 
         Produto p = new Produto();
 
+        //Realisa a compra se todos os campos forem preenchidos
         if((txtFornecedor.getText().isEmpty() || txtIdFornecedor.getText().isEmpty()) || (txtFuncionario.getText().isEmpty()
             || txtIdFuncionário.getText().isEmpty()) || tabelaCompra.getRowCount() <=0){
         JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
         }
         else{
+            //Preenche o objeto de compra 
             c.setIdCompra(Integer.parseInt(txtIdCompra.getText()));
             c.setDataCompra(da.format(dataAtual.getTime()).toString());
             c.setTotal(Double.parseDouble(txtTotal.getText()));
@@ -414,10 +413,8 @@ public class TelaCompra extends javax.swing.JInternalFrame {
 
             compraDao.create(c);
 
-            //idVenda, data, idProduto, quantidade, precoUn, desconto, total
             for (int i = 0; i < model.getRowCount(); i++) {
                 ic.setCompra(c);
-                //ic.setData(da.format(dataAtual.getTime()).toString());
 
                 p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
                 ic.setProduto(p);
@@ -430,6 +427,7 @@ public class TelaCompra extends javax.swing.JInternalFrame {
                 ic.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
                 ic.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
 
+                //Insere a compra no BD pelo DAO
                 itemDao.create(ic);
                 itemDao.atualizarEstoque(ic);
             }
@@ -456,6 +454,7 @@ public class TelaCompra extends javax.swing.JInternalFrame {
     private void txtIdFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdFornecedorKeyPressed
         // TODO add your handling code here:
 
+        //Abre a tela de fornecedores cadastrados
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             TelaFornecedoresCompra telaFornecedor = new TelaFornecedoresCompra();
 
@@ -516,7 +515,7 @@ public class TelaCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtIdFuncionárioKeyPressed
 
     private void tabelaCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCompraKeyPressed
-        TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); // Passe a instância de TelaVenda
+        TelaProdutosCompra telaProdutos = new TelaProdutosCompra(this); 
         telaProdutos.setVisible(true);
     }//GEN-LAST:event_tabelaCompraKeyPressed
 

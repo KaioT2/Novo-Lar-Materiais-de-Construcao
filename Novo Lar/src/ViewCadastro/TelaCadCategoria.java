@@ -102,6 +102,7 @@ public class TelaCadCategoria extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
         
+        //Só insere uma nova categoria se o campo estiver preenchido
         if(!(txtDescricao.getText().equals(""))){
             Categoria c = new Categoria();
             CategoriaDAO dao = new CategoriaDAO();

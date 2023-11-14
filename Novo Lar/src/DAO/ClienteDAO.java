@@ -182,34 +182,34 @@ public class ClienteDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-        public ArrayList<Cliente> aniversariantesDoMes(){
+
+    public ArrayList<Cliente> aniversariantesDoMes() { //Método que filtra os clientes que nasceram no mês atual
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         ArrayList<Cliente> clientes = new ArrayList();
-        
+
         try {
-            stmt = con.prepareStatement("select nome, dataNasc from cliente WHERE MONTH(dataNasc) = MONTH(CURRENT_DATE) order by dataNasc");
+            stmt = con.prepareStatement("SELECT nome, dataNasc FROM cliente WHERE MONTH(dataNasc) = MONTH(CURRENT_DATE) ORDER BY dataNasc");
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
-                
+
+            while (rs.next()) {
+                //Se encontrar algúm cliente cria um objeto de cliente e preenche o nome e a data de nascimento
                 Cliente cliente = new Cliente();
-                
+
                 cliente.setNome(rs.getString("nome"));
                 cliente.setDataNasc(rs.getString("dataNasc"));
-               
+
                 clientes.add(cliente);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        
+
         return clientes;
     }
 }

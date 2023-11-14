@@ -27,25 +27,31 @@ public class Home extends javax.swing.JInternalFrame {
     private int permissaoUsuario;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+    
     public Home() {
     }
 
+    //Inicia a tela principal e habilita os recursos do programa conforme a permissão do usuário
     public Home(int permissaoUsuario) {
         initComponents();
+        
+        //Atualiza as caixas de utilidades na tela principal assim que a tela é exibida
         atualizarTotalVendas();
         atualizarBaixoEstoque();
         configurarTabelaAniversariantes();
         atualizarTabelaAniversariantes();
 
-        ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);  //Seta o JInternalFrame no centro do JDesktop
 
-        this.permissaoUsuario = permissaoUsuario;
+        this.permissaoUsuario = permissaoUsuario; //Armazena a permissão do usuário recebida da tela de login
 
+        //Habilita o botão que mostra as finanças de acordo com a permissão
         if (permissaoUsuario != 1) {
             btnMostrar.setEnabled(false);
             btnMostrar.setSelected(true);
         }
 
+        //Atuliza as caixas de utilidades a cada 900 milisegundos
         Timer timer = new Timer(900, e -> {
             atualizarTotalVendas();
             atualizarBaixoEstoque();
@@ -53,6 +59,7 @@ public class Home extends javax.swing.JInternalFrame {
         timer.start();
     }
 
+    //Atualiza a caixa de total e quantidade de vendas de acordo com o DAO
     public void atualizarTotalVendas() {
         VendaDAO v = new VendaDAO();
         String totalVendas = "Valor total das vendas: R$" + String.valueOf(v.totalVendasMes());
@@ -63,6 +70,7 @@ public class Home extends javax.swing.JInternalFrame {
         }
     }
 
+    //Atualiza a caixa de produtos com estoque baixo (<=10) de acordo com o DAO
     public void atualizarBaixoEstoque() {
         ProdutoDAO p = new ProdutoDAO();
         if (p.contagemBaixoEstoque() > 5) {
@@ -73,26 +81,31 @@ public class Home extends javax.swing.JInternalFrame {
         }
     }
 
+    //Seta as propriedades visuais do cabeçalho da tabela de aniversariantes
     public void configurarTabelaAniversariantes() {
-        JTableHeader header = tabelaAniversariantes.getTableHeader();
-        header.setBackground(new Color(14, 33, 69));
-        header.setForeground(Color.WHITE);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JTableHeader header = tabelaAniversariantes.getTableHeader(); //Instancia um cabeçalho para a tabela
+        header.setBackground(new Color(14, 33, 69)); //Seta a cor do cabeçalho
+        header.setForeground(Color.WHITE); //Seta a cor do texto do cabeçalho
+        header.setFont(new Font("Segoe UI", Font.BOLD, 12)); //Seta as propriedades de fonte do cabeçalho
     }
 
+    //Atualiza a caixa de aniversariantes de acordo com o DAO
     public void atualizarTabelaAniversariantes() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaAniversariantes.getModel();
         modelo.setNumRows(0);
         ClienteDAO cdao = new ClienteDAO();
 
+        //Converte a data do banco (padrão EUA) em padrão BR
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+        //Pega a lista de clientes e mostra na tabela 
         for (Cliente c : cdao.aniversariantesDoMes()) {
             try {
                 Date dataNasc = inputFormat.parse(c.getDataNasc());
                 String dataFormatada = outputFormat.format(dataNasc);
 
+                //Mostra o nome e data de aniversário
                 modelo.addRow(new Object[]{
                     c.getNome(),
                     dataFormatada
@@ -427,6 +440,8 @@ public class Home extends javax.swing.JInternalFrame {
 
     private void btnMostrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarMouseReleased
         // TODO add your handling code here:
+        
+        //Mostra ou oculta os dados da caixa de dados financeiros
         if (btnMostrar.isSelected()) {
             txtTotalVendasMes.setText("#########");
             txtQuantidadeVendasMes.setText("#########");

@@ -18,6 +18,7 @@ public class TelaFuncionariosCompra extends javax.swing.JFrame {
 
     private TelaCompra telaCompra;
 
+    //Recebe uma intância da tela de compra 
     public void setTelaCompra(TelaCompra telaCompra) {
         this.telaCompra = telaCompra;
     }
@@ -28,14 +29,18 @@ public class TelaFuncionariosCompra extends javax.swing.JFrame {
      */
     public TelaFuncionariosCompra() {
         initComponents();
+        
+        //Preenche a tabela de fucnionários da empresa
         atualizarTabela();
     }
 
+    //Atualisa a tabela de fucnionários da empresa
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaFunc.getModel();
         modelo.setNumRows(0);
         FuncionarioDAO fdao = new FuncionarioDAO();
 
+        //Pega a lista de fucnionários e preenche a tabela com os dados de cada um
         for (Funcionario f : fdao.read()) {
 
             modelo.addRow(new Object[]{
@@ -49,6 +54,7 @@ public class TelaFuncionariosCompra extends javax.swing.JFrame {
 
     }
 
+    //Busca os fucnionários por nome ou cpf e preenche a tabela
     public void searchJTableForName(String nome, String cpf) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaFunc.getModel();
         modelo.setNumRows(0);
@@ -194,6 +200,8 @@ public class TelaFuncionariosCompra extends javax.swing.JFrame {
     private void tabelaFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncMouseClicked
         // TODO add your handling code here:
 
+        //Pega o fucnionário selecionado e envia para a tela de compra
+        
         if (evt.getClickCount() == 2) { // Duplo clique
             if (tabelaFunc.getSelectedRow() != -1) {
 
@@ -215,7 +223,7 @@ public class TelaFuncionariosCompra extends javax.swing.JFrame {
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         // TODO add your handling code here:
-
+    //Pega o fucnionário selecionado e envia para a tela de compra
         if (tabelaFunc.getSelectedRow() != -1) {
             Funcionario f = new Funcionario();
 

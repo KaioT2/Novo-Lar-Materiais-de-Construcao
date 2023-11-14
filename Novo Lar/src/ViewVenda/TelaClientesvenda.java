@@ -16,22 +16,24 @@ import javax.swing.table.DefaultTableModel;
 public class TelaClientesvenda extends javax.swing.JFrame {
     private TelaVenda telaVenda;
     
+    //Recebe uma instância da tela de venda 
     public void setTelaVenda(TelaVenda telaVenda) {
         this.telaVenda = telaVenda;
     }
-    /**
-     * Creates new form TelaListarFuncionarios
-     */
+    
     public TelaClientesvenda() {
         initComponents();
+        //Preenche a tabela de Clientes cadastrados assim que a tela é exibida
         atualizarTabela();
     }
 
+    //Preenche a tabela de clients cadastrados
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
-        modelo.setNumRows(0);
+        modelo.setNumRows(0); // Limpa os dados da tabela
         ClienteDAO cdao = new ClienteDAO();
 
+        //Preenche a tabela com os dados vindos da lista de clientes
         for (Cliente c : cdao.read()) {
 
             modelo.addRow(new Object[]{
@@ -49,14 +51,14 @@ public class TelaClientesvenda extends javax.swing.JFrame {
         }
 
     }
-
+    //Busca clientes por nome ou cpf
     public void searchJTableForName(String nome, String cpf, String cnpj) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
         modelo.setNumRows(0);
         ClienteDAO cdao = new ClienteDAO();
 
         for (Cliente c : cdao.searchForName(nome, cpf, cnpj)) {
-
+            //Preenche a tabela de acordo com a busca
             modelo.addRow(new Object[]{
                 c.getIdCliente(),
                 c.getNome(),
@@ -177,6 +179,8 @@ public class TelaClientesvenda extends javax.swing.JFrame {
 
     private void tabelaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCliMouseClicked
         // TODO add your handling code here:
+        
+        //Pega os dados do cliente selecionado e envia para a tela de venda
         if (evt.getClickCount() == 2) { // Duplo clique
             if (tabelaCli.getSelectedRow() != -1) {
                 

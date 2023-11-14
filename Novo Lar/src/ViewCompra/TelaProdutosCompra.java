@@ -21,20 +21,24 @@ public class TelaProdutosCompra extends javax.swing.JFrame {
      */
     public TelaProdutosCompra() {
         initComponents();
+        //Preenche a tabela de produtos 
+        
         atualizarTabela();
     }
-    
+     //Recebe uma intância da tela de compra 
     public TelaProdutosCompra(TelaCompra telaCompra) {
         this.telaCompra = telaCompra;
         initComponents();
         atualizarTabela();
     }
 
+    //Atualisa a tabela de produtos da empresa
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);
         ProdutoDAO pdao = new ProdutoDAO();
 
+        //Pega a lista de produtos e preenche a tabela com os dados de cada um
         for (Produto p : pdao.read()) {
 
             modelo.addRow(new Object[]{
@@ -52,6 +56,7 @@ public class TelaProdutosCompra extends javax.swing.JFrame {
 
     }
     
+    //Busca os produtos por nome ou códigopreenche a tabela
        public void searchJTableForName(String nome, String codigo) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);
@@ -191,6 +196,8 @@ public class TelaProdutosCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdMouseClicked
+        
+        //Pega o produto selecionado e envia para a tela de compra
         if (evt.getClickCount() == 2) { // Duplo clique
             if (tabelaProd.getSelectedRow() != -1) {
 
@@ -237,6 +244,8 @@ public class TelaProdutosCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaKeyReleased
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        
+        //Pega o produto selecionado e envia para a tela de compra
         if (tabelaProd.getSelectedRow() != -1) {
 
             Produto p = new Produto();

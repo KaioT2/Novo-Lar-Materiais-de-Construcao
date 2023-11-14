@@ -218,12 +218,12 @@ public class TelaCadProduto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnInserir)
                         .addComponent(btnLimpar)
-                        .addComponent(btnListarProdutos)))
+                        .addComponent(btnListarProdutos))
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -246,8 +246,11 @@ public class TelaCadProduto extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
+        //Somente insere os dados se todos os campos estiverem preenchidos
         if (!(txtNome.getText().equals("") || txtFornecedor.getText().equals("") || txtCodigo.getText().equals("") || txtCategoria.getText().equals("")
                 || txtPreco.getText().equals("") || txtCusto.getText().equals("") || txtEstoque.getText().equals(""))) {
+            
+            //Cria um objeto de fornecedor e produto, seta os dados do produto e envia para o DAO que insere os dados no BD
             Produto p = new Produto();
             ProdutoDAO dao = new ProdutoDAO();
 

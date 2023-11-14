@@ -27,7 +27,6 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         preencherComboEstado();
     }
             
-    
     private void preencherComboEstado(){
         
         ArrayList<String> lista = new ArrayList<String>();
@@ -67,6 +66,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         }
     }
 
+    //Converte as datas do banco (padrão americano) para padrão Br
     public static String dateConverter(String inputDate) {
         try {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -83,6 +83,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         }
     }
 
+    //Valida se as datas recebidas são padrão Br
     public boolean validarData(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -93,6 +94,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         }
     }
     
+    //Valida os CPF's
     private boolean validarCPF(String cpf) {
         // Remove caracteres não numéricos do CPF
         cpf = cpf.replaceAll("[^0-9]", "");
@@ -202,7 +204,6 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Funcionários - Novo Lar");
         setMaximumSize(new java.awt.Dimension(1080, 700));
-        setPreferredSize(new java.awt.Dimension(921, 700));
 
         jScrollPane12.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -706,6 +707,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
+        //Somente insere um funcionário se todos os campos estiverem preenchidos
         if (!(txtNome.getText().equals("") || txtEndereco.getText().equals("") || txtBairro.getText().equals("") || txtCidade.getText().equals("")
                 || txtCep.getText().equals("") || txtTelefone.getText().equals("") || txtEmail.getText().equals("") || txtCpf.getText().equals("")
                 || txtSenha.getText().equals("") || txtCargo.getText().equals("") || txtCargaHoraria.getText().equals("") || 
@@ -713,6 +715,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             
             String cpf = txtCpf.getText();
 
+            //Valida o CPF antes de salvar
             if (!validarCPF(cpf)) {
                 JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -735,6 +738,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
             f.setCargaHoraria(Double.parseDouble(txtCargaHoraria.getText()));
             f.setSalario(Double.parseDouble(txtSalario.getText()));
 
+            //Valida a data de nascimento e de contratação antes de salvar
             if (validarData(txtDataNasc.getText())) {
                 f.setDataNasc(dateConverter(txtDataNasc.getText()));
             } else {
@@ -749,6 +753,7 @@ public final class TelaCadFuncionario extends javax.swing.JFrame {
                 return;
             }
 
+            //Seta o nível de permissão e status do fucnionário
             if (pAlto.isSelected()) {
                 f.setPermissao(1);
             } else if (pMedio.isSelected()) {

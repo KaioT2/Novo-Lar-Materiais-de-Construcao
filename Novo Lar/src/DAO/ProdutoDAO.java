@@ -188,12 +188,12 @@ public class ProdutoDAO {
         }
     }
 
-    public ArrayList<Produto> produtoBaixoEstoque() {
+    public ArrayList<Produto> produtoBaixoEstoque() { //Método que pega os produtos que têm o estoque <=10
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int numProd = 0;
-        ArrayList<Produto> produtos = new ArrayList();
+        ArrayList<Produto> produtos = new ArrayList(); //Lista dos produtos que resultaram na busca
 
         try {
             stmt = con.prepareStatement("SELECT idProduto, codigo, nome, estoque from produto where estoque <=10");
@@ -222,7 +222,7 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    public int contagemBaixoEstoque() {
+    public int contagemBaixoEstoque() { //Conta quantos produtos estão com baixo estoque (<=10)
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;

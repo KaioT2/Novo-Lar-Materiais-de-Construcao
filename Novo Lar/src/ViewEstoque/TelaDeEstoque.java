@@ -23,15 +23,18 @@ public class TelaDeEstoque extends javax.swing.JInternalFrame {
      */
     public TelaDeEstoque() {
         initComponents();
+        //Aualiza a tabela de estoque assim que a janela é é exibida
         atualizarTabela();
-        ((BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+        ((BasicInternalFrameUI)this.getUI()).setNorthPane(null); //Não permite a movimentação do JInternalFrame
     }
     
+    //Atualisa a tabela de estoque
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);
         ProdutoDAO pdao = new ProdutoDAO();
 
+        //Pega os produtos vindos do DAO e preenche a lista
         for (Produto p : pdao.read()) {
 
             modelo.addRow(new Object[]{
@@ -47,6 +50,7 @@ public class TelaDeEstoque extends javax.swing.JInternalFrame {
 
     }
 
+    //Busca produtos no estoque por nome e código
     public void searchJTableForName(String nome, String codigo) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaProd.getModel();
         modelo.setNumRows(0);

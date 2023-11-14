@@ -27,7 +27,8 @@ public class TelaCadCliente extends javax.swing.JFrame {
      */
     public TelaCadCliente() {
         initComponents();
-        preencherComboEstadoEstado();
+        //Preencher os combos assim que a tela ficar visível
+        preencherComboEstadoEstado(); 
         preencherComboSexo();
     }
     
@@ -85,7 +86,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
         }
     }
 
-
+    //Converte as datas de padrão EUA -> BR
     public static String dateConverter(String inputDate) {
         try {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -102,6 +103,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
         }
     }
 
+    //Valida se a data está em padrão Br
     public boolean validarData(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -112,6 +114,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
         }
     }
 
+    //Valida o CPF
     private boolean validarCPF(String cpf) {
         // Remove caracteres não numéricos do CPF
         cpf = cpf.replaceAll("[^0-9]", "");
@@ -160,6 +163,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
         }
     }
 
+    //Valida o CNPJ
     private boolean validarCNPJ(String cnpj) {
         // Remove caracteres não numéricos do CNPJ
         cnpj = cnpj.replaceAll("[^0-9]", "");
@@ -620,6 +624,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
 
+        //Só insere um novo cliente se todos os campos forem preenchidos
         if (!(txtNome.getText().equals("") || txtTelefone.getText().equals("") || txtEndereco.getText().equals("") || txtBairro.getText().equals("")
                 || txtCidade.getText().equals("") || txtCep.getText().equals("") || txtCpfCnpj.getText().equals("") || txtDataNasc.getText().equals("")
                 || txtEmail.getText().equals(""))) {
@@ -627,6 +632,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
             String cpf = "";
             String cnpj = "";
 
+            //Insere CPF ou CNPJ dependendo se a pessoa é física ou jurídica e valida o cpf ou CNPJ
             if (pFisica.isSelected()) {
                 cpf = txtCpfCnpj.getText();
 
@@ -643,6 +649,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
                 }
             }
 
+            //Cria um objeto de cliente e seta os dados e envia para o DAO que insere os dados no BD
             Cliente c = new Cliente();
             ClienteDAO dao = new ClienteDAO();
 
@@ -654,9 +661,9 @@ public class TelaCadCliente extends javax.swing.JFrame {
             c.setCep(txtCep.getText());
 
             if (pFisica.isSelected()) {
-                c.setCpf(txtCpfCnpj.getText());
+                c.setCpf(cpf);
             } else if (pJuridica.isSelected()) {
-                c.setCnpj(txtCpfCnpj.getText());
+                c.setCnpj(cnpj);
             }
 
             c.setSexo(comboSexo.getSelectedItem().toString());

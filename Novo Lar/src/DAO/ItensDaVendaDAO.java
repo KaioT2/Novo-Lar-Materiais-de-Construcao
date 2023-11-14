@@ -51,7 +51,7 @@ public class ItensDaVendaDAO {
         }
     }
     
-    public void atualizarEstoque(ItensDaVenda iv){
+    public void atualizarEstoque(ItensDaVenda iv){ //Atualiza o estoque com base na quantidade que foi vendida de cada produto
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 

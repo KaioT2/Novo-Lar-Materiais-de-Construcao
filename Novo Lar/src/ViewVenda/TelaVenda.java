@@ -13,6 +13,7 @@ import Produto.Produto;
 import Produto.VendaTableModel;
 import Venda.Venda;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,31 +28,31 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     
     VendaTableModel model = new VendaTableModel();
     
-    private boolean janelaAberta = true;
+    private boolean janelaAberta = true; //Instancia o model criado especificamente para vendas
     
-    private Calendar dataAtual = Calendar.getInstance();
-    private Calendar dataVencimento = Calendar.getInstance();
+    private Calendar dataAtual = Calendar.getInstance(); //Pega a data atual do sistema
+    private Calendar dataVencimento = Calendar.getInstance(); //Pega a data atual do sistema para futuramente ser a data de vencimento
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat da = new SimpleDateFormat("yyyy/MM/dd");
     
     public TelaVenda(int permissaoUsuario) {
         initComponents();
         
-        ((BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+        ((BasicInternalFrameUI)this.getUI()).setNorthPane(null); //Não permite a movimentação do JInternalFrame
         
-        tabelaVenda.setModel(model);
-        model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn());
+        tabelaVenda.setModel(model);//Seta o model de compra
+        model.isCellEditable(tabelaVenda.getSelectedRow(), tabelaVenda.getSelectedColumn()); //Torna a linha clicada editavel
 
-        Thread loopThread = new Thread(() -> {
+        Thread loopThread = new Thread(() -> {//Loop que executa enquanto a janela estiver aberta
             while (janelaAberta) {
-                double total = model.calcularTotalSubtotal();
+                double total = model.calcularTotalSubtotal();//Atualiza o campo do valor total da venda
 
-                DecimalFormat df = new DecimalFormat("#0.00");
+                DecimalFormat df = new DecimalFormat("#0.00");//Formata os valores para 2 casas decimais
                 String totalFormatado = df.format(total);
                
                 txtTotal.setText(totalFormatado);
                 
-                if(model.getRowCount()!=0){
+                if(model.getRowCount()!=0){//Se há produtos calcula o desconto 
                     double desconto = model.calcularEAtualizarSubtotal(model.getRowCount()-1);
                     String descontoFormatado = df.format(desconto);
                     txtDesconto.setText(descontoFormatado);
@@ -65,36 +66,39 @@ public class TelaVenda extends javax.swing.JInternalFrame {
             }
         });
         
-        loopThread.start();
+        loopThread.start(); //Inicia o loop
 
-        txtData.setText(sdf.format(dataAtual.getTime()));
+        txtData.setText(sdf.format(dataAtual.getTime()));//Pega a data atual
 
-        dataVencimento.add(Calendar.DAY_OF_MONTH, 30);
+        dataVencimento.add(Calendar.DAY_OF_MONTH, 30); //Seta a data de vencimento
         txtVencimento.setText(sdf.format(dataVencimento.getTime()));
         
         VendaDAO v = new VendaDAO();
-        txtIdVenda.setText(String.valueOf(v.numVendas()+1));
+        txtIdVenda.setText(String.valueOf(v.numVendas()+1)); //Pega a quantidade de vendas pelo DAO e add 1
     }
     
+    //Adiciona um produto a lista de venda e atualiza o subtotal do produto
     public void inserirProduto(Produto produto, ItensDaVenda item) {
         model.addRow(produto, item);
 
         model.calcularEAtualizarSubtotal(model.getRowCount() - 1);
     }
     
+    //Adiciona o fucionário responsável pela venda
     public void inserirFuncionario(Funcionario f){
         txtFuncionario.setText(f.getNome());
         txtIdFuncionário.setText(String.valueOf(f.getIdFuncionario()));
     }
     
+    //Adiciona o cliente da compra
     public void inserirCliente(Cliente c){
         txtCliente.setText(c.getNome());
         txtIdCliente.setText(String.valueOf(c.getIdCliente()));
     }
 
-    private void fecharJanela() {
-        janelaAberta = false; // Define a variável para false
-        dispose(); // Fecha a janela
+    //Confere se a janela está aberta para executar o loop
+    public void windowClosing(WindowEvent e) {
+        janelaAberta = false;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -433,7 +437,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtIdFuncionárioKeyPressed
 
     private void tabelaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaVendaKeyPressed
-        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); // Passe a instância de TelaVenda
+        TelaProdutosVenda telaProdutos = new TelaProdutosVenda(this); 
         telaProdutos.setVisible(true);
     }//GEN-LAST:event_tabelaVendaKeyPressed
 
@@ -465,13 +469,14 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         ItensDaVenda iv = new ItensDaVenda();
         ItensDaVendaDAO itemDao = new ItensDaVendaDAO();
         Produto p = new Produto();
-        //Home home = new Home();
 
+        //Realisa a venda se todos os campos forem preenchidos
         if((txtCliente.getText().isEmpty() || txtIdCliente.getText().isEmpty()) || (txtFuncionario.getText().isEmpty()
             || txtIdFuncionário.getText().isEmpty()) || tabelaVenda.getRowCount() <=0){
         JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
         }
         else{
+            //Preenche o objeto de venda 
             v.setIdVenda(Integer.parseInt(txtIdVenda.getText()));
             v.setDataVenda(da.format(dataAtual.getTime()).toString());
             v.setTotal(Double.parseDouble(txtTotal.getText()));
@@ -487,7 +492,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
 
             vendaDao.create(v);
 
-            //idVenda, data, idProduto, quantidade, precoUn, desconto, total
             for (int i = 0; i < model.getRowCount(); i++) {
                 iv.setVenda(v);
                 iv.setData(da.format(dataAtual.getTime()).toString());
@@ -503,6 +507,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
                 iv.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
                 iv.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
 
+                //Insere a venda no BD pelo DAO
                 itemDao.create(iv);
                 itemDao.atualizarEstoque(iv);
             }

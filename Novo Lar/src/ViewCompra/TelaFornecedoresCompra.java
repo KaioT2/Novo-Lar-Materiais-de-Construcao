@@ -22,6 +22,7 @@ public class TelaFornecedoresCompra extends javax.swing.JFrame {
     
     private TelaCompra telaCompra;
 
+    //Recebe uma instância da tela de compra 
     public void setTelaCompra(TelaCompra telaCompra) {
         this.telaCompra = telaCompra;
     }
@@ -29,10 +30,11 @@ public class TelaFornecedoresCompra extends javax.swing.JFrame {
     
     public TelaFornecedoresCompra() {
         initComponents();
+        //Preenche a tabela de fornecedores cadastrados assim que a tela é exibida
         atualizarTabela();
     }
 
-
+    //Preenche a tabela de fornecedores cadastrados
     private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
         modelo.setRowCount(0); // Limpa os dados da tabela
@@ -40,6 +42,7 @@ public class TelaFornecedoresCompra extends javax.swing.JFrame {
         FornecedorDAO fornecedorDAO = new FornecedorDAO();
         List<Fornecedor> fornecedores = fornecedorDAO.read(); // Obtem a lista de fornecedores
 
+        //Preenche a tabela com os dados vindos da lista de fornecedores
         for (Fornecedor f : fornecedores) {
             modelo.addRow(new Object[]{
                 f.getIdFornecedor(),
@@ -51,6 +54,7 @@ public class TelaFornecedoresCompra extends javax.swing.JFrame {
         }
     }
 
+    //Busca fornecedores por nome ou cnpj
     public void searchJTableForName(String nome, String cnpj) {
         DefaultTableModel modelo = (DefaultTableModel) tabelaForn.getModel();
         modelo.setNumRows(0);
@@ -58,6 +62,7 @@ public class TelaFornecedoresCompra extends javax.swing.JFrame {
 
         for (Fornecedor f : fdao.searchForName(nome, cnpj)) {
 
+            //Preenche a tabela de acordo com a busca
             modelo.addRow(new Object[]{
                 f.getIdFornecedor(),
                 f.getNome(),
@@ -169,6 +174,8 @@ public class TelaFornecedoresCompra extends javax.swing.JFrame {
 
     private void tabelaFornMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFornMouseClicked
         // TODO add your handling code here:
+        
+        //Pega os dados do fornecedor selecionado e envia para a tela de compra 
        if (evt.getClickCount() == 2) { // Duplo clique
             if (tabelaForn.getSelectedRow() != -1) {
                 

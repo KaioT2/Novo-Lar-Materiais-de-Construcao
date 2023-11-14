@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class CompraDAO {
 
-    public int numCompra() {
+    public int numCompra() { //Método que conta o número de compras para setar um a mais na tela de cmpra
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -27,9 +27,9 @@ public class CompraDAO {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM compra");
             rs = stmt.executeQuery();
 
-            // Move o cursor para a primeira linha do resultado (se houver)
+            
             if (rs.next()) {
-                numLinhas = rs.getInt(1); // Obtém o valor da primeira coluna do resultado
+                numLinhas = rs.getInt(1); //Pega o número de linhas
             }
 
         } catch (SQLException ex) {
@@ -37,7 +37,7 @@ public class CompraDAO {
 
             return 0;
         } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs); // Certifique-se de fechar o ResultSet também
+            ConnectionFactory.closeConnection(con, stmt, rs); 
         }
         return numLinhas;
     }
@@ -47,13 +47,13 @@ public class CompraDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            // Verifica se a venda já existe com base no CNPJ e no nome
+            // Verifica se a compra já existe com base no CNPJ e no nome
             stmt = con.prepareStatement("SELECT COUNT(*) FROM compra WHERE idCompra = ?");
             stmt.setInt(1, c.getIdCompra());
             rs = stmt.executeQuery();
 
             if (rs.next() && rs.getInt(1) == 0) {
-                // Se venda não existe...
+                // Se compra não existe...
                 stmt = con.prepareStatement("INSERT INTO compra (dataCompra, total, idfuncionario, idfornecedor, desconto) VALUES(?,?,?,?,?)");
                 stmt.setString(1, c.getDataCompra());
                 stmt.setDouble(2, c.getTotal());

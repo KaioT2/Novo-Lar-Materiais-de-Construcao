@@ -13,7 +13,6 @@ import ViewCadastro.TelaCadProduto;
 import ViewCompra.TelaCompra;
 import ViewCompra.TelaCompra;
 import ViewEstoque.TelaDeEstoque;
-import ViewEstoque.TelaEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,28 +40,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    //Inicia a tela principal e habilita os recursos do programa conforme a permissão do usuário
+    //Recebe a tela Hoem
+    //Recebe o nome de usuário da tela de login
     public TelaPrincipal(int permissaoUsuario, String nomeUsuario, JInternalFrame home) {
         
         initComponents();
 
-        setSize(new Dimension(1280, 720));
-        setLocationRelativeTo(null);
+        setSize(new Dimension(1280, 720)); //Seta o tamanho da tela ao abrir
+        setLocationRelativeTo(null); //"Desprende" a tela de qualquer outro elemento
         
+        //Ativa o menu lateral de navegação
         ativarMenu();
         
-        this.permissaoUsuario=permissaoUsuario;
+        this.permissaoUsuario=permissaoUsuario; //Armazena a permissão de usuário vinda da tela de login para habilitar ou não os recursos
         
-        LocalTime horario = LocalTime.now();
+        LocalTime horario = LocalTime.now(); //Recebe o período do dia
         verificarPeriodo(horario);
         
-        home.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+        //Faz com que a tela home preencha todo o JDesktop
+        home.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); 
         this.home = home;
         jDesktopPane1.add(home);
         home.setVisible(true);
 
+        //Detalhe da mensagem ao usuário
         txtNomeUsuario.setText(nomeUsuario + "!");
     }
 
+    //Verifica o período do dia para a saudação ao usuário
     public void verificarPeriodo(LocalTime horario) {
         int hora = horario.getHour();
 
@@ -658,13 +664,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEncerrarSecaoMouseReleased
         // TODO add your handling code here:
-        String[] options = {"Encerrar Secao", "Cancelar"};
+        
+        //Pergunta ao usuário se quer encerrar a Seção
+        String[] options = {"Encerrar Seção", "Cancelar"};
 
         confirmarEncerrarSecao = JOptionPane.showOptionDialog(
-                this, "Tem certeza que deseja encerrar a secao?", "Confirmação", JOptionPane.YES_NO_OPTION,
+                this, "Tem certeza que deseja encerrar a seção?", "Confirmação", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, options, options[0]
         );
 
+        //Se sim, encerra o sistema
         if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
             janelaAberta = false;
             System.exit(0);
@@ -685,6 +694,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE, null, options, options[0]
         );
 
+        //Fecha a tela atual e reabre a de login
         if (confirmacaoTrocaUsuario == JOptionPane.YES_OPTION) {
             janelaAberta = false;
             dispose();
@@ -699,6 +709,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadUsuarioActionPerformed
         // TODO add your handling code here:
 
+        //Verifica a permissão do usuário antes de abrir a tela
         if (permissaoUsuario == 1) {
             TelaCadFuncionario telaCadFunc = new TelaCadFuncionario();
             telaCadFunc.setVisible(true);
@@ -709,6 +720,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuCadClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadClienteMouseReleased
         // TODO add your handling code here:
+        
+        //Verifica a permissão do usuário antes de abrir a tela
         if (permissaoUsuario == 1) {
             TelaCadCliente telaCadCli = new TelaCadCliente();
             telaCadCli.setVisible(true);
@@ -719,6 +732,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadFornecedorActionPerformed
         // TODO add your handling code here:
+        
+        //Verifica a permissão do usuário antes de abrir a tela
         if (permissaoUsuario == 1) {
             TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
             telaCadForn.setVisible(true);
@@ -745,8 +760,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
         TelaDeEstoque telaDeEstoque = new TelaDeEstoque();
-        telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+        telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
         
+        //Remove as outras telas do JDesktop e seta a desejada
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaDeEstoque);
         telaDeEstoque.setVisible(true);
@@ -757,6 +773,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         telaVenda = new TelaVenda(permissaoUsuario);
         
+        //Remove as outras telas do JDesktop e seta a desejada
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaVenda);
         telaVenda.setVisible(true);
@@ -767,8 +784,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         if (permissaoUsuario == 1) {
             TelaCompra telaCompra = new TelaCompra();
-            telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
-
+            telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
+            
+            //Remove as outras telas do JDesktop e seta a desejada
             jDesktopPane1.removeAll();
             jDesktopPane1.add(telaCompra);
             telaCompra.setVisible(true);
@@ -780,6 +798,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuHomeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuHomeMousePressed
         // TODO add your handling code here:
+        
+        //Efeito de "hover" do botão ; Seta a tela desejada 
         setColor(btn_menuHome, label1);
         indicador1.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
@@ -792,6 +812,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuCadastrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuCadastrosMousePressed
         // TODO add your handling code here:
+        
+        //Efeito de "hover" do botão ; Seta a tela desejada
         setColor(btn_menuCadastros, label2);
         indicador2.setOpaque(true);
         resetColor(new JPanel[]{btn_menuHome, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
@@ -800,13 +822,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuEstoqueMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuEstoqueMousePressed
         // TODO add your handling code here:
+        
+        //Efeito de "hover" do botão ; Seta a tela desejada
         setColor(btn_menuEstoque, label3);
         indicador3.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuHome, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador1, indicador4, indicador5, indicador6}, new JLabel[]{label1, label2, lebal4, label5, label6});
         
         TelaDeEstoque telaDeEstoque = new TelaDeEstoque();
-        telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+        telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
         
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaDeEstoque);
@@ -817,6 +841,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuVendasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuVendasMousePressed
         // TODO add your handling code here:
+        
+        //Efeito de "hover" do botão ; Seta a tela desejada
         setColor(btn_menuVendas, lebal4);
         indicador4.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuHome, btn_menuCompras, btn_menuRelatorios},
@@ -832,14 +858,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btn_menuComprasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuComprasMousePressed
         // TODO add your handling code here:
         
+        //Executa a função somente se o usuário tiver permissão 
         if (permissaoUsuario == 1) {
+            
+            //Efeito de "hover" do botão ; Seta a tela desejada
             setColor(btn_menuCompras, label5);
             indicador5.setOpaque(true);
             resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuHome, btn_menuRelatorios},
                     new JPanel[]{indicador2, indicador3, indicador4, indicador1, indicador6}, new JLabel[]{label1, label2, label3, lebal4, label6});
 
             TelaCompra telaCompra = new TelaCompra();
-            telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
+            telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
 
             jDesktopPane1.removeAll();
             jDesktopPane1.add(telaCompra);
@@ -883,11 +912,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_menuLogOffMouseReleased
 
+    //Função que muda a cor do botão que está selecionado
     private void setColor(JPanel botao, JLabel label) {
         botao.setBackground(new Color(41, 57, 100));
         label.setForeground(Color.white);
     }
 
+    //Se outro botão está selecionado, a cor dos outros reseta
     private void resetColor(JPanel[] botao, JPanel[] indicadores, JLabel[] label) {
         for (int i = 0; i < botao.length; i++) {
             botao[i].setBackground(new Color(14, 33, 69));
@@ -900,6 +931,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     }
 
+    //Ativa o menu de navegação lateral
     private void ativarMenu() {
         setColor(btn_menuHome, label1);
         indicador1.setOpaque(true);

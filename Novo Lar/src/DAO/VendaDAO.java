@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class VendaDAO {
 
-    public int numVendas() {
+    public int numVendas() { //Conta o número de vendas para setar o id da venda ao arir a tela de venda
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -27,7 +27,6 @@ public class VendaDAO {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM venda");
             rs = stmt.executeQuery();
 
-            // Move o cursor para a primeira linha do resultado (se houver)
             if (rs.next()) {
                 numLinhas = rs.getInt(1); // Obtém o valor da primeira coluna do resultado
             }
@@ -74,7 +73,7 @@ public class VendaDAO {
         }
     }
     
-    public int numVendasMes() {
+    public int numVendasMes() { //Conta as vendas do mês atual
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -83,7 +82,6 @@ public class VendaDAO {
             stmt = con.prepareStatement("SELECT count(*) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());");
             rs = stmt.executeQuery();
 
-            // Move o cursor para a primeira linha do resultado (se houver)
             if (rs.next()) {
                 numLinhas = rs.getInt(1); // Obtém o valor da primeira coluna do resultado
             }
@@ -93,12 +91,12 @@ public class VendaDAO {
 
             return 0;
         } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs); // Certifique-se de fechar o ResultSet também
+            ConnectionFactory.closeConnection(con, stmt, rs); 
         }
         return numLinhas;
     }
     
-    public double totalVendasMes() {
+    public double totalVendasMes() { //Soma o total das vendas do mês
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -117,7 +115,7 @@ public class VendaDAO {
 
             return 0;
         } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs); // Certifique-se de fechar o ResultSet também
+            ConnectionFactory.closeConnection(con, stmt, rs); 
         }
         return numLinhas;
     }
