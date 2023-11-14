@@ -27,7 +27,6 @@ import javax.swing.JPanel;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    private boolean janelaAberta = true;
     private int confirmacaoTrocaUsuario;
     private int confirmarEncerrarSecao;
     private int permissaoUsuario;
@@ -673,7 +672,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         //Se sim, encerra o sistema
         if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
-            janelaAberta = false;
+            // = false;
             System.exit(0);
         }
     }//GEN-LAST:event_menuEncerrarSecaoMouseReleased
@@ -694,7 +693,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         //Fecha a tela atual e reabre a de login
         if (confirmacaoTrocaUsuario == JOptionPane.YES_OPTION) {
-            janelaAberta = false;
             dispose();
             new TelaLogin().setVisible(true);
         }
@@ -907,7 +905,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         if (confirmarEncerrarSecao == JOptionPane.YES_OPTION) {
-            janelaAberta = false;
             System.exit(0);
         }
     }//GEN-LAST:event_btn_menuLogOffMouseReleased
@@ -925,8 +922,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             botao[i].setOpaque(true);
             label[i].setForeground(new Color(187, 187, 187));
         }
-        for (int i = 0; i < indicadores.length; i++) {
-            indicadores[i].setOpaque(false);
+        for (JPanel indicadore : indicadores) {
+            indicadore.setOpaque(false);
         }
 
     }

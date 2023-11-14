@@ -62,7 +62,7 @@ public class FornecedorDAO {
 
                 Fornecedor fornecedor = new Fornecedor();
 
-                fornecedor.setIdFornecedor(Integer.valueOf(rs.getInt("idFornecedor")));
+                fornecedor.setIdFornecedor(rs.getInt("idFornecedor"));
                 fornecedor.setNome(rs.getString("nome"));
                 fornecedor.setEndereco(rs.getString("endereco"));
                 fornecedor.setBairro(rs.getString("bairro"));
@@ -102,7 +102,7 @@ public class FornecedorDAO {
 
                 Fornecedor fornecedor = new Fornecedor();
 
-                fornecedor.setIdFornecedor(Integer.valueOf(rs.getInt("idFornecedor")));
+                fornecedor.setIdFornecedor(rs.getInt("idFornecedor"));
                 fornecedor.setNome(rs.getString("nome"));
                 fornecedor.setEndereco(rs.getString("endereco"));
                 fornecedor.setBairro(rs.getString("bairro"));

@@ -25,11 +25,6 @@ import javax.swing.table.JTableHeader;
 public class Home extends javax.swing.JInternalFrame {
 
     private int permissaoUsuario;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-    
-    public Home() {
-    }
 
     //Inicia a tela principal e habilita os recursos do programa conforme a permissão do usuário
     public Home(int permissaoUsuario) {

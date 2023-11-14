@@ -79,7 +79,7 @@ public class TelaCadCliente extends javax.swing.JFrame {
         comboSexo.removeAllItems();
         
         for (int i = 0; i < lista.size(); i++) {    
-            comboSexo.addItem(lista.get(i).toString());
+            comboSexo.addItem(lista.get(i));
         }
     }
 

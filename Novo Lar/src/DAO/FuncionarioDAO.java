@@ -96,7 +96,7 @@ public class FuncionarioDAO {
 
                 Funcionario funcionario = new Funcionario();
 
-                funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
+                funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setEndereco(rs.getString("endereco"));
                 funcionario.setBairro(rs.getString("bairro"));
@@ -144,7 +144,7 @@ public class FuncionarioDAO {
                 //Para cada funcionário que achar cria um objeto de Funcionário
                 Funcionario funcionario = new Funcionario();
 
-                funcionario.setIdFuncionario(Integer.valueOf(rs.getInt("idFuncionario")));
+                funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setEndereco(rs.getString("endereco"));
                 funcionario.setBairro(rs.getString("bairro"));

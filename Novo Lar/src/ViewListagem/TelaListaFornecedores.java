@@ -240,8 +240,6 @@ public class TelaListaFornecedores extends javax.swing.JFrame {
         if(tabelaForn.getSelectedRow() != -1){
             Fornecedor f = new Fornecedor();
             FornecedorDAO dao = new FornecedorDAO();
-            TelaCadFornecedor t = new TelaCadFornecedor();
-            
             
             f.setNome(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 1).toString());
             f.setEndereco(tabelaForn.getValueAt(tabelaForn.getSelectedRow(), 2).toString());

@@ -6,7 +6,6 @@ package ViewCompra;
 
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
-import ViewCompra.TelaCompra;
 import javax.swing.table.DefaultTableModel;
 
 /**

@@ -404,7 +404,7 @@ public class TelaCompra extends javax.swing.JInternalFrame {
         else{
             //Preenche o objeto de compra 
             c.setIdCompra(Integer.parseInt(txtIdCompra.getText()));
-            c.setDataCompra(da.format(dataAtual.getTime()).toString());
+            c.setDataCompra(da.format(dataAtual.getTime()));
             c.setTotal(Double.parseDouble(txtTotal.getText()));
 
             forn.setIdFornecedor(Integer.parseInt(txtIdFornecedor.getText()));

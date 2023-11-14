@@ -19,10 +19,6 @@ public class TelaProdutosVenda extends javax.swing.JFrame {
     /**
      * Creates new form TelaListarFuncionarios
      */
-    public TelaProdutosVenda() {
-        initComponents();
-        atualizarTabela();
-    }
     
     public TelaProdutosVenda(TelaVenda telaVenda) {
         this.telaVenda = telaVenda;

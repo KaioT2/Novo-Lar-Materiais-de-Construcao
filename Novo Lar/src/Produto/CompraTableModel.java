@@ -14,7 +14,7 @@ public class CompraTableModel extends AbstractTableModel {
 
     private List<Produto> produtos = new ArrayList<>();
     private List<ItensDaCompra> itensDeCompra = new ArrayList<>();
-    private String[] colunas = {"Item", "id", "Código", "Nome", "Preco Custo", "Quantidade", "Desconto", "Subtotal"};
+    private String[] colunas = {"Item", "id", "Código", "Nome", "Preco Custo", "Quantidade", "Desconto %", "Subtotal"};
 
     @Override
     public String getColumnName(int column) {

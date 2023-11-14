@@ -478,7 +478,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         else{
             //Preenche o objeto de venda 
             v.setIdVenda(Integer.parseInt(txtIdVenda.getText()));
-            v.setDataVenda(da.format(dataAtual.getTime()).toString());
+            v.setDataVenda(da.format(dataAtual.getTime()));
             v.setTotal(Double.parseDouble(txtTotal.getText()));
 
             cli.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
@@ -494,7 +494,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
 
             for (int i = 0; i < model.getRowCount(); i++) {
                 iv.setVenda(v);
-                iv.setData(da.format(dataAtual.getTime()).toString());
+                iv.setData(da.format(dataAtual.getTime()));
 
                 p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
                 iv.setProduto(p);

@@ -65,7 +65,7 @@ public class ClienteDAO {
 
                 Cliente cliente = new Cliente();
 
-                cliente.setIdCliente(Integer.valueOf(rs.getInt("idCliente")));
+                cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setBairro(rs.getString("bairro"));
@@ -109,7 +109,7 @@ public class ClienteDAO {
 
                 Cliente cliente = new Cliente();
 
-                cliente.setIdCliente(Integer.valueOf(rs.getInt("idCliente")));
+                cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setBairro(rs.getString("bairro"));

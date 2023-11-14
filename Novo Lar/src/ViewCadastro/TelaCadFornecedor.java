@@ -61,7 +61,7 @@ public class TelaCadFornecedor extends javax.swing.JFrame {
         comboEstado.removeAllItems();
         
         for (int i = 0; i < lista.size(); i++) {    
-            comboEstado.addItem(lista.get(i).toString());
+            comboEstado.addItem(lista.get(i));
         }
     }
 

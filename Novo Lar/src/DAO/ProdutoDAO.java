@@ -192,7 +192,7 @@ public class ProdutoDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        int numProd = 0;
+        
         ArrayList<Produto> produtos = new ArrayList(); //Lista dos produtos que resultaram na busca
 
         try {
@@ -227,7 +227,6 @@ public class ProdutoDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int numProd = 0;
-        ArrayList<Produto> produtos = new ArrayList();
 
         try {
             stmt = con.prepareStatement("SELECT count(*) from produto where estoque <= 10");
