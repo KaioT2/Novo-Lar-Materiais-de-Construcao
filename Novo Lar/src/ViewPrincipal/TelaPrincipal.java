@@ -15,6 +15,7 @@ import ViewEstoque.TelaDeEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.time.LocalTime;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -116,9 +117,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         txtPeriodoDia = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        menuSistema = new javax.swing.JMenu();
+        menuFazerBackUp = new javax.swing.JMenu();
         menuEncerrarSecao = new javax.swing.JMenuItem();
         menuTrocarUsuario = new javax.swing.JMenuItem();
+        menuBackUp = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
         menuCadUsuario = new javax.swing.JMenuItem();
         menuCadCliente = new javax.swing.JMenuItem();
@@ -523,9 +525,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(Main, java.awt.BorderLayout.CENTER);
 
-        menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/systemIcon.png"))); // NOI18N
-        menuSistema.setText("Sistema");
-        menuSistema.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuFazerBackUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/systemIcon.png"))); // NOI18N
+        menuFazerBackUp.setText("Sistema");
+        menuFazerBackUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         menuEncerrarSecao.setText("Encerrar Seção");
         menuEncerrarSecao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -538,7 +540,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuEncerrarSecaoActionPerformed(evt);
             }
         });
-        menuSistema.add(menuEncerrarSecao);
+        menuFazerBackUp.add(menuEncerrarSecao);
 
         menuTrocarUsuario.setText("Trocar Usuário");
         menuTrocarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -551,9 +553,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 menuTrocarUsuarioActionPerformed(evt);
             }
         });
-        menuSistema.add(menuTrocarUsuario);
+        menuFazerBackUp.add(menuTrocarUsuario);
 
-        jMenuBar1.add(menuSistema);
+        menuBackUp.setText("Fazer Backup ");
+        menuBackUp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                menuBackUpMouseReleased(evt);
+            }
+        });
+        menuFazerBackUp.add(menuBackUp);
+
+        jMenuBar1.add(menuFazerBackUp);
 
         menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastroIcon.png"))); // NOI18N
         menuCadastros.setText("Cadastros");
@@ -909,6 +919,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_menuLogOffMouseReleased
 
+    private void menuBackUpMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBackUpMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuBackUpMouseReleased
+
     //Função que muda a cor do botão que está selecionado
     private void setColor(JPanel botao, JLabel label) {
         botao.setBackground(new Color(41, 57, 100));
@@ -964,6 +978,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JLabel lebal4;
+    private javax.swing.JMenuItem menuBackUp;
     private javax.swing.JMenuItem menuCadCategoria;
     private javax.swing.JMenuItem menuCadCliente;
     private javax.swing.JMenuItem menuCadFornecedor;
@@ -973,11 +988,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCompras;
     private javax.swing.JMenuItem menuEncerrarSecao;
     private javax.swing.JMenu menuEstoque;
+    private javax.swing.JMenu menuFazerBackUp;
     private javax.swing.JMenuItem menuHistoricoVendas;
     private javax.swing.JMenuItem menuNovaCompra;
     private javax.swing.JMenuItem menuNovaVenda;
     private javax.swing.JMenu menuRelatorios;
-    private javax.swing.JMenu menuSistema;
     private javax.swing.JMenuItem menuTrocarUsuario;
     private javax.swing.JMenu menuVendas;
     private javax.swing.JLabel txtNomeUsuario;
