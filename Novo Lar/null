@@ -1,0 +1,334 @@
+-- MariaDB dump 10.19  Distrib 10.4.28-MariaDB, for Win64 (AMD64)
+--
+-- Host: localhost    Database: dbnovolar
+-- ------------------------------------------------------
+-- Server version	10.4.28-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `dbnovolar`
+--
+
+/*!40000 DROP DATABASE IF EXISTS `dbnovolar`*/;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `dbnovolar` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+
+USE `dbnovolar`;
+
+--
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoria` (
+  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(30) NOT NULL,
+  PRIMARY KEY (`idCategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoria`
+--
+
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (1,'Ferramentas Elétricas'),(2,'Madeira e Compensados'),(3,'Tintas e Pintura'),(4,'Hidráulica e Encanamento'),(5,'Ferragens e Parafusos'),(6,'Iluminação e Elétrica'),(7,'Pisos e Revestimentos'),(8,'Ferramentas Manuais'),(9,'Telhas e Coberturas'),(10,'Cimento e Argamassa');
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cliente` (
+  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(40) NOT NULL,
+  `endereco` varchar(30) NOT NULL,
+  `bairro` varchar(30) NOT NULL,
+  `cidade` varchar(30) NOT NULL,
+  `estado` varchar(2) NOT NULL,
+  `CEP` varchar(9) NOT NULL,
+  `cnpj` varchar(18) DEFAULT NULL,
+  `cpf` varchar(14) DEFAULT NULL,
+  `sexo` varchar(9) NOT NULL,
+  `dataNasc` date NOT NULL,
+  `telefone` varchar(15) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  PRIMARY KEY (`idCliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'João da Silva','Rua das Flores, 123','Centro','Cidade A','SP','12345-678',NULL,'123.456.789-00','Masculino','1990-05-15','(11) 1234-5678','joao@example.com'),(2,'Maria Souza','Av. Principal, 456','Bairro X','Cidade B','RJ','98765-432',NULL,'987.654.321-00','Feminino','1988-08-25','(21) 9876-5432','maria@example.com'),(3,'José Oliveira','Rua das Palmeiras, 789','Centro','Cidade C','MG','54321-987',NULL,'456.789.123-00','Masculino','1995-02-10','(31) 4567-8901','jose@example.com'),(4,'Ana Rodrigues','Av. Principal, 101','Bairro Y','Cidade D','SP','23456-789',NULL,'234.567.890-00','Feminino','1980-11-30','(11) 2345-6789','ana@example.com'),(5,'Carlos Santos','Rua das Pedras, 222','Centro','Cidade E','RJ','87654-321',NULL,'345.678.901-00','Masculino','1982-07-05','(21) 8765-4321','carlos@example.com'),(6,'Patrícia Pereira','Av. das Árvores, 333','Bairro Z','Cidade F','MG','76543-210',NULL,'567.890.123-00','Feminino','1991-03-20','(31) 5678-9012','patricia@example.com'),(7,'Fernando Lima','Rua dos Muros, 444','Centro','Cidade G','SP','34567-890',NULL,'678.901.234-00','Masculino','1987-12-10','(11) 6789-0123','fernando@example.com'),(8,'Lúcia Alves','Av. das Flores, 555','Bairro W','Cidade H','RJ','65432-109',NULL,'789.012.345-00','Feminino','1993-09-18','(21) 7890-1234','lucia@example.com'),(9,'Gustavo Pereira','Rua das Pedras, 666','Centro','Cidade I','MG','98765-432',NULL,'890.123.456-00','Masculino','1984-04-08','(31) 8901-2345','gustavo@example.com'),(10,'Sandra Silva','Av. Principal, 777','Bairro V','Cidade J','SP','12345-678',NULL,'901.234.567-00','Feminino','1997-06-25','(11) 9012-3456','sandra@example.com'),(11,'Pedro Oliveira','Rua das Palmeiras, 888','Centro','Cidade K','RJ','23456-789',NULL,'123.456.789-01','Masculino','1992-01-15','(21) 1234-5678','pedro@example.com'),(12,'Rita Rodrigues','Av. Principal, 999','Bairro U','Cidade L','MG','87654-321',NULL,'987.654.321-01','Feminino','1986-04-20','(31) 9876-5432','rita@example.com'),(13,'João da Silva','Rua A','Centro','São Paulo','SP','01000-000',NULL,'123.456.789-09','Masculino','1985-05-15','(11) 1234-5678','joao.silva@email.com'),(14,'Maria Santos','Av. B','Vila Nova','Rio de Janeiro','RJ','20000-000',NULL,'987.654.321-01','Feminino','1990-07-20','(21) 9876-5432','maria.santos@email.com'),(15,'José Pereira','Rua C','Jardim','Belo Horizonte','MG','30000-000',NULL,'555.555.555-55','Masculino','1980-03-10','(31) 5555-5555','jose.pereira@email.com'),(16,'Ana Costa','Av. D','Barra','Salvador','BA','40000-000',NULL,'777.777.777-77','Feminino','1988-12-05','(71) 7777-7777','ana.costa@email.com'),(17,'Carlos Santos','Rua E','Centro','Recife','PE','50000-000',NULL,'444.444.444-44','Masculino','1995-02-28','(81) 4444-4444','carlos.santos@email.com'),(18,'Sônia Oliveira','Av. F','Vila Nova','Porto Alegre','RS','90000-000',NULL,'666.666.666-66','Feminino','1983-09-18','(51) 6666-6666','sonia.oliveira@email.com'),(19,'Eduardo Silva','Rua G','Jardim','Brasília','DF','70000-000',NULL,'888.888.888-88','Masculino','1976-11-30','(61) 8888-8888','eduardo.silva@email.com'),(20,'Patrícia Alves','Av. H','Barra','Curitiba','PR','80000-000',NULL,'999.999.999-99','Feminino','1992-08-12','(41) 9999-9999','patricia.alves@email.com'),(21,'Luiz Pereira','Rua I','Centro','Fortaleza','CE','60000-000',NULL,'222.222.222-22','Masculino','1987-04-25','(85) 2222-2222','luiz.pereira@email.com'),(22,'Fernanda Lima','Av. J','Vila Nova','Manaus','AM','69000-000',NULL,'111.111.111-11','Feminino','1998-06-08','(92) 1111-1111','fernanda.lima@email.com'),(23,'Empresa A Construções','Av. das Obras, 123','Centro','Cidade M','SP','54321-876','12.345.678/0001-01',NULL,'Jurídico','1990-01-15','(11) 2345-6789','empresaA@example.com'),(24,'Construções B Ltda','Rua das Edificações, 456','Bairro P','Cidade N','RJ','98765-432','98.765.432/0001-02',NULL,'Jurídico','1995-03-20','(21) 9876-5432','construcoesB@example.com'),(25,'Material de Construção XYZ','Av. da Indústria, 789','Centro','Cidade O','MG','23456-789','23.456.789/0001-03',NULL,'Jurídico','1992-05-10','(31) 4567-8901','xyz@example.com'),(26,'Construtora ABC','Rua dos Engenheiros, 101','Bairro Q','Cidade R','SP','76543-210','76.543.210/0001-04',NULL,'Jurídico','1988-09-18','(11) 5678-9012','construtoraABC@example.com'),(27,'Construções e Reformas 123','Av. das Torres, 222','Centro','Cidade S','RJ','34567-890','34.567.890/0001-05',NULL,'Jurídico','1997-02-25','(21) 6789-0123','construcoes123@example.com'),(28,'Loja de Materiais de Construção W','Rua da Obra, 333','Bairro R','Cidade T','MG','12345-678','12.345.678/0001-06',NULL,'Jurídico','1991-06-08','(31) 8901-2345','lojaW@example.com'),(29,'Material e Ferramentas LTDA','Av. da Construção, 444','Centro','Cidade U','SP','65432-109','65.432.109/0001-07',NULL,'Jurídico','1993-11-12','(11) 9012-3456','materiaisLTDA@example.com'),(30,'Construções Avançadas S.A.','Rua das Obras Grandes, 555','Bairro V','Cidade V','RJ','23456-789','23.456.789/0001-08',NULL,'Jurídico','1985-08-30','(21) 1234-5678','construcoesAvancadas@example.com'),(31,'Loja de Material para Construção M','Av. das Grandes Obras, 666','Centro','Cidade W','MG','98765-432','98.765.432/0001-09',NULL,'Jurídico','1999-04-15','(31) 2345-6789','lojaM@example.com'),(32,'Construção e Reforma Constru','Rua dos Engenheiros, 777','Bairro X','Cidade Y','SP','54321-876','54.321.876/0001-10',NULL,'Jurídico','1996-07-01','(11) 5678-9012','construConstru@example.com'),(33,'Empresa ABC Ltda','Rua X','Centro Empresarial','São Paulo','SP','01000-000','12.345.678/0001-01',NULL,'Jurídico','1990-10-10','(11) 5555-5555','contato@empresaabc.com'),(34,'Comércio XYZ Eireli','Av. Y','Centro Comercial','Rio de Janeiro','RJ','20000-000','98.765.432/0001-02',NULL,'Jurídico','1995-06-15','(21) 4444-4444','contato@comercioxyz.com'),(35,'Indústria 123 S.A.','Rua Z','Parque Industrial','Belo Horizonte','MG','30000-000','99.999.999/0001-03',NULL,'Jurídico','1987-03-20','(31) 3333-3333','contato@industria123.com'),(36,'Serviços ABCD Ltda','Av. W','Centro de Serviços','Salvador','BA','40000-000','11.111.111/0001-04',NULL,'Jurídico','2000-12-01','(71) 6666-6666','contato@servicosabcd.com'),(37,'Distribuidora XYZ S.A.','Rua V','Logística','Recife','PE','50000-000','22.222.222/0001-05',NULL,'Jurídico','1998-08-08','(81) 7777-7777','contato@distribuidoraxyz.com'),(38,'Construtora 1234 Ltda','Av. U','Construção Civil','Porto Alegre','RS','90000-000','33.333.333/0001-06',NULL,'Jurídico','1993-05-25','(51) 8888-8888','contato@construtora1234.com'),(39,'Transportadora ABCDE Ltda','Rua T','Logística','Brasília','DF','70000-000','44.444.444/0001-07',NULL,'Jurídico','1985-12-12','(61) 9999-9999','contato@transportadoraabcde.com'),(40,'Consultoria XYZ123 S.A.','Av. S','Consultoria Empresarial','Curitiba','PR','80000-000','55.555.555/0001-08',NULL,'Jurídico','1996-09-30','(41) 1111-1111','contato@consultoriaxyz123.com'),(41,'Comércio de Alimentos ABCDE Eireli','Rua R','Comércio Alimentício','Fortaleza','CE','60000-000','66.666.666/0001-09',NULL,'Jurídico','2002-02-22','(85) 3333-3333','contato@comerciodealimentos.com'),(42,'Indústria Metalúrgica XYZ1234 S.A.','Av. Q','Indústria Metalúrgica','Manaus','AM','69000-000','77.777.777/0001-10',NULL,'Jurídico','1991-07-07','(92) 7777-7777','contato@industriametalurgica.com');
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `compra`
+--
+
+DROP TABLE IF EXISTS `compra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compra` (
+  `idCompra` int(11) NOT NULL AUTO_INCREMENT,
+  `idFornecedor` int(11) NOT NULL,
+  `idFuncionario` int(11) NOT NULL,
+  `total` double(7,2) NOT NULL,
+  `desconto` double(5,2) NOT NULL,
+  `dataCompra` date NOT NULL,
+  PRIMARY KEY (`idCompra`),
+  KEY `idFornecedor` (`idFornecedor`),
+  KEY `idFuncionario` (`idFuncionario`),
+  CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`idFornecedor`),
+  CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`idFuncionario`) REFERENCES `funcionario` (`idFuncionario`)
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compra`
+--
+
+LOCK TABLES `compra` WRITE;
+/*!40000 ALTER TABLE `compra` DISABLE KEYS */;
+INSERT INTO `compra` VALUES (1,1,1,39.63,0.00,'2023-09-27'),(2,2,2,18.99,0.00,'2023-09-27'),(3,3,3,16.97,0.00,'2023-09-28'),(4,4,4,255.95,0.00,'2023-09-29'),(5,2,1,163.76,0.00,'2023-09-29'),(6,3,2,76.51,0.00,'2023-09-30'),(7,4,3,43.97,0.00,'2023-09-30'),(8,1,4,16.97,0.00,'2023-10-01'),(9,2,1,416.92,0.00,'2023-10-01'),(10,3,2,163.76,0.00,'2023-10-02'),(11,4,3,21.97,0.00,'2023-10-02'),(12,1,4,53.46,0.00,'2023-10-03'),(13,2,1,28.97,0.00,'2023-10-03'),(14,3,2,373.95,0.00,'2023-10-04'),(15,4,3,125.57,0.00,'2023-10-04'),(16,1,4,39.63,0.00,'2023-10-05'),(17,2,1,18.99,0.00,'2023-10-05'),(18,3,2,16.97,0.00,'2023-10-06'),(19,4,3,255.95,0.00,'2023-10-06'),(20,1,4,163.76,0.00,'2023-10-07'),(21,2,1,21.97,0.00,'2023-10-07'),(22,3,2,53.46,0.00,'2023-10-08'),(23,4,3,28.97,0.00,'2023-10-08'),(24,1,4,373.95,0.00,'2023-10-09'),(25,2,1,125.57,0.00,'2023-10-09'),(26,3,2,39.63,0.00,'2023-10-10'),(27,4,3,18.99,0.00,'2023-10-10'),(28,1,4,16.97,0.00,'2023-10-11'),(29,2,1,255.95,0.00,'2023-10-11'),(30,3,2,163.76,0.00,'2023-10-12'),(31,4,3,21.97,0.00,'2023-10-12'),(32,1,4,53.46,0.00,'2023-10-13'),(33,2,1,28.97,0.00,'2023-10-13'),(34,3,2,373.95,0.00,'2023-10-14'),(35,4,3,125.57,0.00,'2023-10-14'),(36,1,4,39.63,0.00,'2023-10-15'),(37,2,1,18.99,0.00,'2023-10-15'),(38,3,2,16.97,0.00,'2023-10-16'),(39,4,3,255.95,0.00,'2023-10-16'),(40,1,4,163.76,0.00,'2023-10-17'),(41,2,1,21.97,0.00,'2023-10-17'),(42,3,2,53.46,0.00,'2023-10-18'),(43,4,3,28.97,0.00,'2023-10-18'),(44,1,4,373.95,0.00,'2023-10-19'),(45,2,1,125.57,0.00,'2023-10-19'),(46,3,2,39.63,0.00,'2023-10-20'),(47,4,3,18.99,0.00,'2023-10-20');
+/*!40000 ALTER TABLE `compra` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fornecedor`
+--
+
+DROP TABLE IF EXISTS `fornecedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fornecedor` (
+  `idFornecedor` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(40) NOT NULL,
+  `cnpj` varchar(18) NOT NULL,
+  `endereco` varchar(30) NOT NULL,
+  `bairro` varchar(30) NOT NULL,
+  `cidade` varchar(30) NOT NULL,
+  `estado` varchar(2) NOT NULL,
+  `CEP` varchar(9) NOT NULL,
+  `telefone` varchar(15) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  PRIMARY KEY (`idFornecedor`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fornecedor`
+--
+
+LOCK TABLES `fornecedor` WRITE;
+/*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+INSERT INTO `fornecedor` VALUES (1,'Fornecedor A','12.345.678/0001-01','Rua dos Materiais, 123','Centro','Cidade A','SP','12345-678','(11) 1234-5678','fornecedorA@example.com'),(2,'Fornecedor B','98.765.432/0001-02','Avenida das Construções, 456','Bairro B','Cidade A','SP','54321-876','(11) 9876-5432','fornecedorB@example.com'),(3,'Fornecedor C','76.543.210/0001-03','Travessa das Ferragens, 789','Centro','Cidade B','RJ','98765-432','(21) 5555-5555','fornecedorC@example.com'),(4,'Fornecedor D','23.456.789/0001-04','Rua das Tintas, 456','Bairro C','Cidade B','RJ','65432-109','(21) 7777-7777','fornecedorD@example.com'),(5,'Fornecedor E','45.678.901/0001-05','Avenida dos Tubos, 789','Bairro D','Cidade C','SP','76543-210','(11) 3333-3333','fornecedorE@example.com'),(6,'Fornecedor F','67.890.123/0001-06','Rua das Madeiras, 234','Centro','Cidade C','SP','54321-987','(11) 5555-5555','fornecedorF@example.com'),(7,'Fornecedor G','89.012.345/0001-07','Avenida das Telhas, 567','Bairro E','Cidade D','RJ','87654-321','(21) 9999-9999','fornecedorG@example.com'),(8,'Fornecedor H','12.345.678/0001-08','Travessa dos Parafusos, 345','Bairro F','Cidade D','SP','76543-210','(11) 4444-4444','fornecedorH@example.com'),(9,'Fornecedor I','98.765.432/0001-09','Avenida dos Pisos, 678','Centro','Cidade E','RJ','23456-789','(21) 6666-6666','fornecedorI@example.com'),(10,'Fornecedor J','76.543.210/0001-10','Rua das Luminárias, 123','Bairro G','Cidade F','SP','98765-432','(11) 7777-7777','fornecedorJ@example.com'),(11,'Construções ABC Ltda','12.345.678/0001-01','Avenida da Construção, 123','Centro','São Paulo','SP','12345-678','(11) 1234-5678','contato@construcoesabc.com'),(12,'Materiais de Construção XYZ','98.765.432/0001-02','Rua dos Materiais, 456','Jardim Botânico','Rio de Janeiro','RJ','98765-432','(21) 9876-5432','vendas@materiaisxyz.com'),(13,'Casa das Ferramentas','23.456.789/0001-03','Avenida das Ferramentas, 789','Setor Industrial','Belo Horizonte','MG','23456-789','(31) 2345-6789','contato@casadasferramentas.com'),(14,'Madeireira Silva','87.654.321/0001-04','Rua das Madeiras, 101','Jardim das Árvores','Salvador','BA','87654-321','(71) 8765-4321','madeireira.silva@email.com'),(15,'Telhas & Cia','45.678.912/0001-05','Avenida das Telhas, 555','Vila Telhado','Porto Alegre','RS','45678-912','(51) 4567-8912','contato@telhasecia.com'),(16,'Construções Forte','32.109.876/0001-06','Rua Forte, 222','Jardim Fortaleza','Joinville','SC','32109-876','(47) 3210-9876','vendas@construcoesforte.com'),(17,'Materiais de Construção Suprema','56.789.123/0001-07','Avenida Suprema, 333','Setor Supremo','Curitiba','PR','56789-123','(41) 5678-9123','contato@suprema.com'),(18,'Madeireira do Norte','78.912.345/0001-08','Avenida do Norte, 888','Bairro do Norte','Brasília','DF','78912-345','(61) 7891-2345','madeireiradonorte@email.com'),(19,'Tubos e Canos Ltda','67.891.234/0001-09','Rua dos Tubos, 777','Setor Tubular','Recife','PE','67891-234','(81) 6789-1234','vendas@tubosecanos.com'),(20,'Tijolos & Cia','45.678.912/0001-10','Avenida dos Tijolos, 999','Vila dos Tijolos','Fortaleza','CE','45678-912','(85) 4567-8912','contato@tijoloscia.com'),(21,'Portas de Aço S.A.','23.109.876/0001-11','Rua das Portas, 111','Setor das Portas','Goiânia','GO','23109-876','(62) 2310-9876','vendas@portasdeaco.com'),(22,'Luminárias Modernas','34.567.891/0001-12','Avenida das Luminárias, 777','Jardim das Luzes','Belém','PA','34567-891','(91) 3456-7891','contato@luminariasmodernas.com'),(23,'Pisos & Revestimentos','78.912.345/0001-13','Avenida dos Pisos, 888','Bairro dos Pisos','Manaus','AM','78912-345','(92) 7891-2345','vendas@pisoserevestimentos.com'),(24,'Ferramentas Master','45.678.912/0001-14','Rua das Ferramentas, 666','Setor de Ferramentas','Rio Branco','AC','45678-912','(68) 4567-8912','contato@ferramentasmaster.com'),(25,'Parafusos & Parafusos','23.109.876/0001-15','Avenida dos Parafusos, 333','Bairro dos Parafusos','Boa Vista','RR','23109-876','(95) 2310-9876','vendas@parafusosparafusos.com'),(26,'Materiais de Construção 2000','34.567.891/0001-16','Avenida das Construções, 222','Setor 2000','Palmas','TO','34567-891','(63) 3456-7891','contato@materiais2000.com'),(27,'Construções Silva & Cia','78.912.345/0001-17','Rua das Obras, 777','Jardim das Construções','Natal','RN','78912-345','(84) 7891-2345','vendas@silvaconstrucoes.com'),(28,'Tintas & Pinturas Ltda','67.891.234/0001-18','Avenida das Tintas, 888','Setor Pintura','João Pessoa','PB','67891-234','(83) 6789-1234','vendas@tintasepinturas.com'),(29,'Elétrica & Eletrônica S.A.','45.678.912/0001-19','Rua das Instalações, 666','Setor Elétrico','Teresina','PI','45678-912','(86) 4567-8912','contato@eletricaeletronica.com'),(30,'Tubos de PVC & Cia','23.109.876/0001-20','Avenida dos Tubos, 333','Vila do PVC','Aracaju','SE','23109-876','(79) 2310-9876','vendas@tubosdepvc.com'),(31,'Materiais de Construção do Sul','34.567.891/0001-21','Avenida do Sul, 222','Bairro do Sul','Cuiabá','MT','34567-891','(65) 3456-7891','contato@materiaisdosul.com'),(32,'Ferramentas & Acessórios','78.912.345/0001-22','Rua das Ferramentas, 777','Setor de Acessórios','Porto Velho','RO','78912-345','(69) 7891-2345','vendas@ferramentaseacessorios.com'),(33,'Construções do Nordeste','67.891.234/0001-23','Avenida do Nordeste, 888','Vila Nordeste','Campo Grande','MS','67891-234','(67) 6789-1234','vendas@construcoesdonordeste.com'),(34,'Pisos & Acabamentos','45.678.912/0001-24','Rua dos Acabamentos, 666','Setor de Acabamentos','Maceió','AL','45678-912','(82) 4567-8912','contato@pisoseacabamentos.com'),(35,'Tintas & Cores','23.109.876/0001-25','Avenida das Cores, 333','Bairro das Cores','Vitória','ES','23109-876','(27) 2310-9876','vendas@tintasecores.com'),(36,'Materiais de Construção do Centro','34.567.891/0001-26','Avenida do Centro, 222','Bairro do Centro','Macapá','AP','34567-891','(96) 3456-7891','contato@materiaisdocentro.com'),(37,'Ferragens & Ferramentas','78.912.345/0001-27','Rua das Ferragens, 777','Setor de Ferragens','Boa Vista','RR','78912-345','(95) 7891-2345','vendas@ferragenseferramentas.com'),(38,'Construções do Sul ao Norte','67.891.234/0001-28','Avenida do Sul ao Norte, 888','Vila Sul ao Norte','Belém','PA','67891-234','(91) 6789-1234','vendas@sulaonorte.com'),(39,'Materiais & Mais','45.678.912/0001-29','Rua dos Mais, 666','Setor dos Mais','São Luís','MA','45678-912','(98) 4567-8912','contato@materiaisemais.com'),(40,'Construções do Oeste','23.109.876/0001-30','Avenida do Oeste, 333','Bairro do Oeste','Florianópolis','SC','23109-876','(48) 2310-9876','vendas@construcoesdooeste.com');
+/*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionario`
+--
+
+DROP TABLE IF EXISTS `funcionario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `funcionario` (
+  `idFuncionario` int(11) NOT NULL AUTO_INCREMENT,
+  `senha` varchar(30) NOT NULL,
+  `nome` varchar(30) NOT NULL,
+  `endereco` varchar(30) NOT NULL,
+  `bairro` varchar(30) NOT NULL,
+  `cidade` varchar(30) NOT NULL,
+  `CEP` varchar(9) NOT NULL,
+  `estado` varchar(2) NOT NULL,
+  `cpf` varchar(14) NOT NULL,
+  `cargo` varchar(30) NOT NULL,
+  `cargaHoraria` double(4,2) NOT NULL,
+  `salario` double(7,2) NOT NULL,
+  `telefone` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `dataNasc` date NOT NULL,
+  `dataContrata` date NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `permissao` int(1) NOT NULL,
+  PRIMARY KEY (`idFuncionario`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `funcionario`
+--
+
+LOCK TABLES `funcionario` WRITE;
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+INSERT INTO `funcionario` VALUES (1,'admin','Kaio','Rua','Bairro','cidade','00','MG','admin','Gerente',2.00,3.00,'123333','email','2022-07-22','2022-10-25','ativo',1),(2,'senha1','João Silva','Rua das Flores, 123','Centro','Cidade A','12345-678','SP','469.908.520-20','Vendedor',40.00,2500.00,'(11) 1234-5678','joao@example.com','1990-05-15','2022-03-10','Ativo',2),(3,'senha2','Maria Santos','Avenida Principal, 456','Bairro B','Cidade A','54321-876','SP','987.654.321-00','Gerente',45.00,3500.00,'(11) 9876-5432','maria@example.com','1985-08-20','2021-01-05','Ativo',1),(4,'senha3','Pedro Oliveira','Rua dos Ladrilhos, 789','Centro','Cidade B','98765-432','RJ','234.567.890-11','Vendedor',38.00,2300.00,'(21) 5555-5555','pedro@example.com','1992-11-25','2022-04-20','Ativo',1),(5,'senha4','Ana Rodrigues','Travessa das Pedras, 56','Bairro C','Cidade B','65432-109','RJ','345.678.901-22','Vendedor',40.00,2400.00,'(21) 7777-7777','ana@example.com','1993-03-03','2022-02-15','Ativo',1),(6,'senha5','Luiz Pereira','Avenida das Torres, 789','Bairro D','Cidade C','76543-210','SP','456.789.012-33','Caixa',36.00,2200.00,'(11) 3333-3333','luiz@example.com','1991-07-12','2022-05-30','Ativo',1),(7,'senha6','Carla Santos','Rua das Madeiras, 23','Centro','Cidade C','54321-987','SP','567.890.123-44','Vendedor',38.00,2300.00,'(11) 5555-5555','carla@example.com','1994-09-08','2022-06-10','Ativo',1),(8,'senha7','Ricardo Almeida','Avenida das Ferragens, 456','Bairro E','Cidade D','87654-321','RJ','678.901.234-55','Gerente',45.00,3500.00,'(21) 9999-9999','ricardo@example.com','1987-12-18','2021-03-20','Ativo',1),(9,'senha8','Lúcia Pereira','Rua das Tintas, 34','Bairro F','Cidade D','76543-210','SP','789.012.345-66','Vendedor',40.00,2500.00,'(11) 4444-4444','lucia@example.com','1995-02-28','2022-04-05','Ativo',1),(10,'senha9','Carlos Oliveira','Travessa dos Tijolos, 12','Centro','Cidade E','23456-789','RJ','890.123.456-77','Vendedor',38.00,2300.00,'(21) 6666-6666','carlos@example.com','1993-06-05','2022-01-15','Ativo',1),(11,'senha10','Mariana Silva','Avenida das Telhas, 67','Bairro G','Cidade F','98765-432','SP','901.234.567-88','Vendedor',40.00,2400.00,'(11) 7777-7777','mariana@example.com','1990-04-10','2022-03-10','Ativo',1),(12,'senha11','Fernando Sousa','Rua das Pedras, 78','Centro','Cidade G','12345-678','SP','123.456.789-00','Vendedor',40.00,2500.00,'(11) 1234-5678','fernando@example.com','1988-09-25','2022-04-15','Ativo',1),(13,'senha12','Isabela Mendes','Avenida Principal, 34','Bairro A','Cidade H','54321-876','SP','987.654.321-00','Gerente',45.00,3500.00,'(11) 9876-5432','isabela@example.com','1983-11-14','2021-02-20','Ativo',1),(14,'senha13','Lucas Ferreira','Rua dos Ladrilhos, 56','Centro','Cidade I','98765-432','RJ','234.567.890-11','Vendedor',38.00,2300.00,'(21) 5555-5555','lucas@example.com','1996-05-07','2022-06-20','Ativo',1),(15,'senha14','Patrícia Alves','Travessa das Pedras, 23','Bairro B','Cidade J','65432-109','RJ','345.678.901-22','Vendedor',40.00,2400.00,'(21) 7777-7777','patricia@example.com','1997-08-30','2022-02-05','Ativo',1),(16,'senha15','Rafaela Gomes','Avenida das Torres, 12','Bairro C','Cidade K','76543-210','SP','456.789.012-33','Caixa',36.00,2200.00,'(11) 3333-3333','rafaela@example.com','1992-12-22','2022-05-10','Ativo',1),(17,'senha16','Gabriel Santos','Rua das Madeiras, 78','Centro','Cidade L','54321-987','SP','567.890.123-44','Vendedor',38.00,2300.00,'(11) 5555-5555','gabriel@example.com','1998-03-12','2022-06-30','Ativo',1),(18,'senha17','Mariano Lima','Avenida das Ferragens, 34','Bairro D','Cidade M','87654-321','RJ','678.901.234-55','Gerente',45.00,3500.00,'(21) 9999-9999','mariano@example.com','1986-06-18','2021-03-05','Ativo',1),(19,'senha18','Roberta Silva','Rua das Tintas, 67','Centro','Cidade N','76543-210','SP','789.012.345-66','Vendedor',40.00,2500.00,'(11) 4444-4444','roberta@example.com','1984-01-28','2022-04-15','Ativo',1),(20,'senha19','Mateus Oliveira','Travessa dos Tijolos, 45','Bairro E','Cidade O','23456-789','RJ','890.123.456-77','Vendedor',38.00,2300.00,'(21) 6666-6666','mateus@example.com','1995-10-15','2022-01-30','Ativo',1),(21,'senha20','Gustavo Mendes','Avenida das Telhas, 89','Bairro F','Cidade P','98765-432','SP','901.234.567-88','Vendedor',40.00,2400.00,'(11) 7777-7777','gustavo@example.com','1989-02-10','2022-03-15','Ativo',1),(22,'senha21','Juliana Oliveira','Rua das Flores, 123','Centro','Cidade A','12345-678','SP','123.456.789-00','Vendedor',40.00,2500.00,'(11) 1234-5678','juliana@example.com','1990-05-15','2022-03-10','Ativo',1),(23,'senha22','Ricardo Pereira','Avenida Principal, 456','Bairro B','Cidade A','54321-876','SP','987.654.321-00','Gerente',45.00,3500.00,'(11) 9876-5432','ricardo@example.com','1985-08-20','2021-01-05','Ativo',1),(24,'senha23','Carolina Silva','Rua dos Ladrilhos, 789','Centro','Cidade B','98765-432','RJ','234.567.890-11','Vendedor',38.00,2300.00,'(21) 5555-5555','carolina@example.com','1992-11-25','2022-04-20','Ativo',1),(25,'senha24','Daniel Rodrigues','Travessa das Pedras, 56','Bairro C','Cidade B','65432-109','RJ','345.678.901-22','Vendedor',40.00,2400.00,'(21) 7777-7777','daniel@example.com','1993-03-03','2022-02-15','Ativo',1),(26,'senha25','Luisa Pereira','Avenida das Torres, 789','Bairro D','Cidade C','76543-210','SP','456.789.012-33','Caixa',36.00,2200.00,'(11) 3333-3333','luisa@example.com','1991-07-12','2022-05-30','Ativo',1),(27,'senha26','Eduardo Santos','Rua das Madeiras, 23','Centro','Cidade C','54321-987','SP','567.890.123-44','Vendedor',38.00,2300.00,'(11) 5555-5555','eduardo@example.com','1994-09-08','2022-06-10','Ativo',1),(28,'senha27','Amanda Almeida','Avenida das Ferragens, 456','Bairro E','Cidade D','87654-321','RJ','678.901.234-55','Gerente',45.00,3500.00,'(21) 9999-9999','amanda@example.com','1987-12-18','2021-03-20','Ativo',1),(29,'senha28','Marcos Pereira','Rua das Tintas, 34','Bairro F','Cidade D','76543-210','SP','789.012.345-66','Vendedor',40.00,2500.00,'(11) 4444-4444','marcos@example.com','1995-02-28','2022-04-05','Ativo',1),(30,'senha29','Camila Oliveira','Travessa dos Tijolos, 12','Centro','Cidade E','23456-789','RJ','890.123.456-77','Vendedor',38.00,2300.00,'(21) 6666-6666','camila@example.com','1993-06-05','2022-01-15','Ativo',1),(31,'senha30','Roberto Silva','Avenida das Telhas, 67','Bairro G','Cidade F','98765-432','SP','901.234.567-88','Vendedor',40.00,2400.00,'(11) 7777-7777','roberto@example.com','1990-04-10','2022-03-10','Ativo',1);
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `itens_da_compra`
+--
+
+DROP TABLE IF EXISTS `itens_da_compra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `itens_da_compra` (
+  `idItemCompra` int(11) NOT NULL AUTO_INCREMENT,
+  `idCompra` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `quantidade` double NOT NULL,
+  `precoCusto` double(7,2) NOT NULL,
+  `desconto` double(5,2) NOT NULL,
+  `total` double(7,2) NOT NULL,
+  PRIMARY KEY (`idItemCompra`),
+  KEY `idCompra` (`idCompra`),
+  KEY `idProduto` (`idProduto`),
+  CONSTRAINT `itens_da_compra_ibfk_1` FOREIGN KEY (`idCompra`) REFERENCES `compra` (`idCompra`),
+  CONSTRAINT `itens_da_compra_ibfk_2` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`idProduto`)
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itens_da_compra`
+--
+
+LOCK TABLES `itens_da_compra` WRITE;
+/*!40000 ALTER TABLE `itens_da_compra` DISABLE KEYS */;
+INSERT INTO `itens_da_compra` VALUES (1,1,1,2,18.99,0.00,37.98),(2,1,2,3,0.55,0.00,1.65),(3,2,3,1,12.49,0.00,12.49),(4,2,4,2,3.25,0.00,6.50),(5,3,5,2,3.99,0.00,7.98),(6,3,6,1,8.99,0.00,8.99),(7,4,7,3,65.99,0.00,197.97),(8,4,8,2,28.99,0.00,57.98),(9,5,9,2,1.89,0.00,3.78),(10,5,10,2,79.99,0.00,159.98),(11,6,11,4,18.99,0.00,75.96),(12,6,12,1,0.55,0.00,0.55),(13,7,13,3,12.49,0.00,37.47),(14,7,14,2,3.25,0.00,6.50),(15,8,15,2,3.99,0.00,7.98),(16,8,16,1,8.99,0.00,8.99),(17,9,17,5,65.99,0.00,329.95),(18,9,18,3,28.99,0.00,86.97),(19,10,19,2,1.89,0.00,3.78),(20,10,20,2,79.99,0.00,159.98),(21,11,21,1,20.99,0.00,20.99),(22,11,22,2,0.49,0.00,0.98),(23,12,23,3,16.99,0.00,50.97),(24,12,24,1,2.49,0.00,2.49),(25,13,25,2,4.99,0.00,9.98),(26,13,26,1,18.99,0.00,18.99),(27,14,27,3,99.99,0.00,299.97),(28,14,28,2,36.99,0.00,73.98),(29,15,29,2,2.79,0.00,5.58),(30,15,30,1,119.99,0.00,119.99),(31,16,11,2,18.99,0.00,37.98),(32,16,12,3,0.55,0.00,1.65),(33,17,13,1,12.49,0.00,12.49),(34,17,14,2,3.25,0.00,6.50),(35,18,15,2,3.99,0.00,7.98),(36,18,16,1,8.99,0.00,8.99),(37,19,17,3,65.99,0.00,197.97),(38,19,18,2,28.99,0.00,57.98),(39,20,19,2,1.89,0.00,3.78),(40,20,20,2,79.99,0.00,159.98),(41,21,21,1,20.99,0.00,20.99),(42,21,22,2,0.49,0.00,0.98),(43,22,23,3,16.99,0.00,50.97),(44,22,24,1,2.49,0.00,2.49),(45,23,25,2,4.99,0.00,9.98),(46,23,26,1,18.99,0.00,18.99),(47,24,27,3,99.99,0.00,299.97),(48,24,28,2,36.99,0.00,73.98),(49,25,29,2,2.79,0.00,5.58),(50,25,30,1,119.99,0.00,119.99),(51,26,11,2,18.99,0.00,37.98),(52,26,12,3,0.55,0.00,1.65),(53,27,13,1,12.49,0.00,12.49),(54,27,14,2,3.25,0.00,6.50),(55,28,15,2,3.99,0.00,7.98),(56,28,16,1,8.99,0.00,8.99),(57,29,17,3,65.99,0.00,197.97),(58,29,18,2,28.99,0.00,57.98),(59,30,19,2,1.89,0.00,3.78),(60,30,20,2,79.99,0.00,159.98),(61,31,21,1,20.99,0.00,20.99),(62,31,22,2,0.49,0.00,0.98),(63,32,23,3,16.99,0.00,50.97),(64,32,24,1,2.49,0.00,2.49),(65,33,25,2,4.99,0.00,9.98),(66,33,26,1,18.99,0.00,18.99),(67,34,27,3,99.99,0.00,299.97),(68,34,28,2,36.99,0.00,73.98),(69,35,29,2,2.79,0.00,5.58),(70,35,30,1,119.99,0.00,119.99),(71,36,11,2,18.99,0.00,37.98),(72,36,12,3,0.55,0.00,1.65),(73,37,13,1,12.49,0.00,12.49),(74,37,14,2,3.25,0.00,6.50),(75,38,15,2,3.99,0.00,7.98),(76,38,16,1,8.99,0.00,8.99),(77,39,17,3,65.99,0.00,197.97),(78,39,18,2,28.99,0.00,57.98),(79,40,19,2,1.89,0.00,3.78),(80,40,20,2,79.99,0.00,159.98),(81,41,21,1,20.99,0.00,20.99),(82,41,22,2,0.49,0.00,0.98),(83,42,23,3,16.99,0.00,50.97),(84,42,24,1,2.49,0.00,2.49),(85,43,25,2,4.99,0.00,9.98),(86,43,26,1,18.99,0.00,18.99),(87,44,27,3,99.99,0.00,299.97),(88,44,28,2,36.99,0.00,73.98),(89,45,29,2,2.79,0.00,5.58),(90,45,30,1,119.99,0.00,119.99),(91,46,11,2,18.99,0.00,37.98),(92,46,12,3,0.55,0.00,1.65),(93,47,13,1,12.49,0.00,12.49),(94,47,14,2,3.25,0.00,6.50);
+/*!40000 ALTER TABLE `itens_da_compra` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `itens_da_venda`
+--
+
+DROP TABLE IF EXISTS `itens_da_venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `itens_da_venda` (
+  `idItemVenda` int(11) NOT NULL AUTO_INCREMENT,
+  `idVenda` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `quantidade` double NOT NULL,
+  `precoUn` double(7,2) NOT NULL,
+  `desconto` double(5,2) NOT NULL,
+  `total` double(7,2) NOT NULL,
+  PRIMARY KEY (`idItemVenda`),
+  KEY `idVenda` (`idVenda`),
+  KEY `idProduto` (`idProduto`),
+  CONSTRAINT `itens_da_venda_ibfk_1` FOREIGN KEY (`idVenda`) REFERENCES `venda` (`idVenda`),
+  CONSTRAINT `itens_da_venda_ibfk_2` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`idProduto`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itens_da_venda`
+--
+
+LOCK TABLES `itens_da_venda` WRITE;
+/*!40000 ALTER TABLE `itens_da_venda` DISABLE KEYS */;
+INSERT INTO `itens_da_venda` VALUES (1,1,'2023-09-20',1,5,25.99,0.00,129.95),(2,1,'2023-09-20',3,2,19.99,0.00,39.98),(3,2,'2023-09-21',2,10,0.89,0.00,8.90),(4,2,'2023-09-21',4,3,4.99,0.00,14.97),(5,3,'2023-09-22',5,4,5.49,0.00,21.96),(6,3,'2023-09-22',7,1,89.99,0.00,89.99),(7,4,'2023-09-23',6,3,12.99,0.00,38.97),(8,4,'2023-09-23',8,2,34.99,0.00,69.98),(9,5,'2023-09-24',9,6,2.49,0.00,14.94),(10,5,'2023-09-24',10,2,99.99,0.00,199.98),(11,6,'2023-09-25',11,7,25.99,0.00,181.93),(12,6,'2023-09-25',13,3,19.99,0.00,59.97),(13,7,'2023-09-26',12,8,0.89,0.00,7.12),(14,7,'2023-09-26',14,5,4.99,0.00,24.95),(15,8,'2023-09-27',15,2,5.49,0.00,10.98),(16,8,'2023-09-27',17,3,89.99,0.00,269.97),(17,9,'2023-09-28',16,5,12.99,0.00,64.95),(18,9,'2023-09-28',18,4,34.99,0.00,139.96),(19,10,'2023-09-29',19,10,2.49,0.00,24.90),(20,10,'2023-09-29',20,1,99.99,0.00,100.00),(21,11,'2023-09-01',21,5,25.99,0.00,129.95),(22,11,'2023-09-01',23,2,19.99,0.00,39.98),(23,12,'2023-09-02',22,10,0.89,0.00,8.90),(24,12,'2023-09-02',24,3,4.99,0.00,14.97),(25,13,'2023-09-03',25,4,5.49,0.00,21.96),(26,13,'2023-09-03',27,1,89.99,0.00,89.99),(27,14,'2023-09-04',26,3,12.99,0.00,38.97),(28,14,'2023-09-04',28,2,34.99,0.00,69.98),(29,15,'2023-09-05',29,6,2.49,0.00,14.94),(30,15,'2023-09-05',10,2,99.99,0.00,199.98),(31,16,'2023-09-06',21,7,25.99,0.00,181.93),(32,16,'2023-09-06',23,3,19.99,0.00,59.97),(33,17,'2023-09-07',22,8,0.89,0.00,7.12),(34,17,'2023-09-07',24,5,4.99,0.00,24.95),(35,18,'2023-09-08',25,2,5.49,0.00,10.98),(36,18,'2023-09-08',27,3,89.99,0.00,269.97),(37,19,'2023-09-09',26,5,12.99,0.00,64.95),(38,19,'2023-09-09',8,4,34.99,0.00,139.96),(39,20,'2023-09-10',9,10,2.49,0.00,24.90),(40,20,'2023-09-10',10,1,99.99,0.00,99.99);
+/*!40000 ALTER TABLE `itens_da_venda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `produto`
+--
+
+DROP TABLE IF EXISTS `produto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produto` (
+  `idProduto` int(11) NOT NULL AUTO_INCREMENT,
+  `idFornecedor` int(11) NOT NULL,
+  `nome` varchar(30) NOT NULL,
+  `codigo` varchar(13) NOT NULL,
+  `idcategoria` int(11) NOT NULL,
+  `precoUn` double(7,2) NOT NULL,
+  `precoCusto` double(7,2) NOT NULL,
+  `estoque` double NOT NULL,
+  PRIMARY KEY (`idProduto`),
+  KEY `idFornecedor` (`idFornecedor`),
+  KEY `idcategoria` (`idcategoria`),
+  CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`idFornecedor`),
+  CONSTRAINT `produto_ibfk_2` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idCategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `produto`
+--
+
+LOCK TABLES `produto` WRITE;
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (1,1,'Cimento','1',1,25.99,18.99,500),(2,2,'Tijolos','2',1,0.89,0.55,10000),(3,3,'Tinta Branca','3',2,19.99,12.49,300),(4,4,'Pregos','4',3,4.99,3.25,5000),(5,5,'Telhas de Cerâmica','5',4,5.49,3.99,1000),(6,6,'Luminárias LED','6',5,12.99,8.99,800),(7,7,'Ferramenta Elétrica','7',6,89.99,65.99,200),(8,8,'Pisos de Madeira','8',7,34.99,28.99,600),(9,9,'Tubos de PVC','9',8,2.49,1.89,3000),(10,10,'Portas de Aço','10',9,99.99,79.99,100),(11,1,'Cimento Portland','CP001',1,25.99,18.99,500),(12,2,'Tijolos Vermelhos','TV002',1,0.89,0.55,10000),(13,3,'Tinta Branca Látex','TB003',2,19.99,12.49,300),(14,4,'Pregos Galvanizados','PG004',3,4.99,3.25,5000),(15,5,'Telhas de Cerâmica','TC005',4,5.49,3.99,1000),(16,6,'Luminária de LED 10W','LL006',5,12.99,8.99,800),(17,7,'Furadeira Elétrica','FE007',6,89.99,65.99,200),(18,8,'Pisos de Madeira de Carvalho','PMC008',7,34.99,28.99,600),(19,9,'Tubos de PVC 1/2\"','TPVC009',8,2.49,1.89,3000),(20,10,'Porta de Aço com Fechadura','PAF010',9,99.99,79.99,100),(21,11,'Cimento Composto','CC011',1,28.99,20.99,400),(22,12,'Tijolos de Concreto','TC012',1,0.79,0.49,12000),(23,13,'Tinta para Exterior','TE013',2,24.99,16.99,500),(24,14,'Parafusos para Madeira','PM014',3,3.49,2.49,8000),(25,15,'Telhas de Metal','TM015',4,6.99,4.99,1500),(26,16,'Luminária de LED 20W','LL016',5,24.99,18.99,500),(27,17,'Serra Circular','SC017',6,129.99,99.99,300),(28,18,'Pisos de Porcelanato','PP018',7,42.99,36.99,400),(29,19,'Tubos de PVC 1\"','TPVC019',8,3.99,2.79,2500),(30,20,'Porta de Madeira Maciça','PMM020',9,149.99,119.99,80),(31,21,'Cimento Branco','CB021',1,32.99,24.99,300),(32,22,'Tijolos de Barro','TB022',1,0.99,0.69,8000),(33,23,'Tinta para Interior','TI023',2,22.99,15.99,600),(34,24,'Parafusos de Aço Inoxidável','PAI024',3,5.99,4.49,4000),(35,25,'Telhas de Fibrocimento','TF025',4,7.99,5.49,1200),(36,26,'Luminária de LED 30W','LL026',5,32.99,25.99,300),(37,27,'Serra Elétrica de Bancada','SEB027',6,249.99,189.99,150),(38,28,'Pisos de Granito','PG028',7,59.99,49.99,200),(39,29,'Tubos de PVC 2\"','TPVC029',8,4.99,3.49,1800),(40,30,'Porta de Alumínio','PA030',9,119.99,99.99,120),(41,31,'Cimento Rápido','CR031',1,34.99,26.99,250),(42,32,'Tijolos de Vidro','TV032',1,1.29,0.89,6000),(43,33,'Tinta Epóxi','TE033',2,29.99,22.99,350),(44,34,'Parafusos de Latão','PL034',3,6.99,5.29,3200),(45,35,'Telhas de Ardósia','TA035',4,9.99,7.99,900),(46,36,'Luminária de LED 50W','LL036',5,49.99,39.99,180),(47,37,'Serra de Esquadria','SE037',6,179.99,139.99,80),(48,38,'Pisos de Mármore','PM038',7,79.99,69.99,100),(49,39,'Tubos de PVC 3\"','TPVC039',8,6.99,4.99,1200),(50,40,'Porta de Vidro Temperado','PVT040',9,199.99,159.99,60);
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `venda`
+--
+
+DROP TABLE IF EXISTS `venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venda` (
+  `idVenda` int(11) NOT NULL AUTO_INCREMENT,
+  `total` double(7,2) NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `idFuncionario` int(11) NOT NULL,
+  `status_venda` varchar(12) NOT NULL,
+  `desconto` double(5,2) NOT NULL,
+  `dataVenda` date NOT NULL,
+  PRIMARY KEY (`idVenda`),
+  KEY `idCliente` (`idCliente`),
+  KEY `idFuncionario` (`idFuncionario`),
+  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
+  CONSTRAINT `venda_ibfk_2` FOREIGN KEY (`idFuncionario`) REFERENCES `funcionario` (`idFuncionario`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venda`
+--
+
+LOCK TABLES `venda` WRITE;
+/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+INSERT INTO `venda` VALUES (1,169.93,1,1,'Concluída',0.00,'2023-09-20'),(2,23.87,2,2,'Concluída',0.00,'2023-09-21'),(3,111.95,3,3,'Concluída',0.00,'2023-09-22'),(4,108.95,4,4,'Concluída',0.00,'2023-09-23'),(5,214.92,5,5,'Concluída',0.00,'2023-09-24'),(6,241.90,6,6,'Concluída',0.00,'2023-09-25'),(7,32.07,7,7,'Concluída',0.00,'2023-09-26'),(8,280.95,8,8,'Concluída',0.00,'2023-09-27'),(9,204.91,9,9,'Concluída',0.00,'2023-09-28'),(10,124.90,10,10,'Concluída',0.00,'2023-09-29'),(11,169.93,1,1,'Concluída',0.00,'2023-09-01'),(12,23.87,2,2,'Concluída',0.00,'2023-09-02'),(13,111.95,3,3,'Concluída',0.00,'2023-09-03'),(14,108.95,4,4,'Concluída',0.00,'2023-09-04'),(15,214.92,5,5,'Concluída',0.00,'2023-09-05'),(16,241.90,6,6,'Concluída',0.00,'2023-09-06'),(17,32.07,7,7,'Concluída',0.00,'2023-09-07'),(18,280.95,8,8,'Concluída',0.00,'2023-09-08'),(19,204.91,9,9,'Concluída',0.00,'2023-09-09'),(20,124.89,10,10,'Concluída',0.00,'2023-09-10');
+/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-11-15 12:33:25

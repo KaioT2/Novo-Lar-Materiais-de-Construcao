@@ -4,6 +4,8 @@
  */
 package ViewPrincipal;
 
+import Backup.TelaBackUp;
+import Backup.TelaRestaurarBackup;
 import ViewLogin.TelaLogin;
 import ViewCadastro.TelaCadCategoria;
 import ViewCadastro.TelaCadCliente;
@@ -121,6 +123,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuEncerrarSecao = new javax.swing.JMenuItem();
         menuTrocarUsuario = new javax.swing.JMenuItem();
         menuBackUp = new javax.swing.JMenuItem();
+        menuRestaurarBackUp = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
         menuCadUsuario = new javax.swing.JMenuItem();
         menuCadCliente = new javax.swing.JMenuItem();
@@ -563,6 +566,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuFazerBackUp.add(menuBackUp);
 
+        menuRestaurarBackUp.setText("Restaurar dados");
+        menuRestaurarBackUp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                menuRestaurarBackUpMouseReleased(evt);
+            }
+        });
+        menuFazerBackUp.add(menuRestaurarBackUp);
+
         jMenuBar1.add(menuFazerBackUp);
 
         menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastroIcon.png"))); // NOI18N
@@ -921,7 +932,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuBackUpMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBackUpMouseReleased
         // TODO add your handling code here:
+        TelaBackUp telaBackUp = new TelaBackUp();
+        telaBackUp.setVisible(true);
     }//GEN-LAST:event_menuBackUpMouseReleased
+
+    private void menuRestaurarBackUpMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRestaurarBackUpMouseReleased
+        // TODO add your handling code here:
+        TelaRestaurarBackup telaRestaurarBackup = new TelaRestaurarBackup();
+        telaRestaurarBackup.setVisible(true);
+    }//GEN-LAST:event_menuRestaurarBackUpMouseReleased
 
     //Função que muda a cor do botão que está selecionado
     private void setColor(JPanel botao, JLabel label) {
@@ -949,7 +968,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador6}, new JLabel[]{label2, label3, lebal4, label5, label6});
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main;
     private javax.swing.JPanel MenuLateral;
@@ -993,6 +1011,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuNovaCompra;
     private javax.swing.JMenuItem menuNovaVenda;
     private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenuItem menuRestaurarBackUp;
     private javax.swing.JMenuItem menuTrocarUsuario;
     private javax.swing.JMenu menuVendas;
     private javax.swing.JLabel txtNomeUsuario;
