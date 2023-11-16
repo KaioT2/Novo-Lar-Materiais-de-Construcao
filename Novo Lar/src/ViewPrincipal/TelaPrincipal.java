@@ -6,6 +6,7 @@ package ViewPrincipal;
 
 import Backup.TelaBackUp;
 import Backup.TelaRestaurarBackup;
+import Connection.ConnectionFactory;
 import ViewLogin.TelaLogin;
 import ViewCadastro.TelaCadCategoria;
 import ViewCadastro.TelaCadCliente;
@@ -17,12 +18,19 @@ import ViewEstoque.TelaDeEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.IOException;
+import java.sql.Connection;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *
@@ -133,6 +141,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuEstoque = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
+        btnRelatoriovendas = new javax.swing.JMenuItem();
         menuVendas = new javax.swing.JMenu();
         menuNovaVenda = new javax.swing.JMenuItem();
         menuHistoricoVendas = new javax.swing.JMenuItem();
@@ -397,6 +406,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btn_menuRelatorios.setBackground(new java.awt.Color(41, 57, 100));
         btn_menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_menuRelatorios.setOpaque(false);
         btn_menuRelatorios.setPreferredSize(new java.awt.Dimension(250, 40));
         btn_menuRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -639,7 +649,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/relatorioIcon.png"))); // NOI18N
         menuRelatorios.setText("Relatórios");
         menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuRelatorios.setEnabled(false);
+
+        btnRelatoriovendas.setText("Relatório de Vendas");
+        btnRelatoriovendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnRelatoriovendasMouseReleased(evt);
+            }
+        });
+        menuRelatorios.add(btnRelatoriovendas);
+
         jMenuBar1.add(menuRelatorios);
 
         menuVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/vendasIcon.png"))); // NOI18N
@@ -903,12 +921,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         //DESCOMENTAR QUANDO O SISTEMA DE RELATÓRIOS ESTIVER PRONTO
         
-        JOptionPane.showMessageDialog(null, "Relatórios em breve!");
+        //JOptionPane.showMessageDialog(null, "Relatórios em breve!");
         
-//        setColor(btn_menuRelatorios, label6);
-//        indicador6.setOpaque(true);
-//        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
-//                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
+        setColor(btn_menuRelatorios, label6);
+        indicador6.setOpaque(true);
+        resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
+                new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
+        
+        Connection conn = ConnectionFactory.getConnection();    
+        String src = "Relatorios/RelatorioDeVendas.jasper";
+
+        try {
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(src, null, conn);
+            
+            JDialog telaRelatorios = new JDialog(this, "Relatório de Vendas", true);
+            telaRelatorios.setSize(1000, 700);
+            telaRelatorios.setLocationRelativeTo(null);
+            
+            JRViewer painelRelatorio = new JRViewer(relatorioPreenchido);
+            
+            telaRelatorios.getContentPane().add(painelRelatorio);
+            
+            telaRelatorios.setVisible(true);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório!");
+        }
     }//GEN-LAST:event_btn_menuRelatoriosMousePressed
 
     private void btn_menuLogOffMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuLogOffMousePressed
@@ -942,6 +981,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaRestaurarBackup.setVisible(true);
     }//GEN-LAST:event_menuRestaurarBackUpMouseReleased
 
+    private void btnRelatoriovendasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatoriovendasMouseReleased
+        // TODO add your handling code here:
+        
+        Connection conn = ConnectionFactory.getConnection();    
+        String src = "Relatorios/RelatorioDeVendas.jasper";
+
+        try {
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(src, null, conn);
+            
+            JDialog telaRelatorios = new JDialog(this, "Relatório de Vendas", true);
+            telaRelatorios.setSize(1000, 700);
+            telaRelatorios.setLocationRelativeTo(null);
+            
+            JRViewer painelRelatorio = new JRViewer(relatorioPreenchido);
+            
+            telaRelatorios.getContentPane().add(painelRelatorio);
+            
+            telaRelatorios.setVisible(true);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório!");
+        }
+    }//GEN-LAST:event_btnRelatoriovendasMouseReleased
+
     //Função que muda a cor do botão que está selecionado
     private void setColor(JPanel botao, JLabel label) {
         botao.setBackground(new Color(41, 57, 100));
@@ -971,6 +1035,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Main;
     private javax.swing.JPanel MenuLateral;
+    private javax.swing.JMenuItem btnRelatoriovendas;
     private javax.swing.JPanel btn_menuCadastros;
     private javax.swing.JPanel btn_menuCompras;
     private javax.swing.JPanel btn_menuEstoque;
