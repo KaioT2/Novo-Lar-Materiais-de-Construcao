@@ -23,4 +23,4 @@
 ![7](https://github.com/KaioT2/Novo-Lar-Materiais-de-Construcao/assets/98715856/7803fd46-5eb0-49f8-9fb7-74fdac9132a4)
 
 # Tela de Relatórios 
-LOADING...
+![8](https://github.com/KaioT2/Novo-Lar-Materiais-de-Construcao/assets/98715856/2e7c7735-f9d2-4d17-892f-ab7021713c0c)
