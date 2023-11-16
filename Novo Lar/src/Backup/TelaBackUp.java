@@ -91,16 +91,16 @@ public class TelaBackUp extends javax.swing.JFrame {
 
     private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.showOpenDialog(this);
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        JFileChooser fc = new JFileChooser(); //Instânciação ecanismo de busca de diretório
+        fc.showOpenDialog(this); //Exibe a busca de diretório
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date()); //Conversor de data de EUA -> BR
 
         try {
-            File f = fc.getSelectedFile();
-            pasta = f.getAbsolutePath();
-            pasta = pasta.replace('\\', '/');
-            pasta = pasta + "_" + date + ".sql";
-            txtLocalDoArquivo.setText(pasta);
+            File f = fc.getSelectedFile(); //Pega o arquivo escolhido na busca de diretório
+            pasta = f.getAbsolutePath(); //Pega o caminho da pasta 
+            pasta = pasta.replace('\\', '/'); //Se houver barras duplas converte para barra de diretório
+            pasta = pasta + "_" + date + ".sql"; //Nomeia o arquivoi de backup com a data 
+            txtLocalDoArquivo.setText(pasta); //Onde o arquivo será salvo
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,9 +115,10 @@ public class TelaBackUp extends javax.swing.JFrame {
         } else {
             Process p = null;
             try {
-                Runtime runtime = Runtime.getRuntime();
-                p = runtime.exec("C:/xampp/mysql/bin/mysqldump.exe -uroot --add-drop-database -B dbnovolar -r" + pasta);
+                Runtime runtime = Runtime.getRuntime(); //Instânciação do runtime (executa comando SQL)
+                p = runtime.exec("C:/xampp/mysql/bin/mysqldump.exe -uroot --add-drop-database -B dbnovolar -r" + pasta);// Comando de backup com o caminho do arquivo BD
 
+                //Confere se o processo deu certo
                 int processComplete = p.waitFor();
                 if (processComplete == 0) {
                     txtMensagem.setText("Backup criado com sucesso");

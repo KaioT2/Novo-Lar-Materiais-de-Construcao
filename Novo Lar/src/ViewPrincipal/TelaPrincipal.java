@@ -53,22 +53,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     //Recebe a tela Hoem
     //Recebe o nome de usuário da tela de login
     public TelaPrincipal(int permissaoUsuario, String nomeUsuario, JInternalFrame home) {
-        
+
         initComponents();
 
         setSize(new Dimension(1280, 720)); //Seta o tamanho da tela ao abrir
         setLocationRelativeTo(null); //"Desprende" a tela de qualquer outro elemento
-        
+
         //Ativa o menu lateral de navegação
         ativarMenu();
-        
-        this.permissaoUsuario=permissaoUsuario; //Armazena a permissão de usuário vinda da tela de login para habilitar ou não os recursos
-        
+
+        this.permissaoUsuario = permissaoUsuario; //Armazena a permissão de usuário vinda da tela de login para habilitar ou não os recursos
+
         LocalTime horario = LocalTime.now(); //Recebe o período do dia
         verificarPeriodo(horario);
-        
+
         //Faz com que a tela home preencha todo o JDesktop
-        home.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); 
+        home.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight());
         this.home = home;
         jDesktopPane1.add(home);
         home.setVisible(true);
@@ -700,7 +700,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuEncerrarSecaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEncerrarSecaoMouseReleased
         // TODO add your handling code here:
-        
+
         //Pergunta ao usuário se quer encerrar a Seção
         String[] options = {"Encerrar Seção", "Cancelar"};
 
@@ -755,7 +755,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuCadClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadClienteMouseReleased
         // TODO add your handling code here:
-        
+
         //Verifica a permissão do usuário antes de abrir a tela
         if (permissaoUsuario == 1) {
             TelaCadCliente telaCadCli = new TelaCadCliente();
@@ -767,7 +767,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadFornecedorActionPerformed
         // TODO add your handling code here:
-        
+
         //Verifica a permissão do usuário antes de abrir a tela
         if (permissaoUsuario == 1) {
             TelaCadFornecedor telaCadForn = new TelaCadFornecedor();
@@ -796,7 +796,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaDeEstoque telaDeEstoque = new TelaDeEstoque();
         telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
-        
+
         //Remove as outras telas do JDesktop e seta a desejada
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaDeEstoque);
@@ -807,7 +807,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         telaVenda = new TelaVenda(permissaoUsuario);
-        
+
         //Remove as outras telas do JDesktop e seta a desejada
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaVenda);
@@ -820,7 +820,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (permissaoUsuario == 1) {
             TelaCompra telaCompra = new TelaCompra();
             telaCompra.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
-            
+
             //Remove as outras telas do JDesktop e seta a desejada
             jDesktopPane1.removeAll();
             jDesktopPane1.add(telaCompra);
@@ -833,7 +833,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuHomeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuHomeMousePressed
         // TODO add your handling code here:
-        
+
         //Efeito de "hover" do botão ; Seta a tela desejada 
         setColor(btn_menuHome, label1);
         indicador1.setOpaque(true);
@@ -847,9 +847,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuCadastrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuCadastrosMousePressed
         // TODO add your handling code here:
-        
+
         JOptionPane.showMessageDialog(null, "Use a barra superior, por enquanto esse recurso está indisponível!");
-        
+
         //Efeito de "hover" do botão ; Seta a tela desejada
 //        setColor(btn_menuCadastros, label2);
 //        indicador2.setOpaque(true);
@@ -859,34 +859,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuEstoqueMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuEstoqueMousePressed
         // TODO add your handling code here:
-        
+
         //Efeito de "hover" do botão ; Seta a tela desejada
         setColor(btn_menuEstoque, label3);
         indicador3.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuHome, btn_menuVendas, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador1, indicador4, indicador5, indicador6}, new JLabel[]{label1, label2, lebal4, label5, label6});
-        
+
         TelaDeEstoque telaDeEstoque = new TelaDeEstoque();
         telaDeEstoque.setBounds(0, 0, jDesktopPane1.getWidth(), jDesktopPane1.getHeight()); //Faz com que a tela preencha todo o JDesktop e seja centralizada
-        
+
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaDeEstoque);
         telaDeEstoque.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_btn_menuEstoqueMousePressed
 
     private void btn_menuVendasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuVendasMousePressed
         // TODO add your handling code here:
-        
+
         //Efeito de "hover" do botão ; Seta a tela desejada
         setColor(btn_menuVendas, lebal4);
         indicador4.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuHome, btn_menuCompras, btn_menuRelatorios},
                 new JPanel[]{indicador2, indicador3, indicador1, indicador5, indicador6}, new JLabel[]{label1, label2, label3, label5, label6});
-        
+
         telaVenda = new TelaVenda(permissaoUsuario);
-        
+
         jDesktopPane1.removeAll();
         jDesktopPane1.add(telaVenda);
         telaVenda.setVisible(true);
@@ -894,10 +894,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_menuComprasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuComprasMousePressed
         // TODO add your handling code here:
-        
+
         //Executa a função somente se o usuário tiver permissão 
         if (permissaoUsuario == 1) {
-            
+
             //Efeito de "hover" do botão ; Seta a tela desejada
             setColor(btn_menuCompras, label5);
             indicador5.setOpaque(true);
@@ -910,40 +910,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jDesktopPane1.removeAll();
             jDesktopPane1.add(telaCompra);
             telaCompra.setVisible(true);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "Permissão de administrador necessária!");
         }
     }//GEN-LAST:event_btn_menuComprasMousePressed
 
     private void btn_menuRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuRelatoriosMousePressed
         // TODO add your handling code here:
-        
+
         //DESCOMENTAR QUANDO O SISTEMA DE RELATÓRIOS ESTIVER PRONTO
-        
         //JOptionPane.showMessageDialog(null, "Relatórios em breve!");
-        
         setColor(btn_menuRelatorios, label6);
         indicador6.setOpaque(true);
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
-        
-        Connection conn = ConnectionFactory.getConnection();    
+
+        Connection conn = ConnectionFactory.getConnection();
         String src = "Relatorios/RelatorioDeVendas.jasper";
 
         try {
             JasperPrint relatorioPreenchido = JasperFillManager.fillReport(src, null, conn);
-            
+
             JDialog telaRelatorios = new JDialog(this, "Relatório de Vendas", true);
             telaRelatorios.setSize(1000, 700);
             telaRelatorios.setLocationRelativeTo(null);
-            
+
             JRViewer painelRelatorio = new JRViewer(relatorioPreenchido);
-            
+
             telaRelatorios.getContentPane().add(painelRelatorio);
-            
+
             telaRelatorios.setVisible(true);
-            
+
         } catch (JRException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório!");
@@ -983,23 +980,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnRelatoriovendasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatoriovendasMouseReleased
         // TODO add your handling code here:
-        
-        Connection conn = ConnectionFactory.getConnection();    
-        String src = "Relatorios/RelatorioDeVendas.jasper";
+
+        Connection conn = ConnectionFactory.getConnection(); //Instância da classe de conexão para pegar os dados do BD
+        String src = "Relatorios/RelatorioDeVendas.jasper"; //caminho do relatório
 
         try {
+            //Pega o relatório do diretório
             JasperPrint relatorioPreenchido = JasperFillManager.fillReport(src, null, conn);
-            
+
+            //Cria uma tela que armazenará a visualização do relatório
             JDialog telaRelatorios = new JDialog(this, "Relatório de Vendas", true);
             telaRelatorios.setSize(1000, 700);
             telaRelatorios.setLocationRelativeTo(null);
-            
+
+            //Manda o relatório para o Viewer do Jasper
             JRViewer painelRelatorio = new JRViewer(relatorioPreenchido);
-            
+
+            //Exibe a visualização dentro da tela criada
             telaRelatorios.getContentPane().add(painelRelatorio);
-            
             telaRelatorios.setVisible(true);
-            
+
         } catch (JRException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório!");
