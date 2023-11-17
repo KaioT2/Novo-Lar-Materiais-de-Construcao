@@ -7,6 +7,7 @@ package ViewPrincipal;
 import Backup.TelaBackUp;
 import Backup.TelaRestaurarBackup;
 import Connection.ConnectionFactory;
+import Relatorios.TelaRelatórioVendas;
 import ViewLogin.TelaLogin;
 import ViewCadastro.TelaCadCategoria;
 import ViewCadastro.TelaCadCliente;
@@ -20,6 +21,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -925,26 +928,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         resetColor(new JPanel[]{btn_menuCadastros, btn_menuEstoque, btn_menuVendas, btn_menuCompras, btn_menuHome},
                 new JPanel[]{indicador2, indicador3, indicador4, indicador5, indicador1}, new JLabel[]{label1, label2, label3, lebal4, label5});
 
-        Connection conn = ConnectionFactory.getConnection();
-        String src = "Relatorios/RelatorioDeVendas.jasper";
-
-        try {
-            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(src, null, conn);
-
-            JDialog telaRelatorios = new JDialog(this, "Relatório de Vendas", true);
-            telaRelatorios.setSize(1000, 700);
-            telaRelatorios.setLocationRelativeTo(null);
-
-            JRViewer painelRelatorio = new JRViewer(relatorioPreenchido);
-
-            telaRelatorios.getContentPane().add(painelRelatorio);
-
-            telaRelatorios.setVisible(true);
-
-        } catch (JRException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório!");
-        }
+        TelaRelatórioVendas telaRelatorioVendas = new TelaRelatórioVendas();
+        telaRelatorioVendas.setVisible(true);
     }//GEN-LAST:event_btn_menuRelatoriosMousePressed
 
     private void btn_menuLogOffMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_menuLogOffMousePressed
@@ -980,30 +965,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnRelatoriovendasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatoriovendasMouseReleased
         // TODO add your handling code here:
-
-        Connection conn = ConnectionFactory.getConnection(); //Instância da classe de conexão para pegar os dados do BD
-        String src = "Relatorios/RelatorioDeVendas.jasper"; //caminho do relatório
-
-        try {
-            //Pega o relatório do diretório
-            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(src, null, conn);
-
-            //Cria uma tela que armazenará a visualização do relatório
-            JDialog telaRelatorios = new JDialog(this, "Relatório de Vendas", true);
-            telaRelatorios.setSize(1000, 700);
-            telaRelatorios.setLocationRelativeTo(null);
-
-            //Manda o relatório para o Viewer do Jasper
-            JRViewer painelRelatorio = new JRViewer(relatorioPreenchido);
-
-            //Exibe a visualização dentro da tela criada
-            telaRelatorios.getContentPane().add(painelRelatorio);
-            telaRelatorios.setVisible(true);
-
-        } catch (JRException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório!");
-        }
+        TelaRelatórioVendas telaRelatorioVendas = new TelaRelatórioVendas();
+        telaRelatorioVendas.setVisible(true);
     }//GEN-LAST:event_btnRelatoriovendasMouseReleased
 
     //Função que muda a cor do botão que está selecionado
