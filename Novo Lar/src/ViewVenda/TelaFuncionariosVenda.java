@@ -6,6 +6,7 @@ package ViewVenda;
 
 import DAO.FuncionarioDAO;
 import Funcionario.Funcionario;
+import Relatorios.TelaRelatórioVendas;
 import ViewCompra.TelaCompra;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,14 +17,15 @@ import javax.swing.table.DefaultTableModel;
 public class TelaFuncionariosVenda extends javax.swing.JFrame {
 
     private TelaVenda telaVenda;
-    private TelaCompra telaCompra;
+    private TelaRelatórioVendas telaRelatorioVenda;
 
     public void setTelaVenda(TelaVenda telaVenda) {
         this.telaVenda = telaVenda;
     }
 
-    public void setTelaCompra(TelaCompra telaCompra) {
-        this.telaCompra = telaCompra;
+    
+    public void setTelaRelatorioVenda(TelaRelatórioVendas telaRelatorioVenda) {
+        this.telaRelatorioVenda = telaRelatorioVenda;
     }
     
 
@@ -32,6 +34,7 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
      */
     public TelaFuncionariosVenda() {
         initComponents();
+        telaVenda = new TelaVenda(0);
         atualizarTabela();
     }
 
@@ -199,7 +202,8 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (evt.getClickCount() == 2) { // Duplo clique
-            if (tabelaFunc.getSelectedRow() != -1) {
+            if(telaVenda.isVisible()){
+                if (tabelaFunc.getSelectedRow() != -1) {
 
                 Funcionario f = new Funcionario();
 
@@ -209,6 +213,17 @@ public class TelaFuncionariosVenda extends javax.swing.JFrame {
 
                 telaVenda.inserirFuncionario(f);
                 this.dispose();
+            }
+            }
+            else if(telaRelatorioVenda.isVisible()){
+                if (tabelaFunc.getSelectedRow() != -1) {
+                
+                Funcionario f = new Funcionario();
+                
+                f.setNome(tabelaFunc.getValueAt(tabelaFunc.getSelectedRow(), 1).toString());                
+                telaRelatorioVenda.inserirFuncionario(f);
+                this.dispose();
+            }
             }
         }
     }//GEN-LAST:event_tabelaFuncMouseClicked

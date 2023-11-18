@@ -6,7 +6,6 @@ package ViewPrincipal;
 
 import Backup.TelaBackUp;
 import Backup.TelaRestaurarBackup;
-import Connection.ConnectionFactory;
 import Relatorios.TelaRelatórioVendas;
 import ViewLogin.TelaLogin;
 import ViewCadastro.TelaCadCategoria;
@@ -19,21 +18,11 @@ import ViewEstoque.TelaDeEstoque;
 import ViewVenda.TelaVenda;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.sql.Connection;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *

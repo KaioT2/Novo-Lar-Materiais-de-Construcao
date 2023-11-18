@@ -6,6 +6,7 @@ package ViewVenda;
 
 import Cliente.Cliente;
 import DAO.ClienteDAO;
+import Relatorios.TelaRelatórioVendas;
 import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,14 +16,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaClientesvenda extends javax.swing.JFrame {
     private TelaVenda telaVenda;
+    private TelaRelatórioVendas telaRelatorioVenda;
     
     //Recebe uma instância da tela de venda 
     public void setTelaVenda(TelaVenda telaVenda) {
         this.telaVenda = telaVenda;
     }
+
+    public void setTelaRelatorioVenda(TelaRelatórioVendas telaRelatorioVenda) {
+        this.telaRelatorioVenda = telaRelatorioVenda;
+    }
     
     public TelaClientesvenda() {
         initComponents();
+        telaVenda = new TelaVenda(0);
         //Preenche a tabela de Clientes cadastrados assim que a tela é exibida
         atualizarTabela();
     }
@@ -182,7 +189,8 @@ public class TelaClientesvenda extends javax.swing.JFrame {
         
         //Pega os dados do cliente selecionado e envia para a tela de venda
         if (evt.getClickCount() == 2) { // Duplo clique
-            if (tabelaCli.getSelectedRow() != -1) {
+            if(telaVenda.isVisible()){
+                if (tabelaCli.getSelectedRow() != -1) {
                 
                 Cliente c = new Cliente();
                 
@@ -191,6 +199,18 @@ public class TelaClientesvenda extends javax.swing.JFrame {
                 
                 telaVenda.inserirCliente(c);
                 this.dispose();
+            }
+            }
+            else if(telaRelatorioVenda.isVisible()){
+                if (tabelaCli.getSelectedRow() != -1) {
+                
+                Cliente c = new Cliente();
+                
+                c.setNome(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
+                
+                telaRelatorioVenda.inserirCliente(c);
+                this.dispose();
+            }
             }
         }
 
