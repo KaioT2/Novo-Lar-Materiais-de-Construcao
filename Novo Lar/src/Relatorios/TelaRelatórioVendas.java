@@ -50,14 +50,17 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
             + "v.total, DATE_FORMAT(STR_TO_DATE(v.dataVenda, '%Y-%m-%d'), '%d-%m-%Y') AS DataFormatada "
             + "FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f "
             + "ON v.idFuncionario = f.idFuncionario";
+    
+    private String dataInicio;
+    private String dataFim;
 
     public TelaRelatórioVendas() {
         initComponents();
 
         //Exibição padrão (Últimos 30 dias)
         dataPadraoInicio.add(Calendar.DAY_OF_MONTH, -30);
-        String dataInicio = da.format(dataPadraoInicio.getTime());
-        String dataFim = da.format(dataPadraoFim.getTime());
+        dataInicio = da.format(dataPadraoInicio.getTime());
+        dataFim = da.format(dataPadraoFim.getTime());
 
         gerarRelatorio(dataInicio, dataFim, "", "");
     }
@@ -83,6 +86,8 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
         btnFuncionario = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         desk = new javax.swing.JDesktopPane();
 
@@ -149,16 +154,29 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Funcionário:");
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Cliente:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtData_Fim, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtData_Fim, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFuncionario)
                     .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
@@ -166,8 +184,10 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -177,9 +197,7 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(txtData_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 666, Short.MAX_VALUE)
-                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(22, 22, 22)))
+                    .addContainerGap(796, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,14 +205,17 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionario))
+                    .addComponent(btnFuncionario)
+                    .addComponent(jLabel4)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtData_Fim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCliente)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -202,8 +223,7 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtData_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(jLabel1)
-                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1))
                     .addContainerGap(34, Short.MAX_VALUE)))
         );
 
@@ -215,7 +235,7 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
         );
         deskLayout.setVerticalGroup(
             deskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 612, Short.MAX_VALUE)
+            .addGap(0, 611, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -282,7 +302,6 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
         } else if (txtCliente.getText().isEmpty() && txtFuncionario.getText().isEmpty() && txtData_Inicio.getText().equals("  /  /    ") && txtData_Fim.getText().equals("  /  /    ")) {
             JOptionPane.showMessageDialog(null, "Preencha algúm campo para filtrar o relatório!");
         }
-        System.out.println(consultaSQL);
     }//GEN-LAST:event_btnFiltrarMouseReleased
 
     private void btnClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseReleased
@@ -305,6 +324,13 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
         txtData_Inicio.setText("");
         txtCliente.setText("");
         txtFuncionario.setText("");
+        
+        consultaSQL = "SELECT v.idVenda, c.nome AS nome_cliente, f.nome AS nome_funcionario, "
+            + "v.total, DATE_FORMAT(STR_TO_DATE(v.dataVenda, '%Y-%m-%d'), '%d-%m-%Y') AS DataFormatada "
+            + "FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f "
+            + "ON v.idFuncionario = f.idFuncionario";
+        
+        gerarRelatorio(dataInicio, dataFim, "", "");
     }//GEN-LAST:event_btnLimparMouseReleased
 
     private void gerarRelatorio(String dataInicial, String dataFinal, String nomeCliente, String nomeFuncionario) {
@@ -420,6 +446,8 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCliente;
