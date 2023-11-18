@@ -270,8 +270,9 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
 
     private void btnFiltrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFiltrarMouseReleased
         // TODO add your handling code here:
-        if (!(txtData_Inicio.getText().equals("  /  /    ") || txtData_Fim.getText().equals("  /  /    "))) {
+        if (!txtData_Inicio.getText().equals("  /  /    ") || !txtData_Fim.getText().equals("  /  /    ")) {
             consultaSQL += " WHERE v.dataVenda BETWEEN $P{Data_Inicio} AND $P{Data_Fim}";
+            gerarRelatorio(txtData_Inicio.getText(), txtData_Fim.getText(), null, null);
         }
         if (!txtCliente.getText().equals("") && !txtFuncionario.getText().equals("")) {
             if (contemWhere(consultaSQL)) {
@@ -346,12 +347,14 @@ public class TelaRelatórioVendas extends javax.swing.JFrame {
             parametros.put("Nome_Funcionario", (nomeFuncionario != null) ? nomeFuncionario : null);
 
             // Criação do JasperDesign a partir do arquivo JRXML ou do relatório compilado
-            JasperDesign design = JRXmlLoader.load("Relatorios/RelatorioDeVendas.Jrxml");
-            JRDesignQuery jq = new JRDesignQuery();
-            jq.setText(consultaSQL);
-            design.setQuery(jq);
+            JasperDesign jasperDesign = JRXmlLoader.load("Relatorios/RelatorioDeVendas.Jrxml");
+            
+            JRDesignQuery designQuery = new JRDesignQuery();
+            designQuery.setText(consultaSQL);
+            jasperDesign.setQuery(designQuery);
+            
             // Compilação do JasperDesign para JasperReport
-            JasperReport relatorio = JasperCompileManager.compileReport(design);
+            JasperReport relatorio = JasperCompileManager.compileReport(jasperDesign);
 
             // Criação de um objeto JasperPrint, que representa o relatório preenchido
             JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorio, parametros, conn);

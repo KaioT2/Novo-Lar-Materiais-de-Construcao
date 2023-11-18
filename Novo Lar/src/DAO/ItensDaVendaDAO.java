@@ -59,7 +59,6 @@ public class ItensDaVendaDAO {
             stmt.setInt(2, iv.getProduto().getIdProduto());
 
             stmt.executeUpdate();
-            System.out.println("Atualizado com sucesso!");
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar: " + ex);
         } finally {
