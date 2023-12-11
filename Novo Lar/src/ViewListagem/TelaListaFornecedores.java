@@ -4,7 +4,6 @@
  */
 package ViewListagem;
 
-import ViewCadastro.TelaCadFornecedor;
 import DAO.FornecedorDAO;
 import Fornecedor.Fornecedor;
 import java.util.List;
