@@ -547,10 +547,9 @@ VALUES
 -- SELECT count(*) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());
 -- SELECT sum(total) FROM venda WHERE MONTH(dataVenda) = MONTH(NOW());
 
--- SELECT * FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f ON v.idFuncionario = f.idFuncionario WHERE parametros;
+ SELECT v.idVenda, c.nome, f.nome, v.total, v.dataVenda FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f ON v.idFuncionario = f.idFuncionario;
 
-SELECT idProduto, nome, estoque from produto where estoque <=10;
 
-select nome, dataNasc from cliente WHERE MONTH(dataNasc) = MONTH(CURRENT_DATE) order by dataNasc;
+SELECT v.idVenda, c.nome AS nome_cliente, f.nome AS nome_funcionario, v.total, DATE_FORMAT(STR_TO_DATE(v.dataVenda, '%Y-%m-%d'), '%d-%m-%Y') AS DataFormatada FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f ON v.idFuncionario = f.idFuncionario;
 
-select * from produto;
+SELECT v.idVenda, c.nome AS nome_cliente, f.nome AS nome_funcionario, v.total, DATE_FORMAT(STR_TO_DATE(v.dataVenda, '%Y-%m-%d'), '%d-%m-%Y') AS DataFormatada FROM venda v INNER JOIN cliente c ON v.idcliente = c.idcliente INNER JOIN funcionario f ON v.idFuncionario = f.idFuncionario WHERE v.dataVenda BETWEEN "0000/00/00" AND "2023/11/17" and c.nome like "João da Silva" and f.nome like "Kaio";
