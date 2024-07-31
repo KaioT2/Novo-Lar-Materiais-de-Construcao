@@ -3,10 +3,10 @@
 
  ⚙️Pré-Requisitos⚙️
 
-Para acesso ao sistema, é necessário um editor de código como NetBeans ou VsCode, além de uma ferramenta que possibilite o uso do banco de dados em SQL como 
-o MySQLWorkbench.
+Para acesso ao sistema, é necessário um editor de código como NetBeans ou VsCode, uma ferramenta que possibilite o uso do banco de dados em SQL como 
+o MySQLWorkbench além do Java instalado na máquina. Todos os plugins e conectores necessários constam no diretório "Novo-Lar-Materiais-de-Construção -> NovoLar -> Bibliotecas";
 
- 🛠️Guia de instalação:
+ 🛠️Guia básico de instalação:
  
 1 - No repositório do projeto vá até code -> download zip ;
 
