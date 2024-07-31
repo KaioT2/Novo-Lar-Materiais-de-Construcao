@@ -27,7 +27,7 @@ o MySQLWorkbench.
 4- Se desejar exclua o user administrador e demais usuários na página de listagem de usuários ou modifique o arquivo ".SQL" para criação manual de um usuário 
 com permição 'root';
 
-
+📌Para detalhes técnicos, confira os comentários no código-fonte da aplicação ou contate-me pelo Linkedin.
 
 # Tela de Login 
 ![1](https://github.com/KaioT2/Novo-Lar-Materiais-de-Construcao/assets/98715856/0ed5d6ee-364e-4efa-ad54-86d1cbe1fac2)
