@@ -383,29 +383,30 @@ public class TelaCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoItemActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
         CompraDAO compraDao = new CompraDAO();
-        Compra c = new Compra();
+    Compra c = new Compra();
 
-        Funcionario func = new Funcionario();
+    Funcionario func = new Funcionario();
+    Fornecedor forn = new Fornecedor();
 
-        Fornecedor forn = new Fornecedor();
+    ItensDaCompra ic = new ItensDaCompra();
+    ItensDaCompraDAO itemDao = new ItensDaCompraDAO();
 
-        ItensDaCompra ic = new ItensDaCompra();
-        ItensDaCompraDAO itemDao = new ItensDaCompraDAO();
+    Produto p = new Produto();
 
-        Produto p = new Produto();
-
-        //Realisa a compra se todos os campos forem preenchidos
-        if((txtFornecedor.getText().isEmpty() || txtIdFornecedor.getText().isEmpty()) || (txtFuncionario.getText().isEmpty()
-            || txtIdFuncionário.getText().isEmpty()) || tabelaCompra.getRowCount() <=0){
+    // Verifica se todos os campos obrigatórios estão preenchidos
+    if ((txtFornecedor.getText().isEmpty() || txtIdFornecedor.getText().isEmpty())
+            || (txtFuncionario.getText().isEmpty() || txtIdFuncionário.getText().isEmpty())
+            || tabelaCompra.getRowCount() <= 0) {
         JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção!", JOptionPane.ERROR_MESSAGE);
-        }
-        else{
-            //Preenche o objeto de compra 
+    } else {
+        try {
+            // Preenche o objeto de compra
             c.setIdCompra(Integer.parseInt(txtIdCompra.getText()));
             c.setDataCompra(da.format(dataAtual.getTime()));
-            c.setTotal(Double.parseDouble(txtTotal.getText()));
+
+            // Substitui vírgulas por pontos e realiza a conversão para Double
+            c.setTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
 
             forn.setIdFornecedor(Integer.parseInt(txtIdFornecedor.getText()));
             c.setFornecedor(forn);
@@ -413,8 +414,9 @@ public class TelaCompra extends javax.swing.JInternalFrame {
             func.setIdFuncionario(Integer.parseInt(txtIdFuncionário.getText()));
             c.setFuncionario(func);
 
-            c.setDesconto(Double.parseDouble(txtDesconto.getText()));
+            c.setDesconto(Double.parseDouble(txtDesconto.getText().replace(",", ".")));
 
+            // Salva a compra no banco de dados
             compraDao.create(c);
 
             for (int i = 0; i < model.getRowCount(); i++) {
@@ -423,23 +425,28 @@ public class TelaCompra extends javax.swing.JInternalFrame {
                 p.setIdProduto(Integer.parseInt(model.getValueAt(i, 1).toString()));
                 ic.setProduto(p);
 
-                ic.setQuantidade(Double.parseDouble(model.getValueAt(i, 5).toString()));
+                ic.setQuantidade(Double.parseDouble(model.getValueAt(i, 5).toString().replace(",", ".")));
 
-                p.setPrecoCusto(Double.parseDouble(model.getValueAt(i, 4).toString()));
+                p.setPrecoCusto(Double.parseDouble(model.getValueAt(i, 4).toString().replace(",", ".")));
                 ic.setProduto(p);
 
-                ic.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString()));
-                ic.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString()));
+                ic.setDesconto(Double.parseDouble(model.getValueAt(i, 6).toString().replace(",", ".")));
+                ic.setSubtotal(Double.parseDouble(model.getValueAt(i, 7).toString().replace(",", ".")));
 
-                //Insere a compra no BD pelo DAO
+                // Insere a compra no BD pelo DAO
                 itemDao.create(ic);
                 itemDao.atualizarEstoque(ic);
             }
 
+            // Desativa os botões após salvar
             btnExcluir.setEnabled(false);
             btnNovoItem.setEnabled(false);
             btnSalvar.setEnabled(false);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao processar números. Verifique os valores inseridos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
+    }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
