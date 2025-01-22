@@ -1,6 +1,34 @@
 # Novo-Lar-Materiais-de-Construcao
  Projeto de sistema de gerenciamento para uma loja de materiais de contrução feito com base nos conhecimentos adiquiridos no curso Técnico em Informárica do IFMG.
 
+ ⚙️Pré-Requisitos⚙️
+
+Para acesso ao sistema, é necessário um editor de código como NetBeans ou VsCode, uma ferramenta que possibilite o uso do banco de dados em SQL como 
+o MySQLWorkbench além do Java instalado na máquina. Todos os plugins e conectores necessários constam no diretório "Novo-Lar-Materiais-de-Construção -> NovoLar -> Bibliotecas";
+
+ 🛠️Guia básico de instalação:
+ 
+1 - No repositório do projeto vá até code -> download zip ;
+
+2 - No seu gerenciador de arquivos vá até downloads -> extraia o arquivo zip baixado;
+
+3 - Em sua ferramenta SQL abra o arquivo '.sql' no diretório "Novo-Lar-Materiais-de-Construção" -> execute o arquivo;
+
+4 - Abra o projeto em seu editor de código.
+
+ 🧑‍💻Acesso ao Sistema:
+
+1- Com o projeto aberto em seu editor de códigos, execute o programa;
+
+2- Utilize o usuário "admin" e senha "admin" para o 1º acesso ao sistema (verificar a execução do código SQL em caso de erro);
+
+3- Navegue até "Barra superior -> Cadastro -> Funcionários", e cadastre um novo usuário (para acesso ao sistema o usuário corresponde ao CPF do funcionário);
+
+4- Se desejar exclua o user administrador e demais usuários na página de listagem de usuários ou modifique o arquivo ".SQL" para criação manual de um usuário 
+com permição 'root';
+
+📌Para detalhes técnicos, confira os comentários no código-fonte da aplicação ou contate-me pelo Linkedin.
+
 # Tela de Login 
 ![1](https://github.com/KaioT2/Novo-Lar-Materiais-de-Construcao/assets/98715856/0ed5d6ee-364e-4efa-ad54-86d1cbe1fac2)
 
